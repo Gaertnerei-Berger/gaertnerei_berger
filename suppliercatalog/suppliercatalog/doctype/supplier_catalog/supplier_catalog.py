@@ -5,5 +5,9 @@
 from frappe.model.document import Document
 
 
+
+
 class SupplierCatalog(Document):
 	pass
+
+

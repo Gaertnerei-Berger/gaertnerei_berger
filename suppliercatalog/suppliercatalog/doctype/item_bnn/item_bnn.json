@@ -5,6 +5,13 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "logic_fields_section",
+  "supplier_catalog",
+  "price",
+  "column_break_qmig",
+  "last_seen_import",
+  "linked_item",
+  "section_break_cuto",
   "lieferantenartikelnr",
   "\u00e4nderungskennung",
   "artikelname",
@@ -94,12 +101,47 @@
    "in_list_view": 1,
    "label": "Qualit\u00e4t",
    "reqd": 1
+  },
+  {
+   "fieldname": "logic_fields_section",
+   "fieldtype": "Section Break",
+   "label": "Logic Fields"
+  },
+  {
+   "fieldname": "supplier_catalog",
+   "fieldtype": "Link",
+   "label": "Supplier Catalog",
+   "options": "Supplier Catalog"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fieldname": "column_break_qmig",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_seen_import",
+   "fieldtype": "Date",
+   "label": "Last Seen Import"
+  },
+  {
+   "fieldname": "linked_item",
+   "fieldtype": "Link",
+   "label": "Linked Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "section_break_cuto",
+   "fieldtype": "Section Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-25 08:46:34.502073",
+ "modified": "2025-12-25 09:11:29.998553",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Item BNN",
