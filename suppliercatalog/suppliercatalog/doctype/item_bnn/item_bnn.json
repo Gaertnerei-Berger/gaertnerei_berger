@@ -1,0 +1,126 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-24 16:37:46.819587",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "lieferantenartikelnr",
+  "\u00e4nderungskennung",
+  "artikelname",
+  "artikelname2",
+  "bezeichnung3",
+  "qualit\u00e4t",
+  "column_break_nnjn",
+  "herkunftsland",
+  "eanladen",
+  "eanbestell",
+  "handelsklasse",
+  "marke",
+  "marke_alt"
+ ],
+ "fields": [
+  {
+   "fieldname": "lieferantenartikelnr",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Lieferant_ArtikelNr. ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "artikelname",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bezeichnung",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_nnjn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "herkunftsland",
+   "fieldtype": "Link",
+   "label": "Herkunft",
+   "options": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "artikelname2",
+   "fieldtype": "Data",
+   "label": "Bezeichnung2"
+  },
+  {
+   "fieldname": "bezeichnung3",
+   "fieldtype": "Data",
+   "label": "Bezeichnung3"
+  },
+  {
+   "fieldname": "eanladen",
+   "fieldtype": "Data",
+   "label": "EANladen"
+  },
+  {
+   "fieldname": "eanbestell",
+   "fieldtype": "Data",
+   "label": "EANbestell"
+  },
+  {
+   "fieldname": "handelsklasse",
+   "fieldtype": "Data",
+   "label": "Handelsklasse"
+  },
+  {
+   "fieldname": "marke",
+   "fieldtype": "Data",
+   "label": "Marke",
+   "reqd": 1
+  },
+  {
+   "fieldname": "marke_alt",
+   "fieldtype": "Data",
+   "label": "Marke_alt"
+  },
+  {
+   "fieldname": "\u00e4nderungskennung",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u00c4nderungskennung",
+   "reqd": 1
+  },
+  {
+   "fieldname": "qualit\u00e4t",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Qualit\u00e4t",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-25 08:46:34.502073",
+ "modified_by": "Administrator",
+ "module": "Suppliercatalog",
+ "name": "Item BNN",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
