@@ -6,9 +6,12 @@
  "engine": "InnoDB",
  "field_order": [
   "supplier",
-  "dateiupload",
-  "column_break_kgav",
   "linked_pricelist",
+  "import_datei",
+  "column_break_kgav",
+  "import_menge",
+  "file_age",
+  "import_status",
   "last_imported",
   "start_import"
  ],
@@ -18,13 +21,6 @@
    "fieldtype": "Link",
    "label": "Supplier",
    "options": "Supplier"
-  },
-  {
-   "fieldname": "dateiupload",
-   "fieldtype": "Attach",
-   "in_list_view": 1,
-   "label": "Dateiupload",
-   "reqd": 1
   },
   {
    "fieldname": "column_break_kgav",
@@ -46,12 +42,35 @@
    "fieldname": "start_import",
    "fieldtype": "Button",
    "label": "Start Import"
+  },
+  {
+   "fieldname": "file_age",
+   "fieldtype": "Data",
+   "label": "Importiertedatei erstellt am"
+  },
+  {
+   "fieldname": "import_status",
+   "fieldtype": "Data",
+   "label": "Import Status"
+  },
+  {
+   "fieldname": "import_menge",
+   "fieldtype": "Int",
+   "label": "Anzahl der Importierten Artikel",
+   "read_only": 1
+  },
+  {
+   "fieldname": "import_datei",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Dateiupload",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-24 16:25:13.609186",
+ "modified": "2025-12-25 21:21:24.131174",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
