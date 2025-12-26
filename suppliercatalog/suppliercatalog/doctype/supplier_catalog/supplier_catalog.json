@@ -1,19 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{supplier}-{import_methode}-{##}",
  "creation": "2025-12-24 16:22:37.361580",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "verkn\u00fcpfte_felder_section",
   "supplier",
-  "linked_pricelist",
-  "import_datei",
+  "import_methode",
   "column_break_kgav",
-  "import_menge",
-  "file_age",
+  "linked_pricelist",
+  "import_amount",
   "import_status",
   "last_imported",
-  "start_import"
+  "file_import_section",
+  "import_file",
+  "start_import",
+  "column_break_iayw",
+  "file_age",
+  "api_import_section",
+  "haendler",
+  "column_break_vffw",
+  "start_import_api"
  ],
  "fields": [
   {
@@ -45,35 +54,77 @@
   },
   {
    "fieldname": "file_age",
-   "fieldtype": "Data",
-   "label": "Importiertedatei erstellt am"
+   "fieldtype": "Date",
+   "label": "Import File created",
+   "read_only": 1
   },
   {
    "fieldname": "import_status",
    "fieldtype": "Data",
-   "label": "Import Status"
-  },
-  {
-   "fieldname": "import_menge",
-   "fieldtype": "Int",
-   "label": "Anzahl der Importierten Artikel",
+   "label": "Import Status",
    "read_only": 1
   },
   {
-   "fieldname": "import_datei",
+   "fieldname": "verkn\u00fcpfte_felder_section",
+   "fieldtype": "Section Break",
+   "label": "Linked Fields"
+  },
+  {
+   "fieldname": "import_methode",
+   "fieldtype": "Select",
+   "label": "Import Methode",
+   "options": "\nAPI\nFile"
+  },
+  {
+   "fieldname": "column_break_iayw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "api_import_section",
+   "fieldtype": "Section Break",
+   "label": "API Import"
+  },
+  {
+   "fieldname": "haendler",
+   "fieldtype": "Select",
+   "label": "API Firma",
+   "options": "Datanature"
+  },
+  {
+   "fieldname": "start_import_api",
+   "fieldtype": "Button",
+   "label": "Start_Import"
+  },
+  {
+   "fieldname": "column_break_vffw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "import_file",
    "fieldtype": "Attach",
    "in_list_view": 1,
-   "label": "Dateiupload",
-   "reqd": 1
+   "label": "File Upload"
+  },
+  {
+   "fieldname": "import_amount",
+   "fieldtype": "Int",
+   "label": "Importet Item Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "file_import_section",
+   "fieldtype": "Section Break",
+   "label": "File Import"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-25 21:21:24.131174",
+ "modified": "2025-12-26 09:32:45.792317",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

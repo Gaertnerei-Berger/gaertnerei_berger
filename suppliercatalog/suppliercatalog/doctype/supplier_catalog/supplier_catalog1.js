@@ -1,10 +1,16 @@
 // Copyright (c) 2025, Gärtnerei Berger and contributors
 // For license information, please see license.txt
 
-
 frappe.ui.form.on("Supplier Catalog", {
   refresh(frm) {
-    // 🔁 Beim Laden direkt prüfen, welche Sektion angezeigt werden soll
+    // 🎯 Button nur bei gespeicherten Docs
+    if (!frm.is_new()) {
+      frm.add_custom_button(__("Start Import"), () => {
+        frm.trigger("start_import");
+      });
+    }
+
+    // 🔁 Initial Anzeige der richtigen Sektion
     frm.trigger("import_methode");
   },
 
@@ -17,7 +23,7 @@ frappe.ui.form.on("Supplier Catalog", {
 
   start_import(frm) {
     frappe.call({
-      method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.import_supplier_catalog_items_from_file",
+      method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.import_data",
       args: { docname: frm.doc.name },
       freeze: true,
       callback(r) {
@@ -28,7 +34,3 @@ frappe.ui.form.on("Supplier Catalog", {
     });
   }
 });
-
-
-
-

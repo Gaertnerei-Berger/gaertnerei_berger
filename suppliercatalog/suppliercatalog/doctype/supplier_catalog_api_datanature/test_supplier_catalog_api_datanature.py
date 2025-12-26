@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestItemBNN(FrappeTestCase):
+class TestSupplierCatalogAPIDatanature(FrappeTestCase):
 	pass

@@ -20,7 +20,7 @@ def _set_if_value(payload, fieldname, value):
         payload[fieldname] = value
 
 
-def import_bnn_items_from_csv(doc):
+def import_supplier_catalog_items_from_csv(doc):
     """
     Minimaler Import:
     - Encoding: cp850 (bei dir bestätigt)
@@ -33,7 +33,7 @@ def import_bnn_items_from_csv(doc):
     """
 
     # Pflichtfelder im Supplier Catalog
-    if not doc.import_datei:
+    if not doc.import_file:
         frappe.throw("Bitte lade zuerst eine Import-Datei hoch.")
     if not doc.supplier:
         frappe.throw("Bitte fülle das Feld 'supplier' aus.")
@@ -41,7 +41,7 @@ def import_bnn_items_from_csv(doc):
         frappe.throw("Bitte fülle das Feld 'linked_pricelist' aus.")
 
     # Dateipfad holen
-    file_doc = frappe.get_doc("File", {"file_url": doc.import_datei})
+    file_doc = frappe.get_doc("File", {"file_url": doc.import_file})
     file_path = file_doc.get_full_path()
 
     # Datei lesen (cp850 für korrekte Umlaute)
@@ -68,7 +68,7 @@ def import_bnn_items_from_csv(doc):
 
     # Datenzeilen: Zeile 1 bis vorletzte
     for row in lines[1:-1]:
-        payload = {"doctype": "Item BNN"}
+        payload = {"doctype": "Supplier Catalog Item"}
 
         # 0-based Mapping (nur setzen, wenn Wert vorhanden)
         _set_if_value(payload, "lieferant_artikelnummer", _get_raw(row, 0))
@@ -97,7 +97,7 @@ def import_bnn_items_from_csv(doc):
 
     # Statusfelder setzen
     doc.db_set("import_status", "Erfolgreich")
-    doc.db_set("import_menge", imported)
+    doc.db_set("import_amount", imported)
     doc.db_set("last_imported", now_datetime())
 
     return f"{imported} Einträge importiert."

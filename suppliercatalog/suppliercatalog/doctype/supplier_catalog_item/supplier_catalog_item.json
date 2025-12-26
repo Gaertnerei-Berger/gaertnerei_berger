@@ -1,12 +1,12 @@
 {
  "actions": [],
- "allow_rename": 1,
+ "allow_import": 1,
  "creation": "2025-12-24 16:37:46.819587",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "logic_fields_section",
-  "supplier_catalog",
+  "supplier",
   "column_break_qmig",
   "last_seen_import",
   "linked_item",
@@ -49,12 +49,6 @@
    "fieldname": "logic_fields_section",
    "fieldtype": "Section Break",
    "label": "Logic Field"
-  },
-  {
-   "fieldname": "supplier_catalog",
-   "fieldtype": "Date",
-   "label": "Supplier Catalog",
-   "options": "Supplier Catalog"
   },
   {
    "fieldname": "column_break_qmig",
@@ -126,15 +120,21 @@
    "fieldname": "ean_bestell",
    "fieldtype": "Data",
    "label": "EANbestell"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-25 20:06:46.930003",
+ "modified": "2025-12-26 12:53:19.644255",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
- "name": "Item BNN",
+ "name": "Supplier Catalog Item",
  "owner": "Administrator",
  "permissions": [
   {

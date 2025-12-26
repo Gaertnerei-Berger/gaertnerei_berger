@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-26 05:20:41.829493",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "datanature_login_section",
+  "username",
+  "api_url",
+  "security_token",
+  "column_break_xqmn",
+  "password",
+  "api_url_pim",
+  "test_login"
+ ],
+ "fields": [
+  {
+   "fieldname": "datanature_login_section",
+   "fieldtype": "Section Break",
+   "label": "Login"
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "label": "Username"
+  },
+  {
+   "fieldname": "security_token",
+   "fieldtype": "Data",
+   "label": "Security Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xqmn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "label": "Password"
+  },
+  {
+   "fieldname": "test_login",
+   "fieldtype": "Button",
+   "label": "Test Login"
+  },
+  {
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "label": "API URL"
+  },
+  {
+   "fieldname": "api_url_pim",
+   "fieldtype": "Data",
+   "label": "API URL Pim"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-12-26 11:36:37.450955",
+ "modified_by": "Administrator",
+ "module": "Suppliercatalog",
+ "name": "Supplier Catalog API Datanature",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

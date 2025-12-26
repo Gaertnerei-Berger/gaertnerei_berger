@@ -2,14 +2,13 @@
 # For license information, please see license.txt
 
 import frappe
-
 from frappe.model.document import Document
 
 class SupplierCatalog(Document):
 	pass
 
 @frappe.whitelist()
-def import_bnn_items_from_file(docname):
-    from suppliercatalog.utils.bnn_importer import import_bnn_items_from_csv
+def import_supplier_catalog_items_from_file(docname):
+    from suppliercatalog.utils.file_importer import import_supplier_catalog_items_from_csv
     doc = frappe.get_doc("Supplier Catalog", docname)
-    return import_bnn_items_from_csv(doc)
+    return import_supplier_catalog_items_from_csv(doc)
