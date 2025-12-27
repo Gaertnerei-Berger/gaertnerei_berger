@@ -53,7 +53,7 @@
  "modified": "2025-12-26 14:04:03.378383",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
- "name": "Supplier Catalog Supplierquality",
+ "name": "Supplier Quality",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

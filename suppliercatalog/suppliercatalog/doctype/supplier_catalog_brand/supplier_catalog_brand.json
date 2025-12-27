@@ -16,7 +16,9 @@
   "assigned_at",
   "producer_id",
   "zip_code",
-  "country"
+  "country",
+  "logic_section",
+  "freigabe"
  ],
  "fields": [
   {
@@ -73,12 +75,23 @@
    "fieldtype": "Link",
    "label": "Country",
    "options": "Country"
+  },
+  {
+   "fieldname": "logic_section",
+   "fieldtype": "Section Break",
+   "label": "Logic"
+  },
+  {
+   "default": "0",
+   "fieldname": "freigabe",
+   "fieldtype": "Check",
+   "label": "freigabe"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-26 14:40:05.140528",
+ "modified": "2025-12-26 15:20:41.027742",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Brand",

@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestSupplierCatalogSupplierquality(FrappeTestCase):
+class TestTradeClass(FrappeTestCase):
 	pass

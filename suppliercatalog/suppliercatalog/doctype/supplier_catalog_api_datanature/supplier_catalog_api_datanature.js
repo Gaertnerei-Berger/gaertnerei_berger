@@ -14,6 +14,7 @@ frappe.ui.form.on('Supplier Catalog API Datanature', {
             callback: function(r) {
                 if (!r.exc) {
                     frappe.msgprint("Security-Token erfolgreich gespeichert ✅");
+                    frm.reload_doc();
                 }
             }
         });

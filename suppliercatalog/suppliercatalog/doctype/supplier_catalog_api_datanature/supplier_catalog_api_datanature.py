@@ -3,14 +3,18 @@
 
 import frappe
 from frappe.model.document import Document
-from suppliercatalog.utils.datanature_api import fetch_and_store_security_token
+from suppliercatalog.utils.datanature_api import fetch_security_token
 
 
 class SupplierCatalogAPIDatanature(Document):
-	pass
+   pass
 
 
 @frappe.whitelist()
-
 def test_login():
-    fetch_and_store_security_token()
+        """Fetch token from API and store it in this document"""
+        token = fetch_security_token()
+        doc = frappe.get_single("Supplier Catalog API Datanature")
+        doc.security_token = token
+        doc.save()
+        frappe.db.commit()

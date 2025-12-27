@@ -5,25 +5,70 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "product_identification_tab",
+  "section_break_djnd",
+  "supplier_itemnumber",
+  "name1",
+  "name2",
+  "name3",
+  "weight_item",
+  "column_break_dhqo",
+  "brand",
+  "brand_fallback",
   "logic_fields_section",
   "supplier",
+  "item_bio_id",
+  "ean_shop",
+  "imported",
+  "price_manual_chaneged",
   "column_break_qmig",
-  "last_seen_import",
+  "last_imported",
+  "last_imported_time",
   "linked_item",
+  "changeindicator",
+  "price_tab",
+  "country_of_origin",
+  "controlagency",
+  "column_break_qfij",
+  "tradeclass",
+  "supplierquality",
+  "packaging_and_ordering_tab",
+  "packaging_section",
+  "weight_order_unit",
+  "weight_shop_unit",
+  "width",
+  "column_break_nbfk",
+  "height",
+  "depth",
+  "section_break_ydbx",
+  "minorderquantity",
+  "orderunit",
+  "pfand_order_unit",
+  "remaining_shelf_life",
+  "ean_order",
+  "column_break_djoo",
+  "orderunit_quantity",
+  "shop_unit",
+  "pfand_shop_unit",
+  "quantity_factor",
+  "price_info_tab",
+  "recommended_sales_price",
+  "recommended_sales_price_supplier",
+  "base_price_unit",
+  "column_break_nyly",
+  "shop_item_price",
+  "tax_amount",
+  "base_price_faktor",
   "section_break_cuto",
-  "lieferant_artikelnummer",
-  "aenderungskennung",
-  "bezeichnung_1",
-  "bezeichnung_2",
-  "bezeichnung_3",
-  "qualitaet",
+  "skontierfaehig",
+  "graduated_price1",
+  "graduated_price2",
+  "graduated_price3",
   "column_break_nnjn",
-  "herkunft",
-  "ean_laden",
-  "ean_bestell",
-  "handelsklasse",
-  "marke",
-  "marke_alt"
+  "discountable",
+  "graduated_amount1",
+  "graduated_amount2",
+  "graduated_amount3"
  ],
  "fields": [
   {
@@ -31,107 +76,337 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "handelsklasse",
-   "fieldtype": "Data",
-   "label": "Handelsklasse"
-  },
-  {
-   "fieldname": "marke",
-   "fieldtype": "Data",
-   "label": "Marke"
-  },
-  {
-   "fieldname": "marke_alt",
-   "fieldtype": "Data",
-   "label": "Marke_alt"
-  },
-  {
    "fieldname": "logic_fields_section",
    "fieldtype": "Section Break",
-   "label": "Logic Field"
+   "label": "Identification Fields"
   },
   {
    "fieldname": "column_break_qmig",
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "supplier_catalog.last_imported",
-   "fetch_if_empty": 1,
-   "fieldname": "last_seen_import",
-   "fieldtype": "Link",
-   "label": "Last Imported",
-   "options": "Supplier Catalog"
-  },
-  {
    "fieldname": "linked_item",
    "fieldtype": "Link",
    "label": "Linked Item",
-   "options": "Item"
+   "options": "Item",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_cuto",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "lieferant_artikelnummer",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Lieferant_ArtikelNr. "
-  },
-  {
-   "fieldname": "aenderungskennung",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "\u00c4nderungskennung"
-  },
-  {
-   "fieldname": "bezeichnung_1",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Bezeichnung"
-  },
-  {
-   "fieldname": "bezeichnung_2",
-   "fieldtype": "Data",
-   "label": "Bezeichnung2"
-  },
-  {
-   "fieldname": "bezeichnung_3",
-   "fieldtype": "Data",
-   "label": "Bezeichnung3"
-  },
-  {
-   "fieldname": "qualitaet",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Qualit\u00e4t"
-  },
-  {
-   "fieldname": "herkunft",
-   "fieldtype": "Data",
-   "label": "Herkunft"
-  },
-  {
-   "fieldname": "ean_laden",
-   "fieldtype": "Data",
-   "label": "EANladen"
-  },
-  {
-   "fieldname": "ean_bestell",
-   "fieldtype": "Data",
-   "label": "EANbestell"
-  },
-  {
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
-   "options": "Supplier"
+   "options": "Supplier",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "imported",
+   "fieldtype": "Check",
+   "label": "Imported",
+   "read_only": 1
+  },
+  {
+   "fieldname": "supplier_itemnumber",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Itemnumber"
+  },
+  {
+   "fieldname": "changeindicator",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Changeindicator",
+   "read_only": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name"
+  },
+  {
+   "fieldname": "name2",
+   "fieldtype": "Data",
+   "label": "Name2"
+  },
+  {
+   "fieldname": "name3",
+   "fieldtype": "Data",
+   "label": "Name3"
+  },
+  {
+   "fieldname": "supplierquality",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier Quality",
+   "options": "Supplier Quality"
+  },
+  {
+   "fieldname": "ean_shop",
+   "fieldtype": "Data",
+   "label": "EANshop",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ean_order",
+   "fieldtype": "Data",
+   "label": "EANorder"
+  },
+  {
+   "fieldname": "tradeclass",
+   "fieldtype": "Data",
+   "label": "Trade Class"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Supplier Catalog Brand"
+  },
+  {
+   "fieldname": "price_tab",
+   "fieldtype": "Tab Break",
+   "label": "Classification"
+  },
+  {
+   "fieldname": "controlagency",
+   "fieldtype": "Data",
+   "label": "Controlagency"
+  },
+  {
+   "fieldname": "minorderquantity",
+   "fieldtype": "Data",
+   "label": "MinOrderquantity"
+  },
+  {
+   "fieldname": "orderunit_quantity",
+   "fieldtype": "Data",
+   "label": "Orderunit Quantity"
+  },
+  {
+   "fieldname": "country_of_origin",
+   "fieldtype": "Data",
+   "label": "Country of Origin"
+  },
+  {
+   "fieldname": "remaining_shelf_life",
+   "fieldtype": "Data",
+   "label": "Remaining shelf life"
+  },
+  {
+   "fieldname": "orderunit",
+   "fieldtype": "Data",
+   "label": "Orderunit"
+  },
+  {
+   "fieldname": "shop_unit",
+   "fieldtype": "Data",
+   "label": "Shop Unit"
+  },
+  {
+   "fieldname": "quantity_factor",
+   "fieldtype": "Data",
+   "label": "Quantity Factor"
+  },
+  {
+   "fieldname": "pfand_shop_unit",
+   "fieldtype": "Data",
+   "label": "Pfand Shop Unit"
+  },
+  {
+   "fieldname": "weight_shop_unit",
+   "fieldtype": "Data",
+   "label": "Weight Shop Unit"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Data",
+   "label": "Width"
+  },
+  {
+   "default": "0",
+   "fieldname": "weight_item",
+   "fieldtype": "Check",
+   "label": "Weight Item"
+  },
+  {
+   "fieldname": "pfand_order_unit",
+   "fieldtype": "Data",
+   "label": "Pfand Order Unit"
+  },
+  {
+   "fieldname": "weight_order_unit",
+   "fieldtype": "Data",
+   "label": "Weight Order Unit"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Data",
+   "label": "Height"
+  },
+  {
+   "fieldname": "depth",
+   "fieldtype": "Data",
+   "label": "Depth"
+  },
+  {
+   "fieldname": "recommended_sales_price",
+   "fieldtype": "Currency",
+   "label": "Recommended Sales Price"
+  },
+  {
+   "fieldname": "shop_item_price",
+   "fieldtype": "Currency",
+   "label": "Shop Item Price"
+  },
+  {
+   "fieldname": "skontierfaehig",
+   "fieldtype": "Data",
+   "label": "Skontierf\u00e4hig"
+  },
+  {
+   "fieldname": "tax_amount",
+   "fieldtype": "Data",
+   "label": "Tax Amount"
+  },
+  {
+   "fieldname": "recommended_sales_price_supplier",
+   "fieldtype": "Currency",
+   "label": "Recommended Sales Price Supplier"
+  },
+  {
+   "fieldname": "discountable",
+   "fieldtype": "Data",
+   "label": "Discountable"
+  },
+  {
+   "fieldname": "graduated_price1",
+   "fieldtype": "Data",
+   "label": "Graduated Price1"
+  },
+  {
+   "fieldname": "graduated_price2",
+   "fieldtype": "Data",
+   "label": "Graduated Price2"
+  },
+  {
+   "fieldname": "graduated_price3",
+   "fieldtype": "Data",
+   "label": "Graduated Price3"
+  },
+  {
+   "fieldname": "base_price_faktor",
+   "fieldtype": "Data",
+   "label": "Base Price Faktor"
+  },
+  {
+   "fieldname": "graduated_amount1",
+   "fieldtype": "Data",
+   "label": "Graduated Amount1"
+  },
+  {
+   "fieldname": "graduated_amount2",
+   "fieldtype": "Data",
+   "label": "Graduated Amount2"
+  },
+  {
+   "fieldname": "graduated_amount3",
+   "fieldtype": "Data",
+   "label": "Graduated Amount3"
+  },
+  {
+   "fieldname": "base_price_unit",
+   "fieldtype": "Data",
+   "label": "Base Price Unit"
+  },
+  {
+   "fieldname": "item_bio_id",
+   "fieldtype": "Data",
+   "label": "Item BIO ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "product_identification_tab",
+   "fieldtype": "Tab Break",
+   "label": "Product Identification"
+  },
+  {
+   "fieldname": "section_break_djnd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_dhqo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_qfij",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "packaging_and_ordering_tab",
+   "fieldtype": "Tab Break",
+   "label": "Packaging and Ordering"
+  },
+  {
+   "fieldname": "packaging_section",
+   "fieldtype": "Section Break",
+   "label": "Packaging"
+  },
+  {
+   "fieldname": "column_break_nbfk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ydbx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_djoo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Price Info"
+  },
+  {
+   "fieldname": "column_break_nyly",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "brand_fallback",
+   "fieldtype": "Data",
+   "label": "Brand Fallback"
+  },
+  {
+   "default": "0",
+   "fieldname": "price_manual_chaneged",
+   "fieldtype": "Check",
+   "label": "Price Manual Chaneged"
+  },
+  {
+   "fetch_from": "supplier_catalog.last_imported",
+   "fieldname": "last_imported",
+   "fieldtype": "Date",
+   "label": "Last Imported",
+   "options": "Supplier Catalog",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_imported_time",
+   "fieldtype": "Data",
+   "label": "Last Imported Time",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-26 12:53:19.644255",
+ "modified": "2025-12-27 17:25:47.284053",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",

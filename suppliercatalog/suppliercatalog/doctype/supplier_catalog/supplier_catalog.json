@@ -1,7 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "format:{supplier}-{import_methode}-{##}",
  "creation": "2025-12-24 16:22:37.361580",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -10,17 +8,21 @@
   "supplier",
   "import_methode",
   "column_break_kgav",
-  "linked_pricelist",
+  "purchase_pricelist",
+  "sell_pricelist",
+  "section_break_ixpf",
   "import_amount",
-  "import_status",
   "last_imported",
+  "column_break_boim",
+  "items_linked_to_erpnext",
+  "import_status",
   "file_import_section",
   "import_file",
   "start_import",
   "column_break_iayw",
   "file_age",
   "api_import_section",
-  "haendler",
+  "lieferant",
   "column_break_vffw",
   "start_import_api"
  ],
@@ -29,17 +31,13 @@
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Supplier",
-   "options": "Supplier"
+   "options": "Supplier",
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "column_break_kgav",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "linked_pricelist",
-   "fieldtype": "Link",
-   "label": "Linked Pricelist",
-   "options": "Price List"
   },
   {
    "fieldname": "last_imported",
@@ -85,12 +83,6 @@
    "label": "API Import"
   },
   {
-   "fieldname": "haendler",
-   "fieldtype": "Select",
-   "label": "API Firma",
-   "options": "Datanature"
-  },
-  {
    "fieldname": "start_import_api",
    "fieldtype": "Button",
    "label": "Start_Import"
@@ -115,16 +107,46 @@
    "fieldname": "file_import_section",
    "fieldtype": "Section Break",
    "label": "File Import"
+  },
+  {
+   "fieldname": "lieferant",
+   "fieldtype": "Select",
+   "label": "Supplier Datanature"
+  },
+  {
+   "fieldname": "purchase_pricelist",
+   "fieldtype": "Link",
+   "label": "Purchase Pricelist",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "sell_pricelist",
+   "fieldtype": "Link",
+   "label": "Sell Pricelist",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "section_break_ixpf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_boim",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "items_linked_to_erpnext",
+   "fieldtype": "Int",
+   "label": "Items linked to ERPnext",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-26 09:32:45.792317",
+ "modified": "2025-12-27 18:12:08.869980",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
- "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class SupplierCatalogSupplierquality(Document):
+class TradeClass(Document):
 	pass
