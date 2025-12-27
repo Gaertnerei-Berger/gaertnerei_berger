@@ -249,6 +249,6 @@ app_license = "mit"
 
 #fixtures = [
 #    {"dt": "Supplier Catalog Brand"},
-#    {"dt": "Supplierquality"},
+#    {"dt": "Supplier Quality"},
 #    {"dt": "Trade Class"}
 #]

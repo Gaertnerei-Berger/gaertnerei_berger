@@ -1,0 +1,262 @@
+[
+ {
+  "attach_image": null,
+  "data_rlin": "BA",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.765086",
+  "name": "Bio Austria",
+  "name1": "Bio Austria"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "BS",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.793484",
+  "name": "Bio Suisse",
+  "name1": "Bio Suisse"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DB",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.800532",
+  "name": "Bioland",
+  "name1": "Bioland"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DC",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.806447",
+  "name": "Ecoland",
+  "name1": "Ecoland"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DD",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.812434",
+  "name": "Demeter",
+  "name1": "Demeter"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DG",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.818099",
+  "name": "Gäa",
+  "name1": "Gäa"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DK",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.823635",
+  "name": "Biokreis",
+  "name1": "Biokreis"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DN",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.829663",
+  "name": "Naturland",
+  "name1": "Naturland"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "NF",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.835412",
+  "name": "Naturland fair",
+  "name1": "Naturland fair"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DP",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.841011",
+  "name": "Biopark",
+  "name1": "Biopark"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DV",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.846249",
+  "name": "Verbund Ökohöfe",
+  "name1": "Verbund Ökohöfe"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "DW",
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.851617",
+  "name": "Ecovin",
+  "name1": "Ecovin"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "IA",
+  "description": "IFOAM-Akkreditierung, aktuelle Übersicht der Kontrollstellen: https://ioas.org/accreditation/accredited-bodies/",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.857377",
+  "name": "IFOAM-Akkreditierung",
+  "name1": "IFOAM-Akkreditierung"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "EG",
+  "description": "Monoprodukte (Rohwaren und verarbeitete Produkte aus nur einer Zutat).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.863037",
+  "name": "EU-Öko-VO",
+  "name1": "EU-Öko-VO"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "95",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:46.868906",
+  "name": "Mischprodukte 95",
+  "name1": "Mischprodukte 95"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "96",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.009757",
+  "name": "Mischprodukte 96",
+  "name1": "Mischprodukte 96"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "97",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.019820",
+  "name": "Mischprodukte 97",
+  "name1": "Mischprodukte 97"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "98",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.025723",
+  "name": "Mischprodukte 98",
+  "name1": "Mischprodukte 98"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "99",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.031419",
+  "name": "Mischprodukte 99",
+  "name1": "Mischprodukte 99"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "C%",
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.037251",
+  "name": "M EU-Öko-VO",
+  "name1": "M EU-Öko-VO"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "UW",
+  "description": "Umstellungsware: Produkte in Umstellung auf Bio-Zertifizierung. Für Produkte, die parallel auf den Standard eines Anbauverbandes umgestellt werden, sollte dies in den Stammdaten kommentiert werden.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.043139",
+  "name": "Umstellungsware",
+  "name1": "Umstellungsware"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "NK",
+  "description": "Naturkosmetikprodukte, die nach einem der in den SRL genannten Standards zertifiziert sind.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.048549",
+  "name": "Naturkosmetikprodukt",
+  "name1": "Naturkosmetikprodukt"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "WP",
+  "description": "Wasch-, Putz- und Reinigungsmittel, die nach einem der in der SRL genannten Standards zertifiziert sind und die zusätzlichen Anforderungen hinsichtlich Gentechnik-Freiheit im Sinne der SRL erfüllen.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.054293",
+  "name": "Reinigungsmittel",
+  "name1": "Reinigungsmittel"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "S#",
+  "description": "Sonstige Produkte, die die SRL erfüllen (auch solche, für die eine Übergangsfrist gilt).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.059998",
+  "name": "Sonstige Produkte",
+  "name1": "Sonstige Produkte"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "##",
+  "description": "Konventionelle Mono- und Mischprodukte; konventionelle Mischprodukte mit einzelnen Bio-Zutaten (<95% Bio-Anteil)3; Produkte, die in den SRL geregelt sind, diesen aber nicht entsprechen. Produkte mit diesem Kürzel werden von Geschäften, deren Sortiment den SRL entspricht, nicht geführt.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.065677",
+  "name": "KonventionelleProdukte",
+  "name1": "KonventionelleProdukte"
+ },
+ {
+  "attach_image": null,
+  "data_rlin": "NG",
+  "description": "Artikel, für die aktuell keine übergeordneten Qualitätskriterien durch die EU-Öko-VO oder SRL definiert sind. Diese dürfen von Geschäften, deren Sortiment den SRL entspricht, ohne Einschränkung gehandelt werden.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-26 14:02:47.078008",
+  "name": "Keine Qualitätskriterien",
+  "name1": "Keine Qualitätskriterien"
+ }
+]
