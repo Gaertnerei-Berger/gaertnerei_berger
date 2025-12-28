@@ -20,16 +20,6 @@
   "name1": "Bio Suisse"
  },
  {
-  "abbreviation_data": "DB",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:15.161882",
-  "name": "Bioland",
-  "name1": "Bioland"
- },
- {
   "abbreviation_data": "DC",
   "attach_image": null,
   "description": null,
@@ -258,5 +248,15 @@
   "modified": "2025-12-27 20:48:18.785092",
   "name": "Keine Qualitätskriterien",
   "name1": "Keine Qualitätskriterien"
+ },
+ {
+  "abbreviation_data": "DB",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:15.161882",
+  "name": "Bioland",
+  "name1": "Bioland"
  }
 ]

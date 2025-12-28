@@ -302,7 +302,7 @@
   },
   {
    "fieldname": "base_price_faktor",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Base Price Faktor"
   },
   {
@@ -408,7 +408,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-28 06:04:28.922125",
+ "modified": "2025-12-28 07:44:08.822980",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",

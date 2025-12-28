@@ -147,6 +147,19 @@ doctype_list_js = {
 # 	}
 # }
 
+doc_events = {
+    "Item Price": {
+        "validate": "suppliercatalog.utils.item_price_cal.custom_validate"
+    },
+
+    "Item": {
+        "validate": "suppliercatalog.utils.item_price_cal.update_item_prices_on_factor_change"
+    }
+
+
+}
+
+
 # Scheduled Tasks
 # ---------------
 
@@ -252,5 +265,17 @@ doctype_list_js = {
 fixtures = [
     {"dt": "Supplier Catalog Brand"},
     {"dt": "Supplier Quality"},
-    {"dt": "Trade Class"}
+    {"dt": "Trade Class"},
+
+    {"dt": "Custom Field", "filters": [
+      [
+         "module", "=", "Suppliercatalog"
+      ]
+    ]},
+
+    {"dt": "Property Setter", "filters": [
+      [
+         "module", "=", "Suppliercatalog"
+      ]
+    ]}
 ]
