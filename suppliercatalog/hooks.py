@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/suppliercatalog/css/suppliercatalog.css"
+app_include_css = "/assets/suppliercatalog/css/custom.css"
 # app_include_js = "/assets/suppliercatalog/js/suppliercatalog.js"
 
 # include js, css files in header of web template
@@ -44,7 +44,9 @@ app_license = "mit"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+	"Supplier Catalog Item" : "public/js/supplier_catalog_item_list.js"
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -247,8 +249,8 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
-#fixtures = [
-#    {"dt": "Supplier Catalog Brand"},
-#    {"dt": "Supplier Quality"},
-#    {"dt": "Trade Class"}
-#]
+fixtures = [
+    {"dt": "Supplier Catalog Brand"},
+    {"dt": "Supplier Quality"},
+    {"dt": "Trade Class"}
+]

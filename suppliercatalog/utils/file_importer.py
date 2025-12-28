@@ -1,62 +1,126 @@
 import frappe
 import csv
 import io
+import re
 from frappe.utils import now_datetime
 
 
 def _get_raw(row, idx):
-    """Gibt CSV-Wert als String zurück oder '' wenn Index fehlt / None."""
+    """
+    Return a stripped string value from a CSV row by index.
+    If index is out of bounds or value is None => empty string.
+    """
     if idx < 0 or idx >= len(row):
         return ""
-    v = row[idx]
-    if v is None:
+    value = row[idx]
+    return str(value).strip() if value is not None else ""
+
+
+def _clean_number_db(value):
+    """
+    Clean numeric values for database insertion.
+
+    - Replace comma with dot for decimal
+    - Remove leading zeros
+    - '01,5' -> '1.5'
+    - '00,05' -> '0.05'
+    - '' / '0' / '000' / '0,00' -> ''
+    """
+    if not value:
         return ""
-    return str(v).strip()
+
+    # Replace comma with dot for ERPNext float/currency
+    value = value.strip().replace(",", ".")
+
+    try:
+        number = float(value)
+        # Treat zero as empty
+        return "" if number == 0 else number
+    except ValueError:
+        return ""
 
 
-def _set_if_value(payload, fieldname, value):
-    """Setzt payload[fieldname] nur, wenn value nicht leer ist."""
+def _set_if_value(payload, fieldname, value, clean_number_db=False):
+    """
+    Set payload[fieldname] if value is not empty.
+    Optionally apply float cleanup for DB (price/number fields).
+    """
+    if clean_number_db:
+        value = _clean_number_db(value)
     if value != "":
         payload[fieldname] = value
 
 
+def _set_checkbox(payload, fieldname, value):
+    """
+    Convert J/N values to ERPNext checkbox (1/0).
+    J => 1
+    N => 0
+    Otherwise skip
+    """
+    v = value.upper()
+    if v == "J":
+        payload[fieldname] = 1
+    elif v == "N":
+        payload[fieldname] = 0
+
+
 def import_supplier_catalog_items_from_csv(doc):
     """
-    Minimaler Import:
-    - Encoding: cp850 (bei dir bestätigt)
-    - delimiter ';', quotechar '"'
-    - Zeile 0: Infozeile (nicht importieren)
-    - letzte Zeile: Abschluss (z.B. ;;99) (nicht importieren)
-    - 0-based Mapping
-    - Es werden NUR Felder gesetzt, wenn in der CSV ein Wert vorhanden ist.
-    - KEINE Skip-/Pflichtfeldlogik, keine Fehlersuche/Logs.
+    Import Supplier Catalog Items from a BNN-style CSV attached to a Supplier Catalog.
+
+    File rules:
+    - Encoding: cp850
+    - Separator: ';'
+    - First row must start with 'BNN'
+    - Last row is ignored
+    - Price fields are converted to floats (ERPNext internal format)
     """
 
-    # Pflichtfelder im Supplier Catalog
-    if not doc.import_file:
-        frappe.throw("Bitte lade zuerst eine Import-Datei hoch.")
-    if not doc.supplier:
-        frappe.throw("Bitte fülle das Feld 'supplier' aus.")
-    if not doc.linked_pricelist:
-        frappe.throw("Bitte fülle das Feld 'linked_pricelist' aus.")
+    frappe.msgprint("Import started. This may take a moment...")
 
-    # Dateipfad holen
+    # Load file from File doctype
     file_doc = frappe.get_doc("File", {"file_url": doc.import_file})
     file_path = file_doc.get_full_path()
 
-    # Datei lesen (cp850 für korrekte Umlaute)
     with open(file_path, "rb") as f:
         raw = f.read()
     text = raw.decode("cp850")
 
-    # CSV parsen
     reader = csv.reader(io.StringIO(text), delimiter=";", quotechar='"')
     lines = list(reader)
 
-    if len(lines) < 3:
-        frappe.throw("Die Datei enthält zu wenige Zeilen (Kopf + Daten + Abschluss erwartet).")
+    if len(lines) < 2:
+        frappe.throw("The file must contain at least a header and one data row.")
 
-    # file_age: Zeile 0, Spalte 10 => Index 9 (nur setzen wenn Wert vorhanden)
+    # The header must start with "BNN"
+    if _get_raw(lines[0], 0) != "BNN":
+        frappe.throw("No BNN file detected. Please upload a valid BNN CSV file.")
+
+    # Preload mapping for linked fields
+    country_map = {
+        c.code.lower(): c.name
+        for c in frappe.get_all("Country", fields=["name", "code"])
+        if c.code
+    }
+
+    brand_map = {
+        b.abbreviation.upper(): b.name
+        for b in frappe.get_all("Supplier Catalog Brand", fields=["name", "abbreviation"])
+        if b.abbreviation
+    }
+
+    quality_map = {
+        q.abbreviation_data.upper(): q.name
+        for q in frappe.get_all("Supplier Quality", fields=["name", "abbreviation_data"])
+        if q.abbreviation_data
+    }
+
+    tradeclass_names = {
+        t.name for t in frappe.get_all("Trade Class", fields=["name"])
+    }
+
+    # Optionally set file_age from header row
     file_age_val = _get_raw(lines[0], 9)
     if file_age_val:
         try:
@@ -65,39 +129,101 @@ def import_supplier_catalog_items_from_csv(doc):
             pass
 
     imported = 0
+    now_dt = now_datetime()
 
-    # Datenzeilen: Zeile 1 bis vorletzte
+    # Process data rows excluding header and footer
     for row in lines[1:-1]:
         payload = {"doctype": "Supplier Catalog Item"}
+        base_len = len(payload)
 
-        # 0-based Mapping (nur setzen, wenn Wert vorhanden)
-        _set_if_value(payload, "lieferant_artikelnummer", _get_raw(row, 0))
-        _set_if_value(payload, "aenderungskennung",       _get_raw(row, 1))
-        _set_if_value(payload, "ean_laden",               _get_raw(row, 4))
-        _set_if_value(payload, "ean_bestell",             _get_raw(row, 5))
-        _set_if_value(payload, "bezeichnung_1",           _get_raw(row, 6))
-        _set_if_value(payload, "bezeichnung_2",           _get_raw(row, 7))
-        _set_if_value(payload, "bezeichnung_3",           _get_raw(row, 8))
-        _set_if_value(payload, "handelsklasse",           _get_raw(row, 9))
-        _set_if_value(payload, "marke",                   _get_raw(row, 10))
-        _set_if_value(payload, "marke_alt",               _get_raw(row, 11))
-        _set_if_value(payload, "herkunft",                _get_raw(row, 12))
-        _set_if_value(payload, "qualitaet",               _get_raw(row, 13))
+        # Lookup fields
+        _set_if_value(payload, "supplier_itemnumber", _get_raw(row, 0))
+        _set_if_value(payload, "changeindicator", _get_raw(row, 1))
 
-        # Werte vom Supplier Catalog übernehmen (falls Fieldnames im Item BNN so heißen)
-        payload["lieferant"] = doc.supplier
-        payload["preisliste"] = doc.linked_pricelist
+        # Date and time: use CSV if present, else current
+        imported_date = _get_raw(row, 2)
+        imported_time = _get_raw(row, 3)
 
-        # Insert (wenn Pflichtfelder fehlen, wirft Frappe hier einen Fehler)
-        frappe.get_doc(payload).insert(ignore_permissions=True)
-        imported += 1
+        payload["last_imported"] = imported_date if imported_date else now_dt.date()
+        payload["last_imported_time"] = imported_time if imported_time else now_dt.time()
 
-    # In bench console wichtig: commit
+        _set_if_value(payload, "ean_shop", _get_raw(row, 4))
+        _set_if_value(payload, "ean_order", _get_raw(row, 5))
+        _set_if_value(payload, "name1", _get_raw(row, 6))
+        _set_if_value(payload, "name2", _get_raw(row, 7))
+        _set_if_value(payload, "name3", _get_raw(row, 8))
+
+        tradeclass = _get_raw(row, 9)
+        if tradeclass in tradeclass_names:
+            payload["tradeclass"] = tradeclass
+
+        brand_code = _get_raw(row, 10).upper()
+        if brand_code in brand_map:
+            payload["brand"] = brand_map[brand_code]
+
+        _set_if_value(payload, "brand_fallback", _get_raw(row, 11))
+
+        iso2 = _get_raw(row, 12).lower()
+        if iso2 in country_map:
+            payload["country_of_origin"] = country_map[iso2]
+
+        quality_code = _get_raw(row, 13).upper()
+        if quality_code in quality_map:
+            payload["supplierquality"] = quality_map[quality_code]
+
+        _set_if_value(payload, "controlagency", _get_raw(row, 14))
+        _set_if_value(payload, "remaining_shelf_life", _get_raw(row, 15), clean_number_db=True)
+        _set_if_value(payload, "minorderquantity", _get_raw(row, 20), clean_number_db=True)
+        _set_if_value(payload, "orderunit", _get_raw(row, 21))
+        _set_if_value(payload, "orderunit_quantity", _get_raw(row, 22), clean_number_db=True)
+        _set_if_value(payload, "shop_unit", _get_raw(row, 23))
+        _set_if_value(payload, "quantity_factor", _get_raw(row, 24), clean_number_db=True)
+
+        # Checkbox fields J/N => 1/0
+        _set_checkbox(payload, "weight_item", _get_raw(row, 25))
+
+        _set_if_value(payload, "pfand_shop_unit", _get_raw(row, 26), clean_number_db=True)
+        _set_if_value(payload, "pfand_order_unit", _get_raw(row, 27), clean_number_db=True)
+        _set_if_value(payload, "weight_shop_unit", _get_raw(row, 28), clean_number_db=True)
+        _set_if_value(payload, "weight_order_unit", _get_raw(row, 29), clean_number_db=True)
+        _set_if_value(payload, "width", _get_raw(row, 30), clean_number_db=True)
+        _set_if_value(payload, "height", _get_raw(row, 31), clean_number_db=True)
+        _set_if_value(payload, "depth", _get_raw(row, 32), clean_number_db=True)
+        _set_if_value(payload, "tax_amount", _get_raw(row, 33), clean_number_db=True)
+
+        # PRICE FIELDS — dot/decimal cleaned correctly
+        _set_if_value(payload, "recommended_sales_price", _get_raw(row, 35), clean_number_db=True)
+        _set_if_value(payload, "recommended_sales_price_supplier", _get_raw(row, 36), clean_number_db=True)
+        _set_if_value(payload, "shop_item_price", _get_raw(row, 37), clean_number_db=True)
+
+        # Checkboxes
+        _set_checkbox(payload, "discountable", _get_raw(row, 38))
+        _set_checkbox(payload, "skontierfaehig", _get_raw(row, 39))
+
+        # GRADUATED price fields
+        _set_if_value(payload, "graduated_amount1", _get_raw(row, 40), clean_number_db=True)
+        _set_if_value(payload, "graduated_price1", _get_raw(row, 41), clean_number_db=True)
+        _set_if_value(payload, "graduated_amount2", _get_raw(row, 44), clean_number_db=True)
+        _set_if_value(payload, "graduated_price2", _get_raw(row, 45), clean_number_db=True)
+        _set_if_value(payload, "graduated_amount3", _get_raw(row, 48), clean_number_db=True)
+        _set_if_value(payload, "graduated_price3", _get_raw(row, 49), clean_number_db=True)
+
+        _set_if_value(payload, "base_price_unit", _get_raw(row, 65))
+        _set_if_value(payload, "base_price_faktor", _get_raw(row, 66), clean_number_db=True)
+        _set_if_value(payload, "item_bio_id", _get_raw(row, 69))
+
+        # Link back to this Supplier Catalog
+        payload["supplier_catalog"] = doc.name
+        payload["supplier"] = doc.supplier
+
+        if len(payload) > base_len + 2:
+            frappe.get_doc(payload).insert(ignore_permissions=True)
+            imported += 1
+
     frappe.db.commit()
 
-    # Statusfelder setzen
-    doc.db_set("import_status", "Erfolgreich")
+    doc.db_set("import_status", "Success")
     doc.db_set("import_amount", imported)
     doc.db_set("last_imported", now_datetime())
 
-    return f"{imported} Einträge importiert."
+    return f"{imported} items imported successfully."

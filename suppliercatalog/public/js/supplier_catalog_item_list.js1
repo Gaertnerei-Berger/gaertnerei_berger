@@ -1,0 +1,36 @@
+frappe.listview_settings['Supplier Catalog Item'] = {
+    add_fields: ["imported", "name1", "ean_shop", "supplier", "last_imported", "price_manual_changed"],
+    order_by: "supplier asc, name1 asc",
+
+    get_indicator(doc) {
+        if (doc.imported && doc.price_manual_changed) {
+            return ["Imported + Price Changed", "orange"];
+        }
+        if (doc.imported) {
+            return ["Imported", "green"];
+        }
+        return ["", "gray"];
+    },
+
+    // Add a custom menu action per selected row
+    get_menu_items() {
+        return [
+            {
+                label: __("Run Custom Action"),
+                action: function(doc) {
+                    frappe.call({
+                        method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog_item.supplier_catalog_item.run_custom_action",
+                        args: {
+                            item_name: doc.name
+                        },
+                        callback: function(r) {
+                            if (!r.exc) {
+                                frappe.msgprint("Custom action completed.");
+                            }
+                        }
+                    });
+                }
+            }
+        ];
+    }
+};

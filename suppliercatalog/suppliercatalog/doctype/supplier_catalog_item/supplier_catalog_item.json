@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
+ "autoname": "format:{supplier}-{supplier_itemnumber}",
  "creation": "2025-12-24 16:37:46.819587",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -20,7 +21,7 @@
   "item_bio_id",
   "ean_shop",
   "imported",
-  "price_manual_chaneged",
+  "price_manual_changed",
   "column_break_qmig",
   "last_imported",
   "last_imported_time",
@@ -98,6 +99,7 @@
   {
    "fieldname": "supplier",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Supplier",
    "options": "Supplier",
    "read_only": 1
@@ -106,19 +108,17 @@
    "default": "0",
    "fieldname": "imported",
    "fieldtype": "Check",
-   "label": "Imported",
-   "read_only": 1
+   "in_list_view": 1,
+   "label": "Imported"
   },
   {
    "fieldname": "supplier_itemnumber",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Supplier Itemnumber"
   },
   {
    "fieldname": "changeindicator",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Changeindicator",
    "read_only": 1
   },
@@ -141,13 +141,13 @@
   {
    "fieldname": "supplierquality",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Supplier Quality",
    "options": "Supplier Quality"
   },
   {
    "fieldname": "ean_shop",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "EANshop",
    "read_only": 1
   },
@@ -264,8 +264,9 @@
    "label": "Shop Item Price"
   },
   {
+   "default": "0",
    "fieldname": "skontierfaehig",
-   "fieldtype": "Data",
+   "fieldtype": "Check",
    "label": "Skontierf\u00e4hig"
   },
   {
@@ -279,8 +280,9 @@
    "label": "Recommended Sales Price Supplier"
   },
   {
+   "default": "0",
    "fieldname": "discountable",
-   "fieldtype": "Data",
+   "fieldtype": "Check",
    "label": "Discountable"
   },
   {
@@ -326,8 +328,7 @@
   {
    "fieldname": "item_bio_id",
    "fieldtype": "Data",
-   "label": "Item BIO ID",
-   "read_only": 1
+   "label": "Item BIO ID"
   },
   {
    "fieldname": "product_identification_tab",
@@ -383,12 +384,6 @@
    "label": "Brand Fallback"
   },
   {
-   "default": "0",
-   "fieldname": "price_manual_chaneged",
-   "fieldtype": "Check",
-   "label": "Price Manual Chaneged"
-  },
-  {
    "fetch_from": "supplier_catalog.last_imported",
    "fieldname": "last_imported",
    "fieldtype": "Date",
@@ -398,18 +393,26 @@
   },
   {
    "fieldname": "last_imported_time",
-   "fieldtype": "Data",
+   "fieldtype": "Time",
    "label": "Last Imported Time",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "price_manual_changed",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Price Manual Chaneged"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-27 17:25:47.284053",
+ "modified": "2025-12-28 06:04:28.922125",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -429,5 +432,6 @@
  "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "name1"
 }

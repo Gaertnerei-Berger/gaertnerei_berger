@@ -7,23 +7,14 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "data_rlin",
-  "column_break_jzbv",
+  "section_break_umsd",
   "name1",
+  "abbreviation_data",
   "section_break_umtf",
   "description",
   "attach_image"
  ],
  "fields": [
-  {
-   "fieldname": "data_rlin",
-   "fieldtype": "Data",
-   "label": "Abbreviation"
-  },
-  {
-   "fieldname": "column_break_jzbv",
-   "fieldtype": "Column Break"
-  },
   {
    "fieldname": "name1",
    "fieldtype": "Data",
@@ -43,6 +34,15 @@
    "fieldname": "attach_image",
    "fieldtype": "Attach Image",
    "label": "Attach Image"
+  },
+  {
+   "fieldname": "abbreviation_data",
+   "fieldtype": "Data",
+   "label": "Abbreviation"
+  },
+  {
+   "fieldname": "section_break_umsd",
+   "fieldtype": "Section Break"
   }
  ],
  "grid_page_length": 50,
@@ -50,7 +50,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-12-26 14:04:03.378383",
+ "modified": "2025-12-27 20:51:57.495392",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Quality",

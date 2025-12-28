@@ -3162,23 +3162,6 @@
   "zip_code": 1120
  },
  {
-  "abbreviation": "BFR",
-  "assigned_at": "1/29/2021",
-  "brand_id": "e152d646-a669-49af-ac4f-3fe44675573a",
-  "brand_name": "A.Vogel",
-  "city": "Roggwil",
-  "country": "Switzerland",
-  "docstatus": 0,
-  "doctype": "Supplier Catalog Brand",
-  "freigabe": 0,
-  "modified": "2025-12-26 14:36:46.253765",
-  "name": "6iedhiljjs",
-  "producer_id": "9ad90839-f3b0-474a-b811-183b6573873e",
-  "producer_name": "A.Vogel AG",
-  "street": "Grünaustrasse 4",
-  "zip_code": 9325
- },
- {
   "abbreviation": "BFU",
   "assigned_at": "1/29/2021",
   "brand_id": "2868c2d2-3391-47d2-b072-6f377e1a77d8",
@@ -32300,23 +32283,6 @@
   "zip_code": 99100
  },
  {
-  "abbreviation": "RAP",
-  "assigned_at": "1/29/2021",
-  "brand_id": "0a357ea2-a194-4443-bea7-b4d1cdf42468",
-  "brand_name": "Rapunzel",
-  "city": "Legau",
-  "country": "Germany",
-  "docstatus": 0,
-  "doctype": "Supplier Catalog Brand",
-  "freigabe": 0,
-  "modified": "2025-12-26 14:37:58.644663",
-  "name": "792qdlrvho",
-  "producer_id": "bb7fc6d1-67be-44d8-ac99-291355c8714b",
-  "producer_name": "RAPUNZEL Naturkost GmbH & Co. KG",
-  "street": "Rapunzelstrasse 1",
-  "zip_code": 87764
- },
- {
   "abbreviation": "RAS",
   "assigned_at": "1/29/2021",
   "brand_id": "250d2065-6442-4182-9586-76b1d6508142",
@@ -43962,23 +43928,6 @@
   "zip_code": 0
  },
  {
-  "abbreviation": "ZWE",
-  "assigned_at": "1/29/2021",
-  "brand_id": "ff244df3-a628-4f52-b94a-a1ac9758bdb9",
-  "brand_name": "Zwergenwiese",
-  "city": "Silberstedt",
-  "country": "Germany",
-  "docstatus": 0,
-  "doctype": "Supplier Catalog Brand",
-  "freigabe": 0,
-  "modified": "2025-12-26 14:38:23.500205",
-  "name": "7grfi3sbbe",
-  "producer_id": "9cc179f9-6ae6-4bfa-8492-0ec8fd3c9d40",
-  "producer_name": "Zwergenwiese Naturkost GmbH",
-  "street": "Langacker 1",
-  "zip_code": 24887
- },
- {
   "abbreviation": "ZWX",
   "assigned_at": "6/22/2022",
   "brand_id": "6969e8f4-1d25-46b0-868e-dd9c42576076",
@@ -44045,5 +43994,56 @@
   "producer_name": "Luisenhof Milchmanufaktur GmbH",
   "street": "Parkallee 1",
   "zip_code": 16727
+ },
+ {
+  "abbreviation": "BFR",
+  "assigned_at": "1/29/2021",
+  "brand_id": "e152d646-a669-49af-ac4f-3fe44675573a",
+  "brand_name": "A.Vogel",
+  "city": "Roggwil",
+  "country": "Switzerland",
+  "docstatus": 0,
+  "doctype": "Supplier Catalog Brand",
+  "freigabe": 0,
+  "modified": "2025-12-26 14:36:46.253765",
+  "name": "6iedhiljjs",
+  "producer_id": "9ad90839-f3b0-474a-b811-183b6573873e",
+  "producer_name": "A.Vogel AG",
+  "street": "Grünaustrasse 4",
+  "zip_code": 9325
+ },
+ {
+  "abbreviation": "ZWE",
+  "assigned_at": "1/29/2021",
+  "brand_id": "ff244df3-a628-4f52-b94a-a1ac9758bdb9",
+  "brand_name": "Zwergenwiese",
+  "city": "Silberstedt",
+  "country": "Germany",
+  "docstatus": 0,
+  "doctype": "Supplier Catalog Brand",
+  "freigabe": 0,
+  "modified": "2025-12-26 14:38:23.500205",
+  "name": "7grfi3sbbe",
+  "producer_id": "9cc179f9-6ae6-4bfa-8492-0ec8fd3c9d40",
+  "producer_name": "Zwergenwiese Naturkost GmbH",
+  "street": "Langacker 1",
+  "zip_code": 24887
+ },
+ {
+  "abbreviation": "RAP",
+  "assigned_at": "1/29/2021",
+  "brand_id": "0a357ea2-a194-4443-bea7-b4d1cdf42468",
+  "brand_name": "Rapunzel",
+  "city": "Legau",
+  "country": "Germany",
+  "docstatus": 0,
+  "doctype": "Supplier Catalog Brand",
+  "freigabe": 0,
+  "modified": "2025-12-26 14:37:58.644663",
+  "name": "792qdlrvho",
+  "producer_id": "bb7fc6d1-67be-44d8-ac99-291355c8714b",
+  "producer_name": "RAPUNZEL Naturkost GmbH & Co. KG",
+  "street": "Rapunzelstrasse 1",
+  "zip_code": 87764
  }
 ]

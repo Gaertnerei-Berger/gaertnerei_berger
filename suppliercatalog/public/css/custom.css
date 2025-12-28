@@ -1,0 +1,9 @@
+/* row color for imported only */
+.supplier-catalog-item-row-green {
+    background-color: #e6ffe6 !important;
+}
+
+/* row color for imported + manual price changed */
+.supplier-catalog-item-row-orange {
+    background-color: #fff3e6 !important;
+}
