@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "/assets/suppliercatalog/css/custom.css"
+# app_include_css = "/assets/suppliercatalog/css/custom.css"
 # app_include_js = "/assets/suppliercatalog/js/suppliercatalog.js"
 
 # include js, css files in header of web template
@@ -154,8 +154,11 @@ doc_events = {
 
     "Item": {
         "validate": "suppliercatalog.utils.item_price_cal.update_item_prices_on_factor_change"
-    }
+    },
 
+    "File": {
+        "after_insert": "suppliercatalog.utils.file_handling.move_file_to_custom_folder"
+    }
 
 }
 

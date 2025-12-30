@@ -189,7 +189,16 @@ def import_supplier_catalog_items_from_csv(doc):
         _set_if_value(payload, "width", _get_raw(row, 30), clean_number_db=True)
         _set_if_value(payload, "height", _get_raw(row, 31), clean_number_db=True)
         _set_if_value(payload, "depth", _get_raw(row, 32), clean_number_db=True)
-        _set_if_value(payload, "tax_amount", _get_raw(row, 33), clean_number_db=True)
+
+        # TAX mapping from field 34 (position 33)
+        tax_code = _get_raw(row, 33)
+        if tax_code == "1":
+           payload["tax_amount"] = 7
+        elif tax_code == "2":
+           payload["tax_amount"] = 19
+        elif tax_code == "3":
+           payload["tax_amount"] = 9
+
 
         # PRICE FIELDS — dot/decimal cleaned correctly
         _set_if_value(payload, "recommended_sales_price", _get_raw(row, 35), clean_number_db=True)

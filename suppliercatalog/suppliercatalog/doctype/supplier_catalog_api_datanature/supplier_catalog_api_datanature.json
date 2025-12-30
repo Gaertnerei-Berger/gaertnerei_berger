@@ -12,7 +12,11 @@
   "column_break_xqmn",
   "password",
   "api_url_pim",
-  "test_login"
+  "test_login",
+  "section_break_dcbl",
+  "load_brands",
+  "column_break_eron",
+  "load_authorised_brands"
  ],
  "fields": [
   {
@@ -54,13 +58,31 @@
    "fieldname": "api_url_pim",
    "fieldtype": "Data",
    "label": "API URL Pim"
+  },
+  {
+   "fieldname": "load_brands",
+   "fieldtype": "Button",
+   "label": "Load all Brands"
+  },
+  {
+   "fieldname": "load_authorised_brands",
+   "fieldtype": "Button",
+   "label": "Load authorised Brands"
+  },
+  {
+   "fieldname": "section_break_dcbl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_eron",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-12-26 11:36:37.450955",
+ "modified": "2025-12-29 20:00:44.633149",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog API Datanature",

@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from suppliercatalog.utils.datanature_api import fetch_security_token
+from suppliercatalog.utils.datanature_api import fetch_security_token, import_brand_abbreviations_from_api, import_approved_brands
 
 
 class SupplierCatalogAPIDatanature(Document):
@@ -18,3 +18,17 @@ def test_login():
         doc.security_token = token
         doc.save()
         frappe.db.commit()
+
+
+@frappe.whitelist()
+def load_brands():
+    """Import brand abbreviations from DataNatuRe API."""
+    import_brand_abbreviations_from_api()
+    return "Brand import completed"
+
+
+@frappe.whitelist()
+def load_authorised_brands():
+    """Import authorised brands from DataNatuRe API und the Logo Images."""
+    import_approved_brands()
+    return "Authorised Brand import completed"

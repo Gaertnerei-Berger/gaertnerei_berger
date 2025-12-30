@@ -18,17 +18,22 @@
   "zip_code",
   "country",
   "logic_section",
-  "freigabe"
+  "freigabe",
+  "column_break_hkfb",
+  "logo_color",
+  "logo_last_modified"
  ],
  "fields": [
   {
    "fieldname": "brand_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Brand Name"
   },
   {
    "fieldname": "producer_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Producer Name"
   },
   {
@@ -85,13 +90,32 @@
    "default": "0",
    "fieldname": "freigabe",
    "fieldtype": "Check",
-   "label": "freigabe"
+   "in_list_view": 1,
+   "label": "Freigabe im DatanaturePortal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_hkfb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "logo_color",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "logo_last_modified",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Last Modified",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
+ "image_field": "logo_color",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-26 15:20:41.027742",
+ "modified": "2025-12-30 11:02:31.763188",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Brand",
