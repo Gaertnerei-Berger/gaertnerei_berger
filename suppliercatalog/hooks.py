@@ -154,10 +154,6 @@ doc_events = {
 
     "Item": {
         "validate": "suppliercatalog.utils.item_price_cal.update_item_prices_on_factor_change"
-    },
-
-    "File": {
-        "after_insert": "suppliercatalog.utils.file_handling.move_file_to_custom_folder"
     }
 
 }
@@ -266,9 +262,10 @@ doc_events = {
 # ignore_translatable_strings_from = []
 
 fixtures = [
-    {"dt": "Supplier Catalog Brand"},
     {"dt": "Supplier Quality"},
     {"dt": "Trade Class"},
+    {"dt": "Pfand Typen"},
+    {"dt": "UOM"},
 
     {"dt": "Custom Field", "filters": [
       [

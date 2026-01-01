@@ -155,147 +155,66 @@ def import_brand_abbreviations_from_api():
     )
 
 
-def fetch_and_save_logo_for_brand(brand_id, picture_id, filename, docname):
-    """
-    Download the brand logo from the API and save it in ERPNext.
-    Returns:
-        file_url (str) if saved
-        None if download failed
-    """
 
-    # Validate
-    if not brand_id or not picture_id:
-        return None
 
-    # Get settings + token
-    settings = frappe.get_single("Supplier Catalog API Datanature")
-    base_url = settings.api_url_pim.rstrip("/")
-    token = fetch_security_token()
 
-    # Build URL
-    logo_url = (
-        f"{base_url}/resources/pim/if/v2_3_0/export/brand/"
-        f"{brand_id}/binary/logo/{picture_id}"
-    )
-
-    # Curl‑like headers
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Expect": ""
-    }
-
-    try:
-        response = requests.get(logo_url, headers=headers, timeout=30)
-    except Exception as e:
-        print(f"[fetch_and_save_logo_for_brand] Request failed: {e}")
-        return None
-
-    print("--------------------------------------------------")
-    print(f"[fetch_and_save_logo_for_brand] Brand: {brand_id}")
-    print(f"[fetch_and_save_logo_for_brand] Status: {response.status_code}")
-    print(f"[fetch_and_save_logo_for_brand] Content Length: {len(response.content) if response.content else 0}")
-    print("--------------------------------------------------")
-
-    if response.status_code != 200 or not response.content:
-        return None
-
-    # Save file in ERPNext with the correct filename (includes extension!)
-    file_doc = save_file(
-        filename,
-        response.content,
-        "Supplier Catalog Brand",
-        docname,
-        decode=False,
-        is_private=0
-    )
-
-    return file_doc.file_url
 
 
 
 def import_approved_brands():
     """
     Fetch approved brands from the API and update Supplier Catalog Brand doctype:
-    - Set 'freigabe' checkbox
-    - Fetch and store logo only if changed
+    - Set 'freigabe' checkbox if not already set
+    - Count how many were updated and how many were already set
     """
 
     settings = frappe.get_single("Supplier Catalog API Datanature")
     base_url = settings.api_url_pim.rstrip("/")
     token = fetch_security_token()
 
-    approved_url = f"{base_url}/resources/pim/if/v2_3_0/export/approved/brands"
+    url = f"{base_url}/resources/pim/if/v2_3_0/export/approved/brands"
     headers = {
         "Authorization": f"Bearer {token}",
         "accept": "application/xml"
     }
 
-    response = requests.get(approved_url, headers=headers, timeout=30)
+    response = requests.get(url, headers=headers, timeout=30)
     if response.status_code != 200:
         frappe.throw(f"Failed to fetch approved brands (HTTP {response.status_code})")
 
     try:
-        xml_data = xmltodict.parse(response.text)
+        xml = xmltodict.parse(response.text)
     except Exception as e:
         frappe.throw(f"XML parse error: {e}")
 
-    brands = xml_data.get("datanature", {}).get("brands", {}).get("brand", [])
+    brands = xml.get("datanature", {}).get("brands", {}).get("brand", [])
     if isinstance(brands, dict):
         brands = [brands]
 
-    updated = 0
-    logos_updated = 0
-    skipped = 0
+    updated_count = 0
+    skipped_count = 0
 
     for entry in brands:
-
         brand_id = entry.get("id")
         if not brand_id:
-            skipped += 1
             continue
 
-        existing_name = frappe.db.get_value(
-            "Supplier Catalog Brand",
-            {"brand_id": brand_id},
-            "name"
-        )
-        if not existing_name:
-            skipped += 1
+        docname = frappe.db.get_value("Supplier Catalog Brand", {"brand_id": brand_id}, "name")
+        if not docname:
             continue
 
-        doc = frappe.get_doc("Supplier Catalog Brand", existing_name)
+        doc = frappe.get_doc("Supplier Catalog Brand", docname)
 
-        # Set checkbox
-        if not doc.freigabe:
+        if doc.freigabe:
+            skipped_count += 1
+        else:
             doc.freigabe = 1
-
-        # XML logo info
-        logo_node = entry.get("logo") or {}
-        picture_id = logo_node.get("id")
-        xml_last_mod = logo_node.get("last_modified")
-        filename = logo_node.get("name")
-
-        # Only update logo if picture exists and last_modified changed
-        if picture_id and filename:
-            if not doc.logo_last_modified or (xml_last_mod and doc.logo_last_modified != xml_last_mod):
-
-                file_url = fetch_and_save_logo_for_brand(brand_id, picture_id, filename, existing_name)
-
-                if file_url:
-                    doc.logo_color = file_url
-                    doc.logo_last_modified = xml_last_mod
-                    logos_updated += 1
-
-        doc.save(ignore_permissions=True)
-        updated += 1
+            doc.save(ignore_permissions=True)
+            updated_count += 1
 
     frappe.db.commit()
 
     frappe.msgprint(
-        f"Approved brands import finished.<br>"
-        f"Brands updated: {updated}<br>"
-        f"Logos saved/updated: {logos_updated}<br>"
-        f"Skipped: {skipped}"
+        f"{updated_count} Approved brands import completed.<br>"
+        f"Already set (skipped): {skipped_count}"
     )
-
-

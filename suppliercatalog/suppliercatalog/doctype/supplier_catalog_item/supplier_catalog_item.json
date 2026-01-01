@@ -10,12 +10,10 @@
   "section_break_djnd",
   "supplier_itemnumber",
   "name1",
-  "name2",
-  "name3",
   "weight_item",
   "column_break_dhqo",
   "brand",
-  "brand_fallback",
+  "name2",
   "logic_fields_section",
   "supplier",
   "item_bio_id",
@@ -23,59 +21,58 @@
   "imported",
   "price_manual_changed",
   "column_break_qmig",
+  "supplier_catalog",
+  "linked_item",
   "last_imported",
   "last_imported_time",
-  "linked_item",
-  "changeindicator",
   "price_tab",
   "country_of_origin",
   "controlagency",
+  "ernhinweis_vegan",
+  "ernhinweis_vegetarisch",
   "column_break_qfij",
   "tradeclass",
   "supplierquality",
+  "ernhinweis_glutenfrei",
+  "ernhinweis_laktosefrei",
+  "section_break_ngdd",
+  "description",
+  "list_of_ingredients",
   "packaging_and_ordering_tab",
   "packaging_section",
   "weight_order_unit",
   "weight_shop_unit",
-  "width",
   "column_break_nbfk",
   "height",
   "depth",
+  "width",
   "section_break_ydbx",
-  "minorderquantity",
   "orderunit",
-  "pfand_order_unit",
-  "remaining_shelf_life",
-  "ean_order",
-  "column_break_djoo",
   "orderunit_quantity",
+  "remaining_shelf_life",
+  "column_break_djoo",
+  "ean_order",
   "shop_unit",
-  "pfand_shop_unit",
-  "quantity_factor",
+  "shop_unit_uom",
+  "section_break_kymn",
+  "content_uom",
+  "column_break_gsyz",
+  "content_weight",
   "price_info_tab",
   "recommended_sales_price",
-  "recommended_sales_price_supplier",
   "base_price_unit",
-  "column_break_nyly",
-  "shop_item_price",
-  "tax_amount",
   "base_price_faktor",
-  "section_break_cuto",
-  "skontierfaehig",
-  "graduated_price1",
-  "graduated_price2",
-  "graduated_price3",
-  "column_break_nnjn",
-  "discountable",
-  "graduated_amount1",
-  "graduated_amount2",
-  "graduated_amount3"
+  "column_break_nyly",
+  "ek_price",
+  "tax_amount",
+  "section_break_unzb",
+  "pfand_typ",
+  "pfand_typ_vpe1",
+  "column_break_yagf",
+  "pfand_ammount",
+  "pfand_ammount_vpe1"
  ],
  "fields": [
-  {
-   "fieldname": "column_break_nnjn",
-   "fieldtype": "Column Break"
-  },
   {
    "fieldname": "logic_fields_section",
    "fieldtype": "Section Break",
@@ -91,10 +88,6 @@
    "label": "Linked Item",
    "options": "Item",
    "read_only": 1
-  },
-  {
-   "fieldname": "section_break_cuto",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "supplier",
@@ -117,12 +110,6 @@
    "label": "Supplier Itemnumber"
   },
   {
-   "fieldname": "changeindicator",
-   "fieldtype": "Data",
-   "label": "Changeindicator",
-   "read_only": 1
-  },
-  {
    "fieldname": "name1",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -132,11 +119,6 @@
    "fieldname": "name2",
    "fieldtype": "Data",
    "label": "Name2"
-  },
-  {
-   "fieldname": "name3",
-   "fieldtype": "Data",
-   "label": "Name3"
   },
   {
    "fieldname": "supplierquality",
@@ -158,8 +140,9 @@
   },
   {
    "fieldname": "tradeclass",
-   "fieldtype": "Data",
-   "label": "Trade Class"
+   "fieldtype": "Link",
+   "label": "Trade Class",
+   "options": "Trade Class"
   },
   {
    "fieldname": "brand",
@@ -170,7 +153,8 @@
   {
    "fieldname": "price_tab",
    "fieldtype": "Tab Break",
-   "label": "Classification"
+   "label": "Infos",
+   "read_only": 1
   },
   {
    "fieldname": "controlagency",
@@ -178,29 +162,26 @@
    "label": "Controlagency"
   },
   {
-   "fieldname": "minorderquantity",
-   "fieldtype": "Data",
-   "label": "MinOrderquantity"
-  },
-  {
    "fieldname": "orderunit_quantity",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Orderunit Quantity"
   },
   {
    "fieldname": "country_of_origin",
-   "fieldtype": "Data",
-   "label": "Country of Origin"
+   "fieldtype": "Link",
+   "label": "Country of Origin",
+   "options": "Country"
   },
   {
    "fieldname": "remaining_shelf_life",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Remaining shelf life"
   },
   {
    "fieldname": "orderunit",
-   "fieldtype": "Data",
-   "label": "Orderunit"
+   "fieldtype": "Link",
+   "label": "Orderunit",
+   "options": "UOM"
   },
   {
    "fieldname": "shop_unit",
@@ -208,23 +189,13 @@
    "label": "Shop Unit"
   },
   {
-   "fieldname": "quantity_factor",
-   "fieldtype": "Data",
-   "label": "Quantity Factor"
-  },
-  {
-   "fieldname": "pfand_shop_unit",
-   "fieldtype": "Data",
-   "label": "Pfand Shop Unit"
-  },
-  {
    "fieldname": "weight_shop_unit",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Weight Shop Unit"
   },
   {
    "fieldname": "width",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Width"
   },
   {
@@ -234,23 +205,18 @@
    "label": "Weight Item"
   },
   {
-   "fieldname": "pfand_order_unit",
-   "fieldtype": "Data",
-   "label": "Pfand Order Unit"
-  },
-  {
    "fieldname": "weight_order_unit",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Weight Order Unit"
   },
   {
    "fieldname": "height",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Height"
   },
   {
    "fieldname": "depth",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Depth"
   },
   {
@@ -259,46 +225,9 @@
    "label": "Recommended Sales Price"
   },
   {
-   "fieldname": "shop_item_price",
-   "fieldtype": "Currency",
-   "label": "Shop Item Price"
-  },
-  {
-   "default": "0",
-   "fieldname": "skontierfaehig",
-   "fieldtype": "Check",
-   "label": "Skontierf\u00e4hig"
-  },
-  {
    "fieldname": "tax_amount",
    "fieldtype": "Data",
    "label": "Tax Amount"
-  },
-  {
-   "fieldname": "recommended_sales_price_supplier",
-   "fieldtype": "Currency",
-   "label": "Recommended Sales Price Supplier"
-  },
-  {
-   "default": "0",
-   "fieldname": "discountable",
-   "fieldtype": "Check",
-   "label": "Discountable"
-  },
-  {
-   "fieldname": "graduated_price1",
-   "fieldtype": "Data",
-   "label": "Graduated Price1"
-  },
-  {
-   "fieldname": "graduated_price2",
-   "fieldtype": "Data",
-   "label": "Graduated Price2"
-  },
-  {
-   "fieldname": "graduated_price3",
-   "fieldtype": "Data",
-   "label": "Graduated Price3"
   },
   {
    "fieldname": "base_price_faktor",
@@ -306,34 +235,22 @@
    "label": "Base Price Faktor"
   },
   {
-   "fieldname": "graduated_amount1",
-   "fieldtype": "Data",
-   "label": "Graduated Amount1"
-  },
-  {
-   "fieldname": "graduated_amount2",
-   "fieldtype": "Data",
-   "label": "Graduated Amount2"
-  },
-  {
-   "fieldname": "graduated_amount3",
-   "fieldtype": "Data",
-   "label": "Graduated Amount3"
-  },
-  {
    "fieldname": "base_price_unit",
-   "fieldtype": "Data",
-   "label": "Base Price Unit"
+   "fieldtype": "Link",
+   "label": "Base Price Unit",
+   "options": "UOM"
   },
   {
    "fieldname": "item_bio_id",
    "fieldtype": "Data",
-   "label": "Item BIO ID"
+   "label": "Item BIO ID",
+   "read_only": 1
   },
   {
    "fieldname": "product_identification_tab",
    "fieldtype": "Tab Break",
-   "label": "Product Identification"
+   "label": "Product Identification",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_djnd",
@@ -350,7 +267,8 @@
   {
    "fieldname": "packaging_and_ordering_tab",
    "fieldtype": "Tab Break",
-   "label": "Packaging and Ordering"
+   "label": "Packaging and Ordering",
+   "read_only": 1
   },
   {
    "fieldname": "packaging_section",
@@ -372,16 +290,12 @@
   {
    "fieldname": "price_info_tab",
    "fieldtype": "Tab Break",
-   "label": "Price Info"
+   "label": "Price/Pfand",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_nyly",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "brand_fallback",
-   "fieldtype": "Data",
-   "label": "Brand Fallback"
   },
   {
    "fetch_from": "supplier_catalog.last_imported",
@@ -403,12 +317,117 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Price Manual Chaneged"
+  },
+  {
+   "fieldname": "section_break_ngdd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "list_of_ingredients",
+   "fieldtype": "Text",
+   "label": "List of Ingredients"
+  },
+  {
+   "default": "0",
+   "fieldname": "ernhinweis_vegan",
+   "fieldtype": "Check",
+   "label": "Ernhinweis Vegan"
+  },
+  {
+   "default": "0",
+   "fieldname": "ernhinweis_vegetarisch",
+   "fieldtype": "Check",
+   "label": "Ernhinweis Vegetarisch"
+  },
+  {
+   "default": "0",
+   "fieldname": "ernhinweis_glutenfrei",
+   "fieldtype": "Check",
+   "label": "Ernhinweis Glutenfrei"
+  },
+  {
+   "default": "0",
+   "fieldname": "ernhinweis_laktosefrei",
+   "fieldtype": "Check",
+   "label": "Ernhinweis Laktosefrei"
+  },
+  {
+   "fieldname": "ek_price",
+   "fieldtype": "Currency",
+   "label": "Buying Price"
+  },
+  {
+   "fieldname": "section_break_kymn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "content_uom",
+   "fieldtype": "Link",
+   "label": "Content UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_gsyz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "content_weight",
+   "fieldtype": "Float",
+   "label": "Content Weight"
+  },
+  {
+   "fieldname": "supplier_catalog",
+   "fieldtype": "Link",
+   "label": "Supplier Catalog",
+   "options": "Supplier Catalog",
+   "read_only": 1
+  },
+  {
+   "fieldname": "shop_unit_uom",
+   "fieldtype": "Link",
+   "label": "Shop Unit UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "section_break_unzb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "pfand_typ",
+   "fieldtype": "Link",
+   "label": "Pfand Typ",
+   "options": "Pfand Typen"
+  },
+  {
+   "fieldname": "column_break_yagf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pfand_ammount",
+   "fieldtype": "Currency",
+   "label": "Pfand Ammount"
+  },
+  {
+   "fieldname": "pfand_ammount_vpe1",
+   "fieldtype": "Data",
+   "label": "Pfand Ammount VPE1"
+  },
+  {
+   "fieldname": "pfand_typ_vpe1",
+   "fieldtype": "Link",
+   "label": "Pfand Typ VPE1",
+   "options": "Pfand Typen"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-28 07:44:08.822980",
+ "modified": "2025-12-31 20:11:23.457046",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",
@@ -433,5 +452,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "name1"
+ "title_field": "name1",
+ "track_changes": 1
 }

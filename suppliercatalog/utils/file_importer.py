@@ -138,7 +138,6 @@ def import_supplier_catalog_items_from_csv(doc):
 
         # Lookup fields
         _set_if_value(payload, "supplier_itemnumber", _get_raw(row, 0))
-        _set_if_value(payload, "changeindicator", _get_raw(row, 1))
 
         # Date and time: use CSV if present, else current
         imported_date = _get_raw(row, 2)
@@ -151,7 +150,6 @@ def import_supplier_catalog_items_from_csv(doc):
         _set_if_value(payload, "ean_order", _get_raw(row, 5))
         _set_if_value(payload, "name1", _get_raw(row, 6))
         _set_if_value(payload, "name2", _get_raw(row, 7))
-        _set_if_value(payload, "name3", _get_raw(row, 8))
 
         tradeclass = _get_raw(row, 9)
         if tradeclass in tradeclass_names:
@@ -160,8 +158,6 @@ def import_supplier_catalog_items_from_csv(doc):
         brand_code = _get_raw(row, 10).upper()
         if brand_code in brand_map:
             payload["brand"] = brand_map[brand_code]
-
-        _set_if_value(payload, "brand_fallback", _get_raw(row, 11))
 
         iso2 = _get_raw(row, 12).lower()
         if iso2 in country_map:
@@ -173,17 +169,12 @@ def import_supplier_catalog_items_from_csv(doc):
 
         _set_if_value(payload, "controlagency", _get_raw(row, 14))
         _set_if_value(payload, "remaining_shelf_life", _get_raw(row, 15), clean_number_db=True)
-        _set_if_value(payload, "minorderquantity", _get_raw(row, 20), clean_number_db=True)
-        _set_if_value(payload, "orderunit", _get_raw(row, 21))
         _set_if_value(payload, "orderunit_quantity", _get_raw(row, 22), clean_number_db=True)
         _set_if_value(payload, "shop_unit", _get_raw(row, 23))
-        _set_if_value(payload, "quantity_factor", _get_raw(row, 24), clean_number_db=True)
 
         # Checkbox fields J/N => 1/0
         _set_checkbox(payload, "weight_item", _get_raw(row, 25))
 
-        _set_if_value(payload, "pfand_shop_unit", _get_raw(row, 26), clean_number_db=True)
-        _set_if_value(payload, "pfand_order_unit", _get_raw(row, 27), clean_number_db=True)
         _set_if_value(payload, "weight_shop_unit", _get_raw(row, 28), clean_number_db=True)
         _set_if_value(payload, "weight_order_unit", _get_raw(row, 29), clean_number_db=True)
         _set_if_value(payload, "width", _get_raw(row, 30), clean_number_db=True)
@@ -202,20 +193,7 @@ def import_supplier_catalog_items_from_csv(doc):
 
         # PRICE FIELDS — dot/decimal cleaned correctly
         _set_if_value(payload, "recommended_sales_price", _get_raw(row, 35), clean_number_db=True)
-        _set_if_value(payload, "recommended_sales_price_supplier", _get_raw(row, 36), clean_number_db=True)
-        _set_if_value(payload, "shop_item_price", _get_raw(row, 37), clean_number_db=True)
-
-        # Checkboxes
-        _set_checkbox(payload, "discountable", _get_raw(row, 38))
-        _set_checkbox(payload, "skontierfaehig", _get_raw(row, 39))
-
-        # GRADUATED price fields
-        _set_if_value(payload, "graduated_amount1", _get_raw(row, 40), clean_number_db=True)
-        _set_if_value(payload, "graduated_price1", _get_raw(row, 41), clean_number_db=True)
-        _set_if_value(payload, "graduated_amount2", _get_raw(row, 44), clean_number_db=True)
-        _set_if_value(payload, "graduated_price2", _get_raw(row, 45), clean_number_db=True)
-        _set_if_value(payload, "graduated_amount3", _get_raw(row, 48), clean_number_db=True)
-        _set_if_value(payload, "graduated_price3", _get_raw(row, 49), clean_number_db=True)
+        _set_if_value(payload, "ek_price", _get_raw(row, 37), clean_number_db=True)
 
         _set_if_value(payload, "base_price_unit", _get_raw(row, 65))
         _set_if_value(payload, "base_price_faktor", _get_raw(row, 66), clean_number_db=True)

@@ -4,7 +4,7 @@
 
 frappe.ui.form.on("Supplier Catalog", {
   refresh(frm) {
-    // 🔁 Beim Laden direkt prüfen, welche Sektion angezeigt werden soll
+    // Beim Laden direkt prüfen, welche Sektion angezeigt werden soll
     frm.trigger("import_methode");
   },
 
@@ -30,5 +30,25 @@ frappe.ui.form.on("Supplier Catalog", {
 });
 
 
-
-
+frappe.ui.form.on('Supplier Catalog', {
+    onload: function(frm) {
+        frappe.call({
+            method: "frappe.client.get_list",
+            args: {
+                doctype: "Supplier Catalog Brand",
+                filters: {
+                    freigabe: 1
+                },
+                fields: ["brand_name"],
+                limit_page_length: 1000
+            },
+            callback: function(r) {
+                if (r.message) {
+                    const options = r.message.map(row => row.brand_name).filter(Boolean);
+                    frm.set_df_property("brand_datanature", "options", ["", ...options]);
+                    frm.refresh_field("brand_datanature");
+                }
+            }
+        });
+    }
+});

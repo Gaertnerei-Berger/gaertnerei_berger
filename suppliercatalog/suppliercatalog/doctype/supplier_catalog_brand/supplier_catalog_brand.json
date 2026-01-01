@@ -106,16 +106,14 @@
   {
    "fieldname": "logo_last_modified",
    "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Last Modified",
-   "read_only": 1
+   "label": "Last Modified"
   }
  ],
  "grid_page_length": 50,
  "image_field": "logo_color",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-30 11:02:31.763188",
+ "modified": "2025-12-30 11:56:43.645784",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Brand",

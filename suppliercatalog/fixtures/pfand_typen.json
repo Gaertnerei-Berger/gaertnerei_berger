@@ -1,0 +1,23 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Pfand Typen",
+  "modified": "2025-12-31 18:08:08.787194",
+  "name": "Einweg-Pfand",
+  "pfand_typ": "Einweg-Pfand"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Pfand Typen",
+  "modified": "2025-12-31 18:09:47.436446",
+  "name": "Mehrweg-Pfand",
+  "pfand_typ": "Mehrweg-Pfand"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Pfand Typen",
+  "modified": "2025-12-31 18:09:58.006674",
+  "name": "Kein Pfand",
+  "pfand_typ": "Kein Pfand"
+ }
+]

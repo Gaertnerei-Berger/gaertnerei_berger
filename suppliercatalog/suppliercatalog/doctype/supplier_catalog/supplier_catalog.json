@@ -22,7 +22,7 @@
   "column_break_iayw",
   "file_age",
   "api_import_section",
-  "lieferant",
+  "brand_datanature",
   "column_break_vffw",
   "start_import_api"
  ],
@@ -71,7 +71,8 @@
    "fieldname": "import_methode",
    "fieldtype": "Select",
    "label": "Import Methode",
-   "options": "\nAPI\nFile"
+   "options": "\nAPI\nFile",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_iayw",
@@ -109,21 +110,18 @@
    "label": "File Import"
   },
   {
-   "fieldname": "lieferant",
-   "fieldtype": "Select",
-   "label": "Supplier Datanature"
-  },
-  {
    "fieldname": "purchase_pricelist",
    "fieldtype": "Link",
    "label": "Purchase Pricelist",
-   "options": "Price List"
+   "options": "Price List",
+   "reqd": 1
   },
   {
    "fieldname": "sell_pricelist",
    "fieldtype": "Link",
    "label": "Sell Pricelist",
-   "options": "Price List"
+   "options": "Price List",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_ixpf",
@@ -138,12 +136,17 @@
    "fieldtype": "Int",
    "label": "Items linked to ERPnext",
    "read_only": 1
+  },
+  {
+   "fieldname": "brand_datanature",
+   "fieldtype": "Select",
+   "label": "Brand Datanature"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-27 18:12:08.869980",
+ "modified": "2025-12-30 13:46:19.159507",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
