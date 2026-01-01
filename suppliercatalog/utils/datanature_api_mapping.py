@@ -72,7 +72,7 @@ def get_country_of_origin(code: int) -> str:
         252: "Vietnam", 253: "Wallis & Futuna", 254: "Christmas Island", 255: "Western Sahara",
         256: "Central African Republic", 257: "Cyprus"
     }
-    return country_map.get(code, "Unknown")
+    return country_map.get(code, None)
 
 
 # ----------------------------------
@@ -117,8 +117,8 @@ def get_order_unit(code: int) -> str:
     orderunit_map = {
         21:"Bag in Box",20:"Banderole",6:"Beutel",14:"Box",10:"Display",15:"Dose",
         8:"Eimer",16:"Fass",1:"Karton",9:"Kasten",2:"Kiste",11:"Korb",12:"Kuvert",
-        13:"Netz",7:"Sack",19:"Schrumpffolie",5:"Steige",4:"Stück",17:"Tray (with foil)",
-        18:"Tray (without foil)"
+        13:"Netz",7:"Sack",19:"Schrumpffolie",5:"Steige",4:"Stk",17:"Tray (mit Folie)",
+        18:"Tray (ohne Folie)"
     }
     return orderunit_map.get(code, "Unknown")
 
@@ -129,11 +129,11 @@ def get_order_unit(code: int) -> str:
 def get_shop_unit_uom(code: int) -> str:
     shop_uom_map = {
         51:"Bag in Box",24:"Becher",5:"Beutel",7:"Blatt",25:"Box",9:"Bund",10:"Display",
-        26:"Dose",27:"Eimer",28:"Fass",29:"Flasche (Glass)",30:"Flasche (Plastic)",3:"Glas",
+        26:"Dose",27:"Eimer",28:"Fass",29:"Flasche (Glas)",30:"Flasche (Plastik)",3:"Glas",
         50:"Glasröhrchen",2:"Kanister",49:"Kapsel",6:"Karton",32:"Kasten",53:"No Packaging",
         12:"Kiste",13:"Korb",14:"Kuvert",47:"Laib",15:"Netz",33:"Packung",48:"Pad",
         44:"Riegel",16:"Rolle",46:"Sachet",17:"Sack",34:"Schachtel",18:"Schale",52:"Schraubglas (Plastic)",
-        19:"Set",35:"Sixpack",36:"Spender",37:"Stange",38:"Steige",45:"Stick",8:"Stück",
+        19:"Set",35:"Sixpack",36:"Spender",37:"Stange",38:"Steige",45:"Stick",8:"Stk",
         43:"Tafel",39:"Tiegel",20:"Topf",4:"Tube",41:"Tüte",23:"Verbundkarton",42:"Viererpack",
         21:"Waschladung",22:"Zopf"
     }
@@ -145,7 +145,7 @@ def get_shop_unit_uom(code: int) -> str:
 # ----------------------------------
 def get_base_price_unit(code: int) -> str:
     base_price_map = {
-        3:"Kilogramm",7:"Liter",5:"Meter",6:"Quadratmeter",4:"Stück",8:"Waschladung"
+        3:"Kilogramm",7:"Liter",5:"Meter",6:"Quadratmeter",4:"Stk",8:"Waschladung"
     }
     return base_price_map.get(code, "Unknown")
 
@@ -193,3 +193,17 @@ def get_pfand_type_vpe1(code: int) -> str:
 def get_pfand_amount_vpe1(code: int) -> float:
     pfand_vpe1_map = {1:1.25,2:1.5,3:2.5,4:3.0,5:3.5,6:4.0}
     return pfand_vpe1_map.get(code, 0.0)
+
+# ----------------------------------
+# List of Ingredients Legend (int -> name)
+# ----------------------------------
+def get_ingredients_legend(code: int) -> str:
+    ingredients_legend_map = {
+        1:"*aus kontrolliert ökologischer Erzeugung",
+        2:"**aus biodynamischem Erzeugung",
+        3:"***aus anerkannt ökologischer Aquakultur",
+        4:"****aus Wildfang",
+        7:"*****aus bio-zertifizierter Wildsammlung",
+        5:"keine Zutatenlegende (100% konventionelle Zutaten)"
+    }
+    return ingredients_legend_map.get(code, "")

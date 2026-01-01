@@ -52,3 +52,44 @@ frappe.ui.form.on('Supplier Catalog', {
         });
     }
 });
+
+frappe.ui.form.on('Supplier Catalog', {
+    start_import_api: function(frm) {
+        if (!frm.doc.brand_datanature) {
+            frappe.msgprint("Bitte wählen Sie eine Marke für den Import aus.");
+            return;
+        }
+
+        // Fetch brand_id based on selected brand name
+        frappe.call({
+            method: "frappe.client.get_value",
+            args: {
+                doctype: "Supplier Catalog Brand",
+                filters: {
+                    brand_name: frm.doc.brand_datanature
+                },
+                fieldname: "brand_id"
+            },
+            callback: function(r) {
+                if (r.message && r.message.brand_id) {
+                    // Save the document first before running import
+                    frm.save().then(() => {
+                        // Now trigger the import function on server
+                        frappe.call({
+                            method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.run_import_products",
+                            args: {
+                                brand_id: r.message.brand_id,
+                                supplier_catalog: frm.doc.name
+                            },
+                            callback: function() {
+                                frappe.msgprint("Import abgeschlossen.");
+                            }
+                        });
+                    });
+                } else {
+                    frappe.msgprint("Die ausgewählte Marke wurde nicht gefunden.");
+                }
+            }
+        });
+    }
+});

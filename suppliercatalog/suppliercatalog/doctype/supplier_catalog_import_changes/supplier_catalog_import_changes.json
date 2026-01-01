@@ -5,18 +5,71 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_jgmu"
+  "column_break_mlfb",
+  "item",
+  "column_break_qamn",
+  "supplier_catalog",
+  "changes_section",
+  "1_1",
+  "column_break_ylue",
+  "1_2",
+  "column_break_kzhj",
+  "1_3"
  ],
  "fields": [
   {
-   "fieldname": "section_break_jgmu",
-   "fieldtype": "Section Break"
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_qamn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_catalog",
+   "fieldtype": "Link",
+   "label": "Supplier Catalog",
+   "options": "Supplier Catalog",
+   "read_only": 1
+  },
+  {
+   "fieldname": "changes_section",
+   "fieldtype": "Section Break",
+   "label": "Changes"
+  },
+  {
+   "fieldname": "1_1",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "column_break_ylue",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "1_2",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "column_break_kzhj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "1_3",
+   "fieldtype": "Check"
+  },
+  {
+   "fieldname": "column_break_mlfb",
+   "fieldtype": "Column Break",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-01 10:26:17.812733",
+ "modified": "2026-01-01 16:52:38.988673",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Import Changes",

@@ -31,3 +31,10 @@ def import_supplier_catalog_items_from_file(docname):
     from suppliercatalog.utils.file_importer import import_supplier_catalog_items_from_csv
     doc = frappe.get_doc("Supplier Catalog", docname)
     return import_supplier_catalog_items_from_csv(doc)
+
+
+@frappe.whitelist()
+# Its the DataNature API Import logic
+def run_import_products(brand_id: str, supplier_catalog: str):
+     from suppliercatalog.utils.datanature_api import import_products
+     import_products(brand_id,supplier_catalog)
