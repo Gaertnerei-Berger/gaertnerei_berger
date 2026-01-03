@@ -109,6 +109,15 @@ def get_content_uom(code: int) -> str:
     }
     return content_uom_map.get(code, "Unknown")
 
+# ----------------------------------
+# Unit of Measure Short Version for name 1 (content_uom) (int -> name)
+# ----------------------------------
+def get_content_uom_short(code: int) -> str:
+    content_uom_map = {
+        2:"g",4:"kg",5:"L",3:"m",6:"mm",
+        9:"Paar",11:"m²",10:"cm²",1:"Stk",7:"cm"
+    }
+    return content_uom_map.get(code, "Unknown")
 
 # ----------------------------------
 # Order Unit mapping (int -> name)

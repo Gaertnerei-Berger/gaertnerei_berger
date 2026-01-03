@@ -20,6 +20,7 @@ from suppliercatalog.utils.datanature_api_mapping import (
     get_pfand_type_vpe1,
     get_pfand_amount_vpe1,
     get_ingredients_legend,
+    get_content_uom_short,
 )
 
 def fetch_security_token():
@@ -526,11 +527,11 @@ def import_products(brand_id=None, supplier_catalog=None):
       
         # calculate base_price_faktor
         content_uom = get_content_uom(int(product.get("ihf_nettofuellmenge_oder_mengenangabe_einheit_id", 0)))
-        content_weight = product.get("ihf_nettofuellmenge_oder_mengenangabe")
+        content_weight = float(product.get("ihf_nettofuellmenge_oder_mengenangabe"))
 
         if content_weight and content_uom:
             try:
-                weight_value = float(content_weight)
+                weight_value = content_weight
                 if content_uom in ["Kilogramm", "Liter"]:
                     faktor_einheit = 1
                 elif content_uom in ["Gramm", "Milliliter"]:
@@ -550,8 +551,14 @@ def import_products(brand_id=None, supplier_catalog=None):
             doc.shop_unit = shop_unit
 
         # Add the Shop unit to name1
-        if name1 and shop_unit:
-            doc.name1 = f"{name1} {shop_unit}"
+        if name1 and content_weight:
+            if content_weight.is_integer():
+                content_weight_special = int(content_weight)
+            else:
+                content_weight_special= content_weight
+            content_uom_short = get_content_uom_short(int(product.get("ihf_nettofuellmenge_oder_mengenangabe_einheit_id")))
+            name_addition = f"{content_weight_special}{content_uom_short}"
+            doc.name1 = f"{name1} {name_addition}"
 
 
         # --------------------------------------------------------------
