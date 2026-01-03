@@ -463,7 +463,8 @@ def import_products(brand_id=None, supplier_catalog=None):
             )
 
         # recommended price
-        doc.recommended_sales_price = product.get("preis_empfohlener_verkaufspreis_deutschland")
+        if product.get("preis_empfohlener_verkaufspreis_deutschland"):
+            doc.recommended_sales_price = product.get("preis_empfohlener_verkaufspreis_deutschland")
 
         # base price unit
         if product.get("preis_grundpreiseinheit_endverbraucher_id"):

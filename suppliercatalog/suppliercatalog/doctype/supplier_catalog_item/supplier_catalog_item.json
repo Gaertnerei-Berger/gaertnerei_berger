@@ -86,8 +86,7 @@
    "fieldname": "linked_item",
    "fieldtype": "Link",
    "label": "Linked Item",
-   "options": "Item",
-   "read_only": 1
+   "options": "Item"
   },
   {
    "fieldname": "supplier",
@@ -207,7 +206,8 @@
   {
    "fieldname": "weight_order_unit",
    "fieldtype": "Float",
-   "label": "Weight Order Unit"
+   "label": "Weight Order Unit",
+   "precision": "2"
   },
   {
    "fieldname": "height",
@@ -298,12 +298,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "supplier_catalog.last_imported",
    "fieldname": "last_imported",
    "fieldtype": "Date",
-   "label": "Last Imported",
-   "options": "Supplier Catalog",
-   "read_only": 1
+   "label": "Last Imported"
   },
   {
    "fieldname": "last_imported_time",
@@ -414,7 +411,7 @@
   },
   {
    "fieldname": "pfand_ammount_vpe1",
-   "fieldtype": "Data",
+   "fieldtype": "Currency",
    "label": "Pfand Ammount VPE1"
   },
   {
@@ -427,7 +424,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-31 20:11:23.457046",
+ "modified": "2026-01-03 16:41:56.476418",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",

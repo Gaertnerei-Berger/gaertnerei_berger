@@ -60,35 +60,48 @@ frappe.ui.form.on('Supplier Catalog', {
             return;
         }
 
-        // Fetch brand_id based on selected brand name
         frappe.call({
             method: "frappe.client.get_value",
             args: {
                 doctype: "Supplier Catalog Brand",
-                filters: {
-                    brand_name: frm.doc.brand_datanature
-                },
+                filters: { brand_name: frm.doc.brand_datanature },
                 fieldname: "brand_id"
             },
             callback: function(r) {
-                if (r.message && r.message.brand_id) {
-                    // Save the document first before running import
-                    frm.save().then(() => {
-                        // Now trigger the import function on server
-                        frappe.call({
-                            method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.run_import_products",
-                            args: {
-                                brand_id: r.message.brand_id,
-                                supplier_catalog: frm.doc.name
-                            },
-                            callback: function() {
-                                frappe.msgprint("Import abgeschlossen.");
-                            }
-                        });
-                    });
-                } else {
+                if (!r.message || !r.message.brand_id) {
                     frappe.msgprint("Die ausgewählte Marke wurde nicht gefunden.");
+                    return;
                 }
+
+                // Alerts can be shown immediately
+                frappe.show_alert(
+                    { message: "Import der Produkte gestartet!", indicator: "blue" },
+                    20
+                );
+
+                frappe.show_alert(
+                    { message: "Bitte warten bis die Meldung 'Erfolgreich importiert' erscheint!", indicator: "blue" },
+                    20
+                );
+
+                // Save must happen right before the server import call (only if dirty)
+                const save_if_needed = frm.is_dirty()
+                    ? frm.save()
+                    : Promise.resolve();
+
+                save_if_needed.then(() => {
+                    // Server import call happens only after save completed (or not needed)
+                    frappe.call({
+                        method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.run_import_products",
+                        args: {
+                            brand_id: r.message.brand_id,
+                            supplier_catalog: frm.doc.name
+                        },
+                        callback: function() {
+                            frappe.msgprint("Erfolgreich importiert.");
+                        }
+                    });
+                });
             }
         });
     }

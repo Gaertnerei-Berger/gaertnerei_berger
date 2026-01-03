@@ -165,7 +165,7 @@ def get_base_price_unit(code: int) -> str:
 def get_tax_amount(code: int) -> float:
     # XML pricemwst 1=19%, 2=7%, 3=0%
     tax_map = {1:19.0,2:7.0,3:0.0}
-    return tax_map.get(code, 0.0)
+    return tax_map.get(code, None)
 
 
 # ----------------------------------
@@ -181,7 +181,7 @@ def get_pfand_type(code: int) -> str:
 # ----------------------------------
 def get_pfand_amount(code: int) -> float:
     pfand_amt_map = {1:0.08,2:0.15,3:0.24,4:0.25,5:0.3,6:0.5,7:0.71}
-    return pfand_amt_map.get(code, 0.0)
+    return pfand_amt_map.get(code, None)
 
 
 # ----------------------------------

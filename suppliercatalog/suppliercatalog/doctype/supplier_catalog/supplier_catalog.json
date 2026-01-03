@@ -86,7 +86,7 @@
   {
    "fieldname": "start_import_api",
    "fieldtype": "Button",
-   "label": "Start_Import"
+   "label": "Start Import"
   },
   {
    "fieldname": "column_break_vffw",
@@ -113,6 +113,7 @@
    "fieldname": "purchase_pricelist",
    "fieldtype": "Link",
    "label": "Purchase Pricelist",
+   "link_filters": "[[\"Price List\",\"buying\",\"=\",1]]",
    "options": "Price List",
    "reqd": 1
   },
@@ -120,6 +121,7 @@
    "fieldname": "sell_pricelist",
    "fieldtype": "Link",
    "label": "Sell Pricelist",
+   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
    "options": "Price List",
    "reqd": 1
   },
@@ -146,7 +148,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-30 13:46:19.159507",
+ "modified": "2026-01-03 16:22:51.360264",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
