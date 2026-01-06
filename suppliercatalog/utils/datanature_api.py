@@ -559,7 +559,11 @@ def import_products(brand_id=None, supplier_catalog=None):
                 content_weight_special= content_weight
             content_uom_short = get_content_uom_short(int(product.get("ihf_nettofuellmenge_oder_mengenangabe_einheit_id")))
             name_addition = f"{content_weight_special}{content_uom_short}"
-            doc.name1 = f"{name1} {name_addition}"
+            if not name1.rstrip().endswith(name_addition):
+                doc.name1 = f"{name1} {name_addition}"
+            else:
+                doc.name1 = name1
+
 
 
         # --------------------------------------------------------------

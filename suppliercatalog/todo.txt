@@ -1,0 +1,6 @@
+move code for base_price unit to Price module (utils/item_price_cal.py)
+    update the linked data
+
+clean code base
+    move the functions in to the right doctypes and clean code
+    

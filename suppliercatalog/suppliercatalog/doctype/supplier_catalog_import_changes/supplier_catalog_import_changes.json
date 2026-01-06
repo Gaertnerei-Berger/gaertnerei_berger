@@ -5,7 +5,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "column_break_mlfb",
+  "item_erp",
   "item",
   "column_break_qamn",
   "supplier_catalog",
@@ -61,7 +61,7 @@
    "fieldtype": "Check"
   },
   {
-   "fieldname": "column_break_mlfb",
+   "fieldname": "item_erp",
    "fieldtype": "Column Break",
    "read_only": 1
   }
@@ -69,7 +69,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-01 16:52:38.988673",
+ "modified": "2026-01-04 21:31:32.245304",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Import Changes",

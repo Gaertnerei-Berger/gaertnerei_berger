@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-04 20:46:55.451921",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "price_settings_section",
+  "purchase_pricelist",
+  "column_break_uqeq",
+  "sell_pricelist",
+  "7_tax_settings_section",
+  "tax_template_7",
+  "column_break_hmmy",
+  "expense_account_7",
+  "income_account_7",
+  "section_break_xhkf",
+  "19_tax_settings_column",
+  "tax_template_19",
+  "column_break_iebt",
+  "expense_account_19",
+  "income_account_19"
+ ],
+ "fields": [
+  {
+   "fieldname": "price_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Price Settings"
+  },
+  {
+   "fieldname": "purchase_pricelist",
+   "fieldtype": "Link",
+   "label": "Purchase Pricelist",
+   "link_filters": "[[\"Price List\",\"buying\",\"=\",1]]",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "column_break_uqeq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sell_pricelist",
+   "fieldtype": "Link",
+   "label": "Sell Pricelist",
+   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "7_tax_settings_section",
+   "fieldtype": "Section Break",
+   "label": "7% Tax Settings"
+  },
+  {
+   "fieldname": "tax_template_7",
+   "fieldtype": "Link",
+   "label": "Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "column_break_hmmy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expense_account_7",
+   "fieldtype": "Link",
+   "label": "Eexpense Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"3%%%\"]]",
+   "options": "Account"
+  },
+  {
+   "fieldname": "income_account_7",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
+   "options": "Account"
+  },
+  {
+   "fieldname": "section_break_xhkf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "19_tax_settings_column",
+   "fieldtype": "Column Break",
+   "label": "19% Tax Settings"
+  },
+  {
+   "fieldname": "tax_template_19",
+   "fieldtype": "Link",
+   "label": "Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "column_break_iebt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expense_account_19",
+   "fieldtype": "Link",
+   "label": "Eexpense Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"3%%%\"]]",
+   "options": "Account"
+  },
+  {
+   "fieldname": "income_account_19",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
+   "options": "Account"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-01-04 20:55:35.239085",
+ "modified_by": "Administrator",
+ "module": "Suppliercatalog",
+ "name": "Supplier Catalog Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

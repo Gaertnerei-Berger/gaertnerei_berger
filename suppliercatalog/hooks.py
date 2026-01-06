@@ -158,6 +158,9 @@ doc_events = {
 
 }
 
+#    "Item Price": {
+#        "on_update": "suppliercatalog.price_calculation.hooks.price_list_calculation.on_item_price_update"
+#    },
 
 # Scheduled Tasks
 # ---------------

@@ -8,6 +8,26 @@ def import_sci(supplier_catalog_item_names):
     Import Supplier Catalog Items into ERPNext Item.
     """
 
+    # Check is Supplier Catalog Settings are set
+    required_fields = [
+    "sell_pricelist",
+    "purchase_pricelist",
+    "tax_template_7",
+    "expense_account_7",
+    "income_account_7",
+    "tax_template_19",
+    "expense_account_19",
+    "income_account_19"
+    ]
+    settings = frappe.get_single("Supplier Catalog Settings")
+    for field in required_fields:
+        if not settings.get(field):
+            frappe.throw(
+                "Supplier Catalog Settings are not fully configured. "
+                "Please check the settings before running the import."
+            )
+
+    # Get the Items from the List view
     if isinstance(supplier_catalog_item_names, str):
         try:
             supplier_catalog_item_names = json.loads(supplier_catalog_item_names)
@@ -53,7 +73,8 @@ def import_sci(supplier_catalog_item_names):
         item.is_stock_item = 1
         item.is_purchase_item = 1
         item.is_sales_item = 1
-                
+        item.custom_imported_supc = 1
+
         for source_field, target_field in FIELD_MAPPING.items():
             value = supplier_item.get(source_field)
             if not is_empty(value):
@@ -95,44 +116,47 @@ def import_sci(supplier_catalog_item_names):
                 "supplier": sup_name
             })
 
+     
         # We need to insert the Item before we can set the Price
         item.insert(ignore_permissions=True)
 
        
         # Create Item Selling Price
         sell_price = supplier_item.get("recommended_sales_price")
+        if sell_price > 0:
+            if not is_empty(sell_price):
+                supplier_catalog = frappe.get_doc(
+                    "Supplier Catalog Settings",
+                    supplier_item.supplier_catalog
+                )
 
-        if not is_empty(sell_price):
-            supplier_catalog = frappe.get_doc(
-                "Supplier Catalog",
-                supplier_item.supplier_catalog
-            )
-
-            item_price = frappe.new_doc("Item Price")
-            item_price.item_code = item.name
-            item_price.price_list = supplier_catalog.sell_pricelist
-            item_price.price_list_rate = sell_price
-            item_price.uom = supplier_item.get("shop_unit_uom")
-            item_price.insert(ignore_permissions=True)
+                item_price = frappe.new_doc("Item Price")
+                item_price.item_code = item.name
+                item_price.price_list = supplier_catalog.sell_pricelist
+                item_price.price_list_rate = sell_price
+                item_price.uom = supplier_item.get("shop_unit_uom")
+                item_price.insert(ignore_permissions=True)
 
 
 
         # Create Item Purchasing Price
         buy_price = supplier_item.get("ek_price")
+        if buy_price > 0:
+            if not is_empty(buy_price):
+                supplier_catalog = frappe.get_doc(
+                    "Supplier Catalog Settings",
+                    supplier_item.supplier_catalog
+                )
 
-        if not is_empty(buy_price):
-            supplier_catalog = frappe.get_doc(
-                "Supplier Catalog",
-                supplier_item.supplier_catalog
-            )
+                item_price = frappe.new_doc("Item Price")
+                item_price.item_code = item.name
+                item_price.price_list = supplier_catalog.purchase_pricelist
+                item_price.price_list_rate = buy_price
+                item_price.uom = supplier_item.get("shop_unit_uom")
+                item_price.insert(ignore_permissions=True)
+         
 
-            item_price = frappe.new_doc("Item Price")
-            item_price.item_code = item.name
-            item_price.price_list = supplier_catalog.purchase_pricelist
-            item_price.price_list_rate = buy_price
-            item_price.uom = supplier_item.get("shop_unit_uom")
-            item_price.insert(ignore_permissions=True)
-   
+
 
         supplier_item.linked_item = item.name
         supplier_item.imported = 1

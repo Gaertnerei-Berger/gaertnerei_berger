@@ -1,0 +1,147 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-05 20:32:46.334574",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "price_list_selection_section",
+  "source_price_list",
+  "price_list_type",
+  "column_break_moqi",
+  "calculated_price_list",
+  "vat_info_section",
+  "vat_7_account",
+  "column_break_tgkx",
+  "vat_19_account",
+  "settings_section",
+  "rounding_precision",
+  "last_run",
+  "column_break_amdh",
+  "auto_generate_prices",
+  "start_now"
+ ],
+ "fields": [
+  {
+   "fieldname": "price_list_selection_section",
+   "fieldtype": "Section Break",
+   "label": "Price List Selection"
+  },
+  {
+   "fieldname": "source_price_list",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Source Price List",
+   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
+   "options": "Price List",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_moqi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "calculated_price_list",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Calculated Price List",
+   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
+   "options": "Price List",
+   "reqd": 1
+  },
+  {
+   "description": "How to determine if the Item has 7% or 19% Tax for the calculation",
+   "fieldname": "vat_info_section",
+   "fieldtype": "Section Break",
+   "label": "VAT Info"
+  },
+  {
+   "fieldname": "settings_section",
+   "fieldtype": "Section Break",
+   "label": "Settings"
+  },
+  {
+   "default": "2",
+   "fieldname": "rounding_precision",
+   "fieldtype": "Int",
+   "label": "Rounding Precision"
+  },
+  {
+   "fieldname": "column_break_amdh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_run",
+   "fieldtype": "Datetime",
+   "label": "Last Run",
+   "read_only": 1
+  },
+  {
+   "fieldname": "start_now",
+   "fieldtype": "Button",
+   "label": "Start Now"
+  },
+  {
+   "fieldname": "column_break_tgkx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Runs automatic when the Price in the Source Price List is changed! ",
+   "fieldname": "auto_generate_prices",
+   "fieldtype": "Check",
+   "label": "Auto Generate"
+  },
+  {
+   "description": "Is the Source Price List a Gross or a Net Price List",
+   "fieldname": "price_list_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Price List Typ",
+   "options": "\nGross\nNet",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vat_7_account",
+   "fieldtype": "Link",
+   "label": "7% Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vat_19_account",
+   "fieldtype": "Link",
+   "label": "19% Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
+   "options": "Account",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-01-05 22:37:34.927387",
+ "modified_by": "Administrator",
+ "module": "Price Calculation",
+ "name": "Price List Calculation Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

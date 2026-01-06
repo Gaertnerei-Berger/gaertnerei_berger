@@ -6,10 +6,8 @@
  "field_order": [
   "verkn\u00fcpfte_felder_section",
   "supplier",
+  "column_break_wyzv",
   "import_methode",
-  "column_break_kgav",
-  "purchase_pricelist",
-  "sell_pricelist",
   "section_break_ixpf",
   "import_amount",
   "last_imported",
@@ -34,10 +32,6 @@
    "options": "Supplier",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "column_break_kgav",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "last_imported",
@@ -110,22 +104,6 @@
    "label": "File Import"
   },
   {
-   "fieldname": "purchase_pricelist",
-   "fieldtype": "Link",
-   "label": "Purchase Pricelist",
-   "link_filters": "[[\"Price List\",\"buying\",\"=\",1]]",
-   "options": "Price List",
-   "reqd": 1
-  },
-  {
-   "fieldname": "sell_pricelist",
-   "fieldtype": "Link",
-   "label": "Sell Pricelist",
-   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
-   "options": "Price List",
-   "reqd": 1
-  },
-  {
    "fieldname": "section_break_ixpf",
    "fieldtype": "Section Break"
   },
@@ -143,12 +121,16 @@
    "fieldname": "brand_datanature",
    "fieldtype": "Select",
    "label": "Brand Datanature"
+  },
+  {
+   "fieldname": "column_break_wyzv",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-03 16:22:51.360264",
+ "modified": "2026-01-04 20:56:18.510547",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
