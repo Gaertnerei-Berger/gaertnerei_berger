@@ -223,21 +223,24 @@ def calculate_single_item_price(item_price_doc):
     item_code = item_price_doc.item_code
     uom = item_price_doc.uom
 
-    vat_rate, _ = _get_item_vat_rate_from_first_tax_template(item_code, settings, strict=False)
+    vat_rate, _ = _get_item_vat_rate_from_first_tax_template(
+        item_code, settings, strict=False
+    )
     if not vat_rate:
         return  # silent skip
 
     rounding_precision = int(settings.rounding_precision or 2)
     currency = _get_price_list_currency(settings.source_price_list)
 
-    target_rate = _calculate_target_rate(source_rate, vat_rate, settings.price_list_type)
+    target_rate = _calculate_target_rate(
+        source_rate, vat_rate, settings.price_list_type
+    )
     target_rate = round(flt(target_rate), rounding_precision)
 
-    _upsert_item_price(
+    name, changed = _upsert_item_price(
         item_code=item_code,
         uom=uom,
         price_list=settings.calculated_price_list,
         rate=target_rate,
         currency=currency,
     )
-    # no last_run update here; no commit required (handled by request txn)
