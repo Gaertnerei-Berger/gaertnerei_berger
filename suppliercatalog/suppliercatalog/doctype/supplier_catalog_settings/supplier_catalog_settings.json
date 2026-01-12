@@ -9,6 +9,7 @@
   "purchase_pricelist",
   "column_break_uqeq",
   "sell_pricelist",
+  "tax_settings_tab",
   "tax_category_section",
   "tax_category_vk",
   "column_break_mbmh",
@@ -20,19 +21,19 @@
   "column_break_hmmy",
   "tax_template_7_ek",
   "expense_account_7",
+  "9_tax_settings_section",
+  "tax_template_9_vk",
+  "income_account_9",
+  "column_break_qray",
+  "tax_template_9_ek",
+  "expense_account_9",
   "19_tax_settings_section",
   "column_break_yeuu",
   "tax_template_19_vk",
   "income_account_19",
   "column_break_iebt",
   "tax_template_19_ek",
-  "expense_account_19",
-  "9_tax_settings_section",
-  "tax_template_9_vk",
-  "income_account_9",
-  "column_break_qray",
-  "tax_template_9_ek",
-  "expense_account_9"
+  "expense_account_19"
  ],
  "fields": [
   {
@@ -193,13 +194,18 @@
    "label": "Eexpense Account",
    "link_filters": "[[\"Account\",\"name\",\"like\",\"3%%%\"]]",
    "options": "Account"
+  },
+  {
+   "fieldname": "tax_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Tax Settings"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-12 10:33:55.122250",
+ "modified": "2026-01-12 10:44:06.339174",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Settings",
