@@ -152,10 +152,14 @@ doc_events = {
         "validate": "suppliercatalog.utils.item_price_cal.custom_validate"
     },
 
+    "Item Price": {
+        "on_update": "suppliercatalog.german_accounting.utils.price_list_calculation.on_update",
+    },
+
     "Item": {
         "validate": "suppliercatalog.utils.item_price_cal.update_item_prices_on_factor_change"
     }
-
+    
 }
 
 #    "Item Price": {

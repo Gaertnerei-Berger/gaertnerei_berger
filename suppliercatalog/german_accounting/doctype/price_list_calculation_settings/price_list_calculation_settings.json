@@ -11,9 +11,9 @@
   "column_break_moqi",
   "calculated_price_list",
   "vat_info_section",
-  "vat_7_account",
+  "vat_7_tax_template",
   "column_break_tgkx",
-  "vat_19_account",
+  "vat_19_tax_template",
   "settings_section",
   "rounding_precision",
   "last_run",
@@ -102,19 +102,19 @@
    "reqd": 1
   },
   {
-   "fieldname": "vat_7_account",
+   "fieldname": "vat_7_tax_template",
    "fieldtype": "Link",
    "label": "7% Account",
-   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
-   "options": "Account",
+   "link_filters": "[[\"Item Tax Template\",\"name\",\"like\",\"7%\"]]",
+   "options": "Item Tax Template",
    "reqd": 1
   },
   {
-   "fieldname": "vat_19_account",
+   "fieldname": "vat_19_tax_template",
    "fieldtype": "Link",
    "label": "19% Account",
-   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
-   "options": "Account",
+   "link_filters": "[[\"Item Tax Template\",\"name\",\"like\",\"19%\"]]",
+   "options": "Item Tax Template",
    "reqd": 1
   }
  ],
@@ -122,7 +122,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-05 22:37:34.927387",
+ "modified": "2026-01-12 15:47:06.253937",
  "modified_by": "Administrator",
  "module": "German Accounting",
  "name": "Price List Calculation Settings",

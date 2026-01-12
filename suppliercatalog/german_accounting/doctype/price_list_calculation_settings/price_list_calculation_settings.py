@@ -2,10 +2,14 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.utils import now_datetime
-from decimal import Decimal, ROUND_HALF_UP
+from suppliercatalog.german_accounting.utils.price_list_calculation import calculate_all_from_settings
 from frappe.model.document import Document
 
 
 class PriceListCalculationSettings(Document):
 	pass
+
+
+@frappe.whitelist()
+def run_price_list_calculation():
+    return calculate_all_from_settings()
