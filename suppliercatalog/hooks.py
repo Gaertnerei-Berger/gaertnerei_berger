@@ -272,20 +272,55 @@ doc_events = {
 # ignore_translatable_strings_from = []
 
 fixtures = [
+    # Master Data (unverändert)
     {"dt": "Supplier Quality"},
     {"dt": "Trade Class"},
     {"dt": "Pfand Typen"},
     {"dt": "UOM"},
 
-    {"dt": "Custom Field", "filters": [
-      [
-         "module", "=", "Suppliercatalog"
-      ]
-    ]},
+    # Custom Fields – vollständiges, explizites Superset
+    {
+        "dt": "Custom Field",
+        "filters": [
+            [
+                "dt",
+                "in",
+                [
+                    # Suppliercatalog / bisher exportiert
+                    "Supplier Catalog Item",
+                    "Supplier Catalog Settings",
+                    "Item",
+                    "Item Price",
+                    "Purchase Receipt",
 
-    {"dt": "Property Setter", "filters": [
-      [
-         "module", "=", "Suppliercatalog"
-      ]
-    ]}
+                    # ➕ German Accounting
+                    "Price List Calculation Settings",
+                    "German Accounting Settings",
+                ]
+            ]
+        ]
+    },
+
+    # Property Setters – identisches Superset
+    {
+        "dt": "Property Setter",
+        "filters": [
+            [
+                "doc_type",
+                "in",
+                [
+                    # Suppliercatalog / bisher exportiert
+                    "Supplier Catalog Item",
+                    "Supplier Catalog Settings",
+                    "Item",
+                    "Item Price",
+                    "Purchase Receipt",
+
+                    # ➕ German Accounting
+                    "Price List Calculation Settings",
+                    "German Accounting Settings",
+                ]
+            ]
+        ]
+    },
 ]
