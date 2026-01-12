@@ -9,6 +9,10 @@
   "purchase_pricelist",
   "column_break_uqeq",
   "sell_pricelist",
+  "item_group_section",
+  "itemgroup_ask",
+  "column_break_kgyt",
+  "itemgroup_select",
   "tax_settings_tab",
   "tax_category_section",
   "tax_category_vk",
@@ -199,13 +203,34 @@
    "fieldname": "tax_settings_tab",
    "fieldtype": "Tab Break",
    "label": "Tax Settings"
+  },
+  {
+   "fieldname": "item_group_section",
+   "fieldtype": "Section Break",
+   "label": "Item Group"
+  },
+  {
+   "default": "0",
+   "fieldname": "itemgroup_ask",
+   "fieldtype": "Check",
+   "label": "itemgroup_ask"
+  },
+  {
+   "fieldname": "column_break_kgyt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "itemgroup_select",
+   "fieldtype": "Link",
+   "label": "itemgroup_select",
+   "options": "Item Group"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-12 10:44:06.339174",
+ "modified": "2026-01-12 11:37:28.779953",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Settings",

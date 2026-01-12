@@ -4,7 +4,78 @@ from frappe.utils import cint
 from suppliercatalog.utils.sup_item_import_mapping import (FIELD_MAPPING, is_empty)  
 
 @frappe.whitelist()
-def import_sci(supplier_catalog_item_names):
+def import_sci_bulk(lookup_type, lookup_values, item_group):
+    """
+    Bulk import Supplier Catalog Items based on lookup values.
+    Returns found / not found values.
+    """
+
+    if isinstance(lookup_values, str):
+        lookup_values = json.loads(lookup_values)
+
+    if not lookup_values:
+        frappe.throw("Keine Suchwerte übergeben.")
+
+    # Mapping Lookup-Typ → Feld
+    lookup_field_map = {
+        "EAN Shop": "ean_shop",
+        "Name": "name1",
+        "BIO-ID": "item_bio_id",
+        "Supplier Itemnumber":"supplier_itemnumber",
+    }
+
+    lookup_field = lookup_field_map.get(lookup_type)
+
+    if not lookup_field:
+        frappe.throw(f"Unbekannter Lookup-Typ: {lookup_type}")
+
+    found_items = []
+    not_found = []
+
+    # Suche Supplier Catalog Items
+    for value in lookup_values:
+        value = value.strip()
+        if not value:
+            continue
+
+        sci_name = frappe.db.get_value(
+            "Supplier Catalog Item",
+            {lookup_field: value},
+            "name"
+        )
+
+        if sci_name:
+            found_items.append(sci_name)
+        else:
+            not_found.append(value)
+
+    # Nichts gefunden → sauber abbrechen
+    if not found_items:
+        return {
+            "found": [],
+            "not_found": not_found,
+            "created": [],
+            "skipped": []
+        }
+
+    # Import aufrufen (reuse existing logic)
+    result = import_sci(
+        supplier_catalog_item_names=json.dumps(found_items),
+        item_group=item_group
+    )
+
+    return {
+        "found": found_items,
+        "not_found": not_found,
+        "created": result.get("created", []),
+        "skipped": result.get("skipped", [])
+    }
+
+
+
+
+@frappe.whitelist()
+def import_sci(supplier_catalog_item_names, item_group=None):
     """
     Import Supplier Catalog Items into ERPNext Item.
     """
@@ -32,6 +103,12 @@ def import_sci(supplier_catalog_item_names):
                 "Please check the settings before running the import."
             )
 
+    if not item_group:
+        item_group = settings.itemgroup_select
+
+    if not item_group:
+        frappe.throw("Keine Artikelgruppe definiert in Supplier Catalog Settings.")
+
     # Get the Items from the List view
     if isinstance(supplier_catalog_item_names, str):
         try:
@@ -41,6 +118,8 @@ def import_sci(supplier_catalog_item_names):
 
     created_items = []
     skipped_items = []
+
+    
 
     for sci_name in supplier_catalog_item_names:
 
@@ -74,7 +153,7 @@ def import_sci(supplier_catalog_item_names):
 
         item = frappe.new_doc("Item")
 
-        item.item_group = "ZZ_IMPORTED"
+        item.item_group = item_group
         item.is_stock_item = 1
         item.is_purchase_item = 1
         item.is_sales_item = 1
