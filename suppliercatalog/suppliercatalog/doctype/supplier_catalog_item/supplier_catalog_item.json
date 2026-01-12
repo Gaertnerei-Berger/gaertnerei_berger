@@ -94,7 +94,8 @@
    "in_list_view": 1,
    "label": "Supplier",
    "options": "Supplier",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "default": "0",
@@ -112,7 +113,8 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Name"
+   "label": "Name",
+   "reqd": 1
   },
   {
    "fieldname": "name2",
@@ -130,7 +132,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "EANshop",
-   "read_only": 1
+   "reqd": 1
   },
   {
    "fieldname": "ean_order",
@@ -227,7 +229,8 @@
   {
    "fieldname": "tax_amount",
    "fieldtype": "Data",
-   "label": "Tax Amount"
+   "label": "Tax Amount",
+   "reqd": 1
   },
   {
    "fieldname": "base_price_faktor",
@@ -382,13 +385,15 @@
    "fieldtype": "Link",
    "label": "Supplier Catalog",
    "options": "Supplier Catalog",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "shop_unit_uom",
    "fieldtype": "Link",
    "label": "Shop Unit UOM",
-   "options": "UOM"
+   "options": "UOM",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_unzb",
@@ -424,7 +429,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-03 16:41:56.476418",
+ "modified": "2026-01-11 15:14:17.409750",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Item",

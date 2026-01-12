@@ -9,17 +9,30 @@
   "purchase_pricelist",
   "column_break_uqeq",
   "sell_pricelist",
+  "tax_category_section",
+  "tax_category_vk",
+  "column_break_mbmh",
+  "tax_category_ek",
   "7_tax_settings_section",
-  "tax_template_7",
-  "column_break_hmmy",
-  "expense_account_7",
+  "column_break_embe",
+  "tax_template_7_vk",
   "income_account_7",
-  "section_break_xhkf",
-  "19_tax_settings_column",
-  "tax_template_19",
+  "column_break_hmmy",
+  "tax_template_7_ek",
+  "expense_account_7",
+  "19_tax_settings_section",
+  "column_break_yeuu",
+  "tax_template_19_vk",
+  "income_account_19",
   "column_break_iebt",
+  "tax_template_19_ek",
   "expense_account_19",
-  "income_account_19"
+  "9_tax_settings_section",
+  "tax_template_9_vk",
+  "income_account_9",
+  "column_break_qray",
+  "tax_template_9_ek",
+  "expense_account_9"
  ],
  "fields": [
   {
@@ -51,12 +64,6 @@
    "label": "7% Tax Settings"
   },
   {
-   "fieldname": "tax_template_7",
-   "fieldtype": "Link",
-   "label": "Tax Template",
-   "options": "Item Tax Template"
-  },
-  {
    "fieldname": "column_break_hmmy",
    "fieldtype": "Column Break"
   },
@@ -75,21 +82,6 @@
    "options": "Account"
   },
   {
-   "fieldname": "section_break_xhkf",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "19_tax_settings_column",
-   "fieldtype": "Column Break",
-   "label": "19% Tax Settings"
-  },
-  {
-   "fieldname": "tax_template_19",
-   "fieldtype": "Link",
-   "label": "Tax Template",
-   "options": "Item Tax Template"
-  },
-  {
    "fieldname": "column_break_iebt",
    "fieldtype": "Column Break"
   },
@@ -106,13 +98,108 @@
    "label": "Income Account",
    "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
    "options": "Account"
+  },
+  {
+   "fieldname": "tax_template_7_ek",
+   "fieldtype": "Link",
+   "label": "Tax Template EK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "tax_template_7_vk",
+   "fieldtype": "Link",
+   "label": "Tax Template VK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "column_break_embe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "19_tax_settings_section",
+   "fieldtype": "Section Break",
+   "label": "19% Tax Settings"
+  },
+  {
+   "fieldname": "tax_template_19_vk",
+   "fieldtype": "Link",
+   "label": "Tax Template VK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "tax_template_19_ek",
+   "fieldtype": "Link",
+   "label": "Tax Template EK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "column_break_yeuu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_category_section",
+   "fieldtype": "Section Break",
+   "label": "Tax Category"
+  },
+  {
+   "fieldname": "tax_category_vk",
+   "fieldtype": "Link",
+   "label": "Tax Category VK",
+   "options": "Tax Category"
+  },
+  {
+   "fieldname": "column_break_mbmh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_category_ek",
+   "fieldtype": "Link",
+   "label": "Tax Category EK",
+   "options": "Tax Category"
+  },
+  {
+   "description": "MOMENTAN OHNE FUNKTION",
+   "fieldname": "9_tax_settings_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "9% Tax Settings"
+  },
+  {
+   "fieldname": "tax_template_9_vk",
+   "fieldtype": "Link",
+   "label": "Tax Template VK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "income_account_9",
+   "fieldtype": "Link",
+   "label": "Income Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"8%%%\"]]",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_qray",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_template_9_ek",
+   "fieldtype": "Link",
+   "label": "Tax Template EK",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "expense_account_9",
+   "fieldtype": "Link",
+   "label": "Eexpense Account",
+   "link_filters": "[[\"Account\",\"name\",\"like\",\"3%%%\"]]",
+   "options": "Account"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-04 20:55:35.239085",
+ "modified": "2026-01-12 10:33:55.122250",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Settings",

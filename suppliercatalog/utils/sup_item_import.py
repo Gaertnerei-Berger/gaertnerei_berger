@@ -1,5 +1,6 @@
 import frappe
 import json
+from frappe.utils import cint
 from suppliercatalog.utils.sup_item_import_mapping import (FIELD_MAPPING, is_empty)  
 
 @frappe.whitelist()
@@ -12,10 +13,14 @@ def import_sci(supplier_catalog_item_names):
     required_fields = [
     "sell_pricelist",
     "purchase_pricelist",
-    "tax_template_7",
+    "tax_category_ek",
+    "tax_category_vk",
+    "tax_template_7_ek",
+    "tax_template_7_vk",
     "expense_account_7",
     "income_account_7",
-    "tax_template_19",
+    "tax_template_19_ek",
+    "tax_template_19_vk",
     "expense_account_19",
     "income_account_19"
     ]
@@ -154,8 +159,53 @@ def import_sci(supplier_catalog_item_names):
                 item_price.price_list_rate = buy_price
                 item_price.uom = supplier_item.get("shop_unit_uom")
                 item_price.insert(ignore_permissions=True)
-         
 
+
+        # ------------------------------------------------------------
+        # Set Taxes & Item Defaults based on tax_amount (7% / 19%)
+        # ------------------------------------------------------------
+               
+        tax_amount = cint(supplier_item.get("tax_amount"))
+
+        if tax_amount in (7, 9, 19):
+            # Werte aus Supplier Catalog Settings (Singleton)
+            tax_template_vk = settings.get(f"tax_template_{tax_amount}_vk")
+            tax_template_ek = settings.get(f"tax_template_{tax_amount}_ek")
+            income_account = settings.get(f"income_account_{tax_amount}")
+            expense_account = settings.get(f"expense_account_{tax_amount}")
+            tax_category_vk = settings.get("tax_category_vk")
+            tax_category_ek = settings.get("tax_category_ek")
+
+
+
+            # Item Defaults ersetzen
+            item.set("item_defaults", [])
+            default_company = frappe.defaults.get_global_default("company")
+
+            item.append("item_defaults", {
+                "company": default_company,
+                "income_account": income_account,
+                "expense_account": expense_account
+            })
+
+            # Item Taxes ersetzen
+            item.set("taxes", [])
+
+            # Verkauf
+            if tax_template_vk:
+                item.append("taxes", {
+                    "item_tax_template": tax_template_vk,
+                    "tax_category": tax_category_vk
+                })
+
+            # Einkauf
+            if tax_template_ek:
+                item.append("taxes", {
+                    "item_tax_template": tax_template_ek,
+                    "tax_category": tax_category_ek
+                })
+
+            item.save(ignore_permissions=True)
 
 
         supplier_item.linked_item = item.name
