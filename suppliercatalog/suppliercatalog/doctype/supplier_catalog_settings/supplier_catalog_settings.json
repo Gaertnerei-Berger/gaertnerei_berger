@@ -15,29 +15,24 @@
   "itemgroup_select",
   "tax_settings_tab",
   "tax_category_section",
-  "tax_category_vk",
-  "column_break_mbmh",
-  "tax_category_ek",
+  "tax_category",
   "7_tax_settings_section",
   "column_break_embe",
-  "tax_template_7_vk",
-  "income_account_7",
+  "tax_template_7",
   "column_break_hmmy",
-  "tax_template_7_ek",
   "expense_account_7",
+  "income_account_7",
   "9_tax_settings_section",
-  "tax_template_9_vk",
-  "income_account_9",
+  "tax_template_9",
   "column_break_qray",
-  "tax_template_9_ek",
   "expense_account_9",
+  "income_account_9",
   "19_tax_settings_section",
   "column_break_yeuu",
-  "tax_template_19_vk",
-  "income_account_19",
+  "tax_template_19",
   "column_break_iebt",
-  "tax_template_19_ek",
-  "expense_account_19"
+  "expense_account_19",
+  "income_account_19"
  ],
  "fields": [
   {
@@ -105,18 +100,6 @@
    "options": "Account"
   },
   {
-   "fieldname": "tax_template_7_ek",
-   "fieldtype": "Link",
-   "label": "Tax Template EK",
-   "options": "Item Tax Template"
-  },
-  {
-   "fieldname": "tax_template_7_vk",
-   "fieldtype": "Link",
-   "label": "Tax Template VK",
-   "options": "Item Tax Template"
-  },
-  {
    "fieldname": "column_break_embe",
    "fieldtype": "Column Break"
   },
@@ -124,18 +107,6 @@
    "fieldname": "19_tax_settings_section",
    "fieldtype": "Section Break",
    "label": "19% Tax Settings"
-  },
-  {
-   "fieldname": "tax_template_19_vk",
-   "fieldtype": "Link",
-   "label": "Tax Template VK",
-   "options": "Item Tax Template"
-  },
-  {
-   "fieldname": "tax_template_19_ek",
-   "fieldtype": "Link",
-   "label": "Tax Template EK",
-   "options": "Item Tax Template"
   },
   {
    "fieldname": "column_break_yeuu",
@@ -147,33 +118,11 @@
    "label": "Tax Category"
   },
   {
-   "fieldname": "tax_category_vk",
-   "fieldtype": "Link",
-   "label": "Tax Category VK",
-   "options": "Tax Category"
-  },
-  {
-   "fieldname": "column_break_mbmh",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tax_category_ek",
-   "fieldtype": "Link",
-   "label": "Tax Category EK",
-   "options": "Tax Category"
-  },
-  {
    "description": "MOMENTAN OHNE FUNKTION",
    "fieldname": "9_tax_settings_section",
    "fieldtype": "Section Break",
    "hidden": 1,
    "label": "9% Tax Settings"
-  },
-  {
-   "fieldname": "tax_template_9_vk",
-   "fieldtype": "Link",
-   "label": "Tax Template VK",
-   "options": "Item Tax Template"
   },
   {
    "fieldname": "income_account_9",
@@ -185,12 +134,6 @@
   {
    "fieldname": "column_break_qray",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tax_template_9_ek",
-   "fieldtype": "Link",
-   "label": "Tax Template EK",
-   "options": "Item Tax Template"
   },
   {
    "fieldname": "expense_account_9",
@@ -224,13 +167,37 @@
    "fieldtype": "Link",
    "label": "itemgroup_select",
    "options": "Item Group"
+  },
+  {
+   "fieldname": "tax_category",
+   "fieldtype": "Link",
+   "label": "Tax Category",
+   "options": "Tax Category"
+  },
+  {
+   "fieldname": "tax_template_7",
+   "fieldtype": "Link",
+   "label": "Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "tax_template_9",
+   "fieldtype": "Link",
+   "label": "Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "tax_template_19",
+   "fieldtype": "Link",
+   "label": "Tax Template",
+   "options": "Item Tax Template"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-12 11:37:28.779953",
+ "modified": "2026-01-18 16:26:37.940894",
  "modified_by": "Administrator",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog Settings",

@@ -84,14 +84,11 @@ def import_sci(supplier_catalog_item_names, item_group=None):
     required_fields = [
     "sell_pricelist",
     "purchase_pricelist",
-    "tax_category_ek",
-    "tax_category_vk",
-    "tax_template_7_ek",
-    "tax_template_7_vk",
+    "tax_category",
+    "tax_template_7",
     "expense_account_7",
     "income_account_7",
-    "tax_template_19_ek",
-    "tax_template_19_vk",
+    "tax_template_19",
     "expense_account_19",
     "income_account_19"
     ]
@@ -248,12 +245,10 @@ def import_sci(supplier_catalog_item_names, item_group=None):
 
         if tax_amount in (7, 9, 19):
             # Werte aus Supplier Catalog Settings (Singleton)
-            tax_template_vk = settings.get(f"tax_template_{tax_amount}_vk")
-            tax_template_ek = settings.get(f"tax_template_{tax_amount}_ek")
+            tax_template = settings.get(f"tax_template_{tax_amount}")
             income_account = settings.get(f"income_account_{tax_amount}")
             expense_account = settings.get(f"expense_account_{tax_amount}")
-            tax_category_vk = settings.get("tax_category_vk")
-            tax_category_ek = settings.get("tax_category_ek")
+            tax_category = settings.get("tax_category")
 
 
 
@@ -270,18 +265,11 @@ def import_sci(supplier_catalog_item_names, item_group=None):
             # Item Taxes ersetzen
             item.set("taxes", [])
 
-            # Verkauf
-            if tax_template_vk:
+            # Templates
+            if tax_template:
                 item.append("taxes", {
-                    "item_tax_template": tax_template_vk,
-                    "tax_category": tax_category_vk
-                })
-
-            # Einkauf
-            if tax_template_ek:
-                item.append("taxes", {
-                    "item_tax_template": tax_template_ek,
-                    "tax_category": tax_category_ek
+                    "item_tax_template": tax_template,
+                    "tax_category": tax_category
                 })
 
             item.save(ignore_permissions=True)
