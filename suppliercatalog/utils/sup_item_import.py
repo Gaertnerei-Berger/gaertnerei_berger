@@ -4,9 +4,10 @@ from frappe.utils import cint
 from suppliercatalog.utils.sup_item_import_mapping import (FIELD_MAPPING, is_empty)  
 
 @frappe.whitelist()
-def import_sci_bulk(lookup_type, lookup_values, item_group):
+def import_sci_bulk(lookup_type, lookup_values, item_group, supplier_catalog):
     """
-    Bulk import Supplier Catalog Items based on lookup values.
+    Bulk import Supplier Catalog Items based on lookup values
+    and a selected Supplier Catalog.
     Returns found / not found values.
     """
 
@@ -16,23 +17,23 @@ def import_sci_bulk(lookup_type, lookup_values, item_group):
     if not lookup_values:
         frappe.throw("Keine Suchwerte übergeben.")
 
-    # Mapping Lookup-Typ → Feld
+    if not supplier_catalog:
+        frappe.throw("Supplier Catalog ist erforderlich.")
+
     lookup_field_map = {
         "EAN Shop": "ean_shop",
         "Name": "name1",
         "BIO-ID": "item_bio_id",
-        "Supplier Itemnumber":"supplier_itemnumber",
+        "Supplier Itemnumber": "supplier_itemnumber",
     }
 
     lookup_field = lookup_field_map.get(lookup_type)
-
     if not lookup_field:
         frappe.throw(f"Unbekannter Lookup-Typ: {lookup_type}")
 
     found_items = []
     not_found = []
 
-    # Suche Supplier Catalog Items
     for value in lookup_values:
         value = value.strip()
         if not value:
@@ -40,7 +41,10 @@ def import_sci_bulk(lookup_type, lookup_values, item_group):
 
         sci_name = frappe.db.get_value(
             "Supplier Catalog Item",
-            {lookup_field: value},
+            {
+                lookup_field: value,
+                "supplier_catalog": supplier_catalog
+            },
             "name"
         )
 
@@ -49,7 +53,6 @@ def import_sci_bulk(lookup_type, lookup_values, item_group):
         else:
             not_found.append(value)
 
-    # Nichts gefunden → sauber abbrechen
     if not found_items:
         return {
             "found": [],
@@ -58,10 +61,10 @@ def import_sci_bulk(lookup_type, lookup_values, item_group):
             "skipped": []
         }
 
-    # Import aufrufen (reuse existing logic)
     result = import_sci(
         supplier_catalog_item_names=json.dumps(found_items),
-        item_group=item_group
+        item_group=item_group,
+        supplier_catalog=supplier_catalog
     )
 
     return {
@@ -75,23 +78,26 @@ def import_sci_bulk(lookup_type, lookup_values, item_group):
 
 
 @frappe.whitelist()
-def import_sci(supplier_catalog_item_names, item_group=None):
+def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=None):
     """
     Import Supplier Catalog Items into ERPNext Item.
     """
 
-    # Check is Supplier Catalog Settings are set
+    if not supplier_catalog:
+        frappe.throw("Supplier Catalog ist erforderlich.")
+
     required_fields = [
-    "sell_pricelist",
-    "purchase_pricelist",
-    "tax_category",
-    "tax_template_7",
-    "expense_account_7",
-    "income_account_7",
-    "tax_template_19",
-    "expense_account_19",
-    "income_account_19"
+        "sell_pricelist",
+        "purchase_pricelist",
+        "tax_category",
+        "tax_template_7",
+        "expense_account_7",
+        "income_account_7",
+        "tax_template_19",
+        "expense_account_19",
+        "income_account_19"
     ]
+
     settings = frappe.get_single("Supplier Catalog Settings")
     for field in required_fields:
         if not settings.get(field):
@@ -106,7 +112,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
     if not item_group:
         frappe.throw("Keine Artikelgruppe definiert in Supplier Catalog Settings.")
 
-    # Get the Items from the List view
     if isinstance(supplier_catalog_item_names, str):
         try:
             supplier_catalog_item_names = json.loads(supplier_catalog_item_names)
@@ -116,8 +121,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
     created_items = []
     skipped_items = []
 
-    
-
     for sci_name in supplier_catalog_item_names:
 
         if not frappe.db.exists("Supplier Catalog Item", sci_name):
@@ -126,6 +129,9 @@ def import_sci(supplier_catalog_item_names, item_group=None):
 
         supplier_item = frappe.get_doc("Supplier Catalog Item", sci_name)
 
+        if supplier_item.supplier_catalog != supplier_catalog:
+            skipped_items.append(sci_name)
+            continue
 
         if supplier_item.get("imported") == 1:
             skipped_items.append(sci_name)
@@ -144,12 +150,10 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 supplier_item.linked_item = existing_item
                 supplier_item.imported = 1
                 supplier_item.save(ignore_permissions=True)
-
                 skipped_items.append(sci_name)
                 continue
 
         item = frappe.new_doc("Item")
-
         item.item_group = item_group
         item.is_stock_item = 1
         item.is_purchase_item = 1
@@ -164,8 +168,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
         if is_empty(item.item_name):
             item.item_name = supplier_item.get("name1")
 
-
-        # Add Shop barcode child row if ean_shop exists
         ean_shop = supplier_item.get("ean_shop")
         uom_shop = supplier_item.get("shop_unit_uom")
 
@@ -176,7 +178,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 "uom": uom_shop
             })
 
-        # Add Vpe1 barcode child row if ean_shop exists
         ean_vpe1 = supplier_item.get("ean_order")
         uom_vpe1 = supplier_item.get("orderunit")
 
@@ -187,7 +188,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 "uom": uom_vpe1
             })
 
-        # Add Supplier Nr to Supplier Items Childtabel
         sup_name = supplier_item.get("supplier")
         sup_item_nr = supplier_item.get("supplier_itemnumber")
 
@@ -197,62 +197,39 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 "supplier": sup_name
             })
 
-     
-        # We need to insert the Item before we can set the Price
         item.insert(ignore_permissions=True)
 
-       
-        # Create Item Selling Price
+        supplier_catalog_settings = frappe.get_doc(
+            "Supplier Catalog Settings",
+            supplier_catalog
+        )
+
         sell_price = supplier_item.get("recommended_sales_price")
-        if sell_price > 0:
-            if not is_empty(sell_price):
-                supplier_catalog = frappe.get_doc(
-                    "Supplier Catalog Settings",
-                    supplier_item.supplier_catalog
-                )
+        if sell_price and sell_price > 0:
+            item_price = frappe.new_doc("Item Price")
+            item_price.item_code = item.name
+            item_price.price_list = supplier_catalog_settings.sell_pricelist
+            item_price.price_list_rate = sell_price
+            item_price.uom = supplier_item.get("shop_unit_uom")
+            item_price.insert(ignore_permissions=True)
 
-                item_price = frappe.new_doc("Item Price")
-                item_price.item_code = item.name
-                item_price.price_list = supplier_catalog.sell_pricelist
-                item_price.price_list_rate = sell_price
-                item_price.uom = supplier_item.get("shop_unit_uom")
-                item_price.insert(ignore_permissions=True)
-
-
-
-        # Create Item Purchasing Price
         buy_price = supplier_item.get("ek_price")
-        if buy_price > 0:
-            if not is_empty(buy_price):
-                supplier_catalog = frappe.get_doc(
-                    "Supplier Catalog Settings",
-                    supplier_item.supplier_catalog
-                )
+        if buy_price and buy_price > 0:
+            item_price = frappe.new_doc("Item Price")
+            item_price.item_code = item.name
+            item_price.price_list = supplier_catalog_settings.purchase_pricelist
+            item_price.price_list_rate = buy_price
+            item_price.uom = supplier_item.get("shop_unit_uom")
+            item_price.insert(ignore_permissions=True)
 
-                item_price = frappe.new_doc("Item Price")
-                item_price.item_code = item.name
-                item_price.price_list = supplier_catalog.purchase_pricelist
-                item_price.price_list_rate = buy_price
-                item_price.uom = supplier_item.get("shop_unit_uom")
-                item_price.insert(ignore_permissions=True)
-
-
-        # ------------------------------------------------------------
-        # Set Taxes & Item Defaults based on tax_amount (7% / 19%)
-        # ------------------------------------------------------------
-               
         tax_amount = cint(supplier_item.get("tax_amount"))
 
         if tax_amount in (7, 9, 19):
-            # Werte aus Supplier Catalog Settings (Singleton)
             tax_template = settings.get(f"tax_template_{tax_amount}")
             income_account = settings.get(f"income_account_{tax_amount}")
             expense_account = settings.get(f"expense_account_{tax_amount}")
             tax_category = settings.get("tax_category")
 
-
-
-            # Item Defaults ersetzen
             item.set("item_defaults", [])
             default_company = frappe.defaults.get_global_default("company")
 
@@ -262,10 +239,7 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 "expense_account": expense_account
             })
 
-            # Item Taxes ersetzen
             item.set("taxes", [])
-
-            # Templates
             if tax_template:
                 item.append("taxes", {
                     "item_tax_template": tax_template,
@@ -273,7 +247,6 @@ def import_sci(supplier_catalog_item_names, item_group=None):
                 })
 
             item.save(ignore_permissions=True)
-
 
         supplier_item.linked_item = item.name
         supplier_item.imported = 1
