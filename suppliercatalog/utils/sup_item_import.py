@@ -63,8 +63,7 @@ def import_sci_bulk(lookup_type, lookup_values, item_group, supplier_catalog):
 
     result = import_sci(
         supplier_catalog_item_names=json.dumps(found_items),
-        item_group=item_group,
-        supplier_catalog=supplier_catalog
+        item_group=item_group
     )
 
     return {
@@ -78,14 +77,15 @@ def import_sci_bulk(lookup_type, lookup_values, item_group, supplier_catalog):
 
 
 @frappe.whitelist()
-def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=None):
+def import_sci(supplier_catalog_item_names, item_group=None):
     """
-    Import Supplier Catalog Items into ERPNext Item.
+    Import Supplier Catalog Items into ERPNext Items.
+    Item-specific import, no Supplier Catalog check required.
     """
 
-    if not supplier_catalog:
-        frappe.throw("Supplier Catalog ist erforderlich.")
-
+    # ------------------------------------------------------------------
+    # Validate Supplier Catalog Settings (singleton)
+    # ------------------------------------------------------------------
     required_fields = [
         "sell_pricelist",
         "purchase_pricelist",
@@ -95,10 +95,11 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
         "income_account_7",
         "tax_template_19",
         "expense_account_19",
-        "income_account_19"
+        "income_account_19",
     ]
 
     settings = frappe.get_single("Supplier Catalog Settings")
+
     for field in required_fields:
         if not settings.get(field):
             frappe.throw(
@@ -106,12 +107,18 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
                 "Please check the settings before running the import."
             )
 
+    # ------------------------------------------------------------------
+    # Resolve item group
+    # ------------------------------------------------------------------
     if not item_group:
         item_group = settings.itemgroup_select
 
     if not item_group:
         frappe.throw("Keine Artikelgruppe definiert in Supplier Catalog Settings.")
 
+    # ------------------------------------------------------------------
+    # Normalize input
+    # ------------------------------------------------------------------
     if isinstance(supplier_catalog_item_names, str):
         try:
             supplier_catalog_item_names = json.loads(supplier_catalog_item_names)
@@ -121,6 +128,9 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
     created_items = []
     skipped_items = []
 
+    # ------------------------------------------------------------------
+    # Process items
+    # ------------------------------------------------------------------
     for sci_name in supplier_catalog_item_names:
 
         if not frappe.db.exists("Supplier Catalog Item", sci_name):
@@ -129,23 +139,20 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
 
         supplier_item = frappe.get_doc("Supplier Catalog Item", sci_name)
 
-        if supplier_item.supplier_catalog != supplier_catalog:
+        if supplier_item.imported == 1:
             skipped_items.append(sci_name)
             continue
 
-        if supplier_item.get("imported") == 1:
-            skipped_items.append(sci_name)
-            continue
-
+        # ------------------------------------------------------------------
+        # Prevent duplicate Items by BIO-ID
+        # ------------------------------------------------------------------
         bio_id = supplier_item.get("item_bio_id")
-
-        if not is_empty(bio_id):
+        if bio_id:
             existing_item = frappe.db.get_value(
                 "Item",
                 {"custom_item_bio_id": bio_id},
                 "name"
             )
-
             if existing_item:
                 supplier_item.linked_item = existing_item
                 supplier_item.imported = 1
@@ -153,6 +160,9 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
                 skipped_items.append(sci_name)
                 continue
 
+        # ------------------------------------------------------------------
+        # Create Item
+        # ------------------------------------------------------------------
         item = frappe.new_doc("Item")
         item.item_group = item_group
         item.is_stock_item = 1
@@ -166,88 +176,83 @@ def import_sci(supplier_catalog_item_names, item_group=None, supplier_catalog=No
                 item.set(target_field, value)
 
         if is_empty(item.item_name):
-            item.item_name = supplier_item.get("name1")
+            item.item_name = supplier_item.name1
 
-        ean_shop = supplier_item.get("ean_shop")
-        uom_shop = supplier_item.get("shop_unit_uom")
-
-        if not is_empty(ean_shop):
+        # ------------------------------------------------------------------
+        # Barcodes
+        # ------------------------------------------------------------------
+        if supplier_item.ean_shop:
             item.append("barcodes", {
-                "barcode": ean_shop,
+                "barcode": supplier_item.ean_shop,
                 "barcode_type": "EAN",
-                "uom": uom_shop
+                "uom": supplier_item.shop_unit_uom
             })
 
-        ean_vpe1 = supplier_item.get("ean_order")
-        uom_vpe1 = supplier_item.get("orderunit")
-
-        if not is_empty(ean_vpe1):
+        if supplier_item.ean_order:
             item.append("barcodes", {
-                "barcode": ean_vpe1,
+                "barcode": supplier_item.ean_order,
                 "barcode_type": "EAN",
-                "uom": uom_vpe1
+                "uom": supplier_item.orderunit
             })
 
-        sup_name = supplier_item.get("supplier")
-        sup_item_nr = supplier_item.get("supplier_itemnumber")
-
-        if not is_empty(sup_item_nr):
+        # ------------------------------------------------------------------
+        # Supplier Item
+        # ------------------------------------------------------------------
+        if supplier_item.supplier_itemnumber:
             item.append("supplier_items", {
-                "supplier_part_no": sup_item_nr,
-                "supplier": sup_name
+                "supplier": supplier_item.supplier,
+                "supplier_part_no": supplier_item.supplier_itemnumber
             })
 
         item.insert(ignore_permissions=True)
 
-        supplier_catalog_settings = frappe.get_doc(
-            "Supplier Catalog Settings",
-            supplier_catalog
-        )
+        # ------------------------------------------------------------------
+        # Prices
+        # ------------------------------------------------------------------
+        if supplier_item.recommended_sales_price:
+            frappe.get_doc({
+                "doctype": "Item Price",
+                "item_code": item.name,
+                "price_list": settings.sell_pricelist,
+                "price_list_rate": supplier_item.recommended_sales_price,
+                "uom": supplier_item.shop_unit_uom
+            }).insert(ignore_permissions=True)
 
-        sell_price = supplier_item.get("recommended_sales_price")
-        if sell_price and sell_price > 0:
-            item_price = frappe.new_doc("Item Price")
-            item_price.item_code = item.name
-            item_price.price_list = supplier_catalog_settings.sell_pricelist
-            item_price.price_list_rate = sell_price
-            item_price.uom = supplier_item.get("shop_unit_uom")
-            item_price.insert(ignore_permissions=True)
+        if supplier_item.ek_price:
+            frappe.get_doc({
+                "doctype": "Item Price",
+                "item_code": item.name,
+                "price_list": settings.purchase_pricelist,
+                "price_list_rate": supplier_item.ek_price,
+                "uom": supplier_item.shop_unit_uom
+            }).insert(ignore_permissions=True)
 
-        buy_price = supplier_item.get("ek_price")
-        if buy_price and buy_price > 0:
-            item_price = frappe.new_doc("Item Price")
-            item_price.item_code = item.name
-            item_price.price_list = supplier_catalog_settings.purchase_pricelist
-            item_price.price_list_rate = buy_price
-            item_price.uom = supplier_item.get("shop_unit_uom")
-            item_price.insert(ignore_permissions=True)
-
-        tax_amount = cint(supplier_item.get("tax_amount"))
+        # ------------------------------------------------------------------
+        # Taxes
+        # ------------------------------------------------------------------
+        tax_amount = cint(supplier_item.tax_amount)
 
         if tax_amount in (7, 9, 19):
-            tax_template = settings.get(f"tax_template_{tax_amount}")
-            income_account = settings.get(f"income_account_{tax_amount}")
-            expense_account = settings.get(f"expense_account_{tax_amount}")
-            tax_category = settings.get("tax_category")
-
             item.set("item_defaults", [])
-            default_company = frappe.defaults.get_global_default("company")
+            item.set("taxes", [])
 
             item.append("item_defaults", {
-                "company": default_company,
-                "income_account": income_account,
-                "expense_account": expense_account
+                "company": frappe.defaults.get_global_default("company"),
+                "income_account": settings.get(f"income_account_{tax_amount}"),
+                "expense_account": settings.get(f"expense_account_{tax_amount}")
             })
 
-            item.set("taxes", [])
-            if tax_template:
+            if settings.get(f"tax_template_{tax_amount}"):
                 item.append("taxes", {
-                    "item_tax_template": tax_template,
-                    "tax_category": tax_category
+                    "item_tax_template": settings.get(f"tax_template_{tax_amount}"),
+                    "tax_category": settings.tax_category
                 })
 
             item.save(ignore_permissions=True)
 
+        # ------------------------------------------------------------------
+        # Mark Supplier Catalog Item as imported
+        # ------------------------------------------------------------------
         supplier_item.linked_item = item.name
         supplier_item.imported = 1
         supplier_item.save(ignore_permissions=True)

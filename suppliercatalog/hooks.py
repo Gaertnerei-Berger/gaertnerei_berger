@@ -293,7 +293,7 @@ fixtures = [
                     "Item Price",
                     "Purchase Receipt",
 
-                    # ➕ German Accounting
+                    # German Accounting
                     "Price List Calculation Settings",
                     "German Accounting Settings",
                 ]
@@ -316,7 +316,7 @@ fixtures = [
                     "Item Price",
                     "Purchase Receipt",
 
-                    # ➕ German Accounting
+                    # German Accounting
                     "Price List Calculation Settings",
                     "German Accounting Settings",
                 ]

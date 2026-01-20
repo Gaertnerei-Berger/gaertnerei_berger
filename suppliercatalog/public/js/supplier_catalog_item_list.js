@@ -22,53 +22,39 @@ frappe.listview_settings['Supplier Catalog Item'] = {
                     "itemgroup_ask"
                 ).then(itemgroup_ask => {
 
-                    const fields = [
-                        {
-                            fieldname: "supplier_catalog",
-                            fieldtype: "Link",
-                            label: __("Supplier Catalog"),
-                            options: "Supplier Catalog",
-                            reqd: 1
-                        }
-                    ];
-
                     if (itemgroup_ask) {
-                        fields.push({
-                            fieldname: "item_group",
-                            fieldtype: "Link",
-                            label: __("Artikelgruppe"),
-                            options: "Item Group",
-                            reqd: 1
-                        });
-                    }
-
-                    frappe.prompt(
-                        fields,
-                        values => {
-                            if (itemgroup_ask) {
+                        frappe.prompt(
+                            [
+                                {
+                                    fieldname: "item_group",
+                                    fieldtype: "Link",
+                                    label: __("Artikelgruppe"),
+                                    options: "Item Group",
+                                    reqd: 1
+                                }
+                            ],
+                            values => {
                                 start_import(
                                     listview,
                                     names,
-                                    values.item_group,
-                                    values.supplier_catalog
+                                    values.item_group
                                 );
-                            } else {
-                                frappe.db.get_single_value(
-                                    "Supplier Catalog Settings",
-                                    "itemgroup_select"
-                                ).then(item_group => {
-                                    start_import(
-                                        listview,
-                                        names,
-                                        item_group,
-                                        values.supplier_catalog
-                                    );
-                                });
-                            }
-                        },
-                        __("Import starten"),
-                        __("Import starten")
-                    );
+                            },
+                            __("Import starten"),
+                            __("Import starten")
+                        );
+                    } else {
+                        frappe.db.get_single_value(
+                            "Supplier Catalog Settings",
+                            "itemgroup_select"
+                        ).then(item_group => {
+                            start_import(
+                                listview,
+                                names,
+                                item_group
+                            );
+                        });
+                    }
                 });
             }
         );
@@ -86,9 +72,9 @@ frappe.listview_settings['Supplier Catalog Item'] = {
 };
 
 // --------------------------------------------------
-// Helper: normal Import
+// Helper: normal Import (NO supplier catalog)
 // --------------------------------------------------
-function start_import(listview, names, item_group, supplier_catalog) {
+function start_import(listview, names, item_group) {
 
     frappe.show_alert(
         { message: __("Import started…"), indicator: "blue" },
@@ -99,8 +85,7 @@ function start_import(listview, names, item_group, supplier_catalog) {
         method: "suppliercatalog.utils.sup_item_import.import_sci",
         args: {
             supplier_catalog_item_names: JSON.stringify(names),
-            item_group: item_group,
-            supplier_catalog: supplier_catalog
+            item_group: item_group
         },
         freeze: true,
         freeze_message: __("Import läuft...")
@@ -112,7 +97,7 @@ function start_import(listview, names, item_group, supplier_catalog) {
 }
 
 // --------------------------------------------------
-// Bulk Import Dialog
+// Bulk Import Dialog (WITH supplier catalog)
 // --------------------------------------------------
 function open_bulk_import_dialog(listview) {
 
@@ -211,7 +196,13 @@ function open_bulk_import_dialog(listview) {
 // --------------------------------------------------
 // Bulk Import Call + Result display
 // --------------------------------------------------
-function start_bulk_import(listview, lookup_type, lookup_values, item_group, supplier_catalog) {
+function start_bulk_import(
+    listview,
+    lookup_type,
+    lookup_values,
+    item_group,
+    supplier_catalog
+) {
 
     frappe.show_alert(
         { message: __("Bulk Import gestartet…"), indicator: "blue" },
