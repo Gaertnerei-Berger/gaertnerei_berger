@@ -2,6 +2,14 @@
  {
   "docstatus": 0,
   "doctype": "Trade Class",
+  "modified": "2025-12-27 17:54:54.637861",
+  "name": "Extra",
+  "text_yftm": null,
+  "trade_class": "Extra"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Trade Class",
   "modified": "2025-12-27 17:55:04.137675",
   "name": "I",
   "text_yftm": null,
@@ -14,13 +22,5 @@
   "name": "II",
   "text_yftm": null,
   "trade_class": "II"
- },
- {
-  "docstatus": 0,
-  "doctype": "Trade Class",
-  "modified": "2025-12-27 17:54:54.637861",
-  "name": "Extra",
-  "text_yftm": null,
-  "trade_class": "Extra"
  }
 ]

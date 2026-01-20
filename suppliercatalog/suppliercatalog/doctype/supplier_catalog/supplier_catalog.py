@@ -37,9 +37,22 @@ def import_supplier_catalog_items_from_file(docname):
 @frappe.whitelist()
 # Its the DataNature API Import logic
 def run_import_products(brand_id: str, supplier_catalog: str):
-     from suppliercatalog.utils.datanature_api import import_products
-     import_products(brand_id,supplier_catalog)
 
+    if not brand_id or not supplier_catalog:
+        frappe.throw("Brand ID and Supplier Catalog are required.")
+
+    job_id = frappe.generate_hash(length=10)
+
+    frappe.enqueue(
+        method="suppliercatalog.utils.datanature_api.import_products",
+        queue="long",
+        timeout=60 * 30,
+        job_id=job_id,
+        brand_id=brand_id,
+        supplier_catalog=supplier_catalog
+    )
+
+    return job_id
 
 
 @frappe.whitelist()

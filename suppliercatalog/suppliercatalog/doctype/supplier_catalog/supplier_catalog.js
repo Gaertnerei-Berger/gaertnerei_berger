@@ -50,11 +50,33 @@ frappe.ui.form.on('Supplier Catalog', {
 });
 
 frappe.ui.form.on('Supplier Catalog', {
-    start_import_api: function(frm) {
+    start_import_api(frm) {
+
         if (!frm.doc.brand_datanature) {
-            frappe.msgprint("Bitte wählen Sie eine Marke für den Import aus.");
+            frappe.msgprint("Please select a brand for the import.");
             return;
         }
+
+        let progress = 0;
+
+        frappe.show_progress(
+            "Product Import",
+            progress,
+            100,
+            "Import started. This may take a moment."
+        );
+
+        const progress_interval = setInterval(() => {
+            if (progress < 90) {
+                progress += 5;
+                frappe.show_progress(
+                    "Product Import",
+                    progress,
+                    100,
+                    "Import running..."
+                );
+            }
+        }, 500);
 
         frappe.call({
             method: "frappe.client.get_value",
@@ -63,45 +85,63 @@ frappe.ui.form.on('Supplier Catalog', {
                 filters: { brand_name: frm.doc.brand_datanature },
                 fieldname: "brand_id"
             },
-            callback: function(r) {
+            callback(r) {
                 if (!r.message || !r.message.brand_id) {
-                    frappe.msgprint("Die ausgewählte Marke wurde nicht gefunden.");
+                    clearInterval(progress_interval);
+                    frappe.hide_progress();
+                    frappe.msgprint("Brand ID could not be resolved.");
                     return;
                 }
 
-                // Alerts can be shown immediately
-                frappe.show_alert(
-                    { message: "Import der Produkte gestartet!", indicator: "blue" },
-                    20
-                );
+                frappe.call({
+                    method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.run_import_products",
+                    args: {
+                        brand_id: r.message.brand_id,
+                        supplier_catalog: frm.doc.name
+                    },
+                    callback() {
+                        clearInterval(progress_interval);
 
-                frappe.show_alert(
-                    { message: "Bitte warten bis die Meldung 'Erfolgreich importiert' erscheint!", indicator: "blue" },
-                    20
-                );
+                        frappe.show_progress(
+                            "Product Import",
+                            100,
+                            100,
+                            "Import started."
+                        );
 
-                // Save must happen right before the server import call (only if dirty)
-                const save_if_needed = frm.is_dirty()
-                    ? frm.save()
-                    : Promise.resolve();
+                        setTimeout(() => {
+                            frappe.hide_progress();
+                        }, 800);
 
-                save_if_needed.then(() => {
-                    // Server import call happens only after save completed (or not needed)
-                    frappe.call({
-                        method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.run_import_products",
-                        args: {
-                            brand_id: r.message.brand_id,
-                            supplier_catalog: frm.doc.name
-                        },
-                        callback: function() {
-                            frappe.msgprint("Erfolgreich importiert.");
-                        }
-                    });
+                        frappe.msgprint("Import started. This may take a moment.");
+                    },
+                    error(err) {
+                        clearInterval(progress_interval);
+                        frappe.hide_progress();
+
+                        frappe.msgprint({
+                            title: "Import failed",
+                            message: err.message || "Unknown error",
+                            indicator: "red"
+                        });
+                    }
+                });
+            },
+            error(err) {
+                clearInterval(progress_interval);
+                frappe.hide_progress();
+
+                frappe.msgprint({
+                    title: "Brand lookup failed",
+                    message: err.message || "Unknown error",
+                    indicator: "red"
                 });
             }
         });
     }
 });
+
+
 
 frappe.ui.form.on("Supplier Catalog", {
   delete_items(frm) {

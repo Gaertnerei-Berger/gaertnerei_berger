@@ -1,25 +1,5 @@
 [
  {
-  "abbreviation_data": "BA",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:15.131940",
-  "name": "Bio Austria",
-  "name1": "Bio Austria"
- },
- {
-  "abbreviation_data": "BS",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:15.153884",
-  "name": "Bio Suisse",
-  "name1": "Bio Suisse"
- },
- {
   "abbreviation_data": "DC",
   "attach_image": null,
   "description": null,
@@ -30,16 +10,6 @@
   "name1": "Ecoland"
  },
  {
-  "abbreviation_data": "DD",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:15.262680",
-  "name": "Demeter",
-  "name1": "Demeter"
- },
- {
   "abbreviation_data": "DG",
   "attach_image": null,
   "description": null,
@@ -48,26 +18,6 @@
   "modified": "2025-12-27 20:48:15.610481",
   "name": "Gäa",
   "name1": "Gäa"
- },
- {
-  "abbreviation_data": "DK",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:15.935514",
-  "name": "Biokreis",
-  "name1": "Biokreis"
- },
- {
-  "abbreviation_data": "DN",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.044483",
-  "name": "Naturland",
-  "name1": "Naturland"
  },
  {
   "abbreviation_data": "NF",
@@ -90,6 +40,26 @@
   "name1": "Biopark"
  },
  {
+  "abbreviation_data": "UW",
+  "attach_image": null,
+  "description": "Umstellungsware: Produkte in Umstellung auf Bio-Zertifizierung. Für Produkte, die parallel auf den Standard eines Anbauverbandes umgestellt werden, sollte dies in den Stammdaten kommentiert werden.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.735725",
+  "name": "Umstellungsware",
+  "name1": "Umstellungsware"
+ },
+ {
+  "abbreviation_data": "BA",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:15.131940",
+  "name": "Bio Austria",
+  "name1": "Bio Austria"
+ },
+ {
   "abbreviation_data": "DV",
   "attach_image": null,
   "description": null,
@@ -98,56 +68,6 @@
   "modified": "2025-12-27 20:48:18.655256",
   "name": "Verbund Ökohöfe",
   "name1": "Verbund Ökohöfe"
- },
- {
-  "abbreviation_data": "DW",
-  "attach_image": null,
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.663476",
-  "name": "Ecovin",
-  "name1": "Ecovin"
- },
- {
-  "abbreviation_data": "IA",
-  "attach_image": null,
-  "description": "IFOAM-Akkreditierung, aktuelle Übersicht der Kontrollstellen: https://ioas.org/accreditation/accredited-bodies/",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.671475",
-  "name": "IFOAM-Akkreditierung",
-  "name1": "IFOAM-Akkreditierung"
- },
- {
-  "abbreviation_data": "EG",
-  "attach_image": null,
-  "description": "Monoprodukte (Rohwaren und verarbeitete Produkte aus nur einer Zutat).",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.678852",
-  "name": "EU-Öko-VO",
-  "name1": "EU-Öko-VO"
- },
- {
-  "abbreviation_data": "95",
-  "attach_image": null,
-  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.686782",
-  "name": "Mischprodukte 95",
-  "name1": "Mischprodukte 95"
- },
- {
-  "abbreviation_data": "96",
-  "attach_image": null,
-  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.695220",
-  "name": "Mischprodukte 96",
-  "name1": "Mischprodukte 96"
  },
  {
   "abbreviation_data": "97",
@@ -160,6 +80,46 @@
   "name1": "Mischprodukte 97"
  },
  {
+  "abbreviation_data": "DW",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.663476",
+  "name": "Ecovin",
+  "name1": "Ecovin"
+ },
+ {
+  "abbreviation_data": "BS",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:15.153884",
+  "name": "Bio Suisse",
+  "name1": "Bio Suisse"
+ },
+ {
+  "abbreviation_data": "IA",
+  "attach_image": null,
+  "description": "IFOAM-Akkreditierung, aktuelle Übersicht der Kontrollstellen: https://ioas.org/accreditation/accredited-bodies/",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.671475",
+  "name": "IFOAM-Akkreditierung",
+  "name1": "IFOAM-Akkreditierung"
+ },
+ {
+  "abbreviation_data": "96",
+  "attach_image": null,
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.695220",
+  "name": "Mischprodukte 96",
+  "name1": "Mischprodukte 96"
+ },
+ {
   "abbreviation_data": "98",
   "attach_image": null,
   "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
@@ -170,64 +130,24 @@
   "name1": "Mischprodukte 98"
  },
  {
-  "abbreviation_data": "99",
+  "abbreviation_data": "DK",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:15.935514",
+  "name": "Biokreis",
+  "name1": "Biokreis"
+ },
+ {
+  "abbreviation_data": "95",
   "attach_image": null,
   "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
   "docstatus": 0,
   "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.719702",
-  "name": "Mischprodukte 99",
-  "name1": "Mischprodukte 99"
- },
- {
-  "abbreviation_data": "C%",
-  "attach_image": null,
-  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.727848",
-  "name": "M EU-Öko-VO",
-  "name1": "M EU-Öko-VO"
- },
- {
-  "abbreviation_data": "UW",
-  "attach_image": null,
-  "description": "Umstellungsware: Produkte in Umstellung auf Bio-Zertifizierung. Für Produkte, die parallel auf den Standard eines Anbauverbandes umgestellt werden, sollte dies in den Stammdaten kommentiert werden.",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.735725",
-  "name": "Umstellungsware",
-  "name1": "Umstellungsware"
- },
- {
-  "abbreviation_data": "NK",
-  "attach_image": null,
-  "description": "Naturkosmetikprodukte, die nach einem der in den SRL genannten Standards zertifiziert sind.",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.744080",
-  "name": "Naturkosmetikprodukt",
-  "name1": "Naturkosmetikprodukt"
- },
- {
-  "abbreviation_data": "WP",
-  "attach_image": null,
-  "description": "Wasch-, Putz- und Reinigungsmittel, die nach einem der in der SRL genannten Standards zertifiziert sind und die zusätzlichen Anforderungen hinsichtlich Gentechnik-Freiheit im Sinne der SRL erfüllen.",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.752496",
-  "name": "Reinigungsmittel",
-  "name1": "Reinigungsmittel"
- },
- {
-  "abbreviation_data": "S#",
-  "attach_image": null,
-  "description": "Sonstige Produkte, die die SRL erfüllen (auch solche, für die eine Übergangsfrist gilt).",
-  "docstatus": 0,
-  "doctype": "Supplier Quality",
-  "modified": "2025-12-27 20:48:18.760776",
-  "name": "Sonstige Produkte",
-  "name1": "Sonstige Produkte"
+  "modified": "2025-12-27 20:48:18.686782",
+  "name": "Mischprodukte 95",
+  "name1": "Mischprodukte 95"
  },
  {
   "abbreviation_data": "##",
@@ -240,6 +160,46 @@
   "name1": "KonventionelleProdukte"
  },
  {
+  "abbreviation_data": "S#",
+  "attach_image": null,
+  "description": "Sonstige Produkte, die die SRL erfüllen (auch solche, für die eine Übergangsfrist gilt).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.760776",
+  "name": "Sonstige Produkte",
+  "name1": "Sonstige Produkte"
+ },
+ {
+  "abbreviation_data": "99",
+  "attach_image": null,
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.719702",
+  "name": "Mischprodukte 99",
+  "name1": "Mischprodukte 99"
+ },
+ {
+  "abbreviation_data": "DN",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.044483",
+  "name": "Naturland",
+  "name1": "Naturland"
+ },
+ {
+  "abbreviation_data": "WP",
+  "attach_image": null,
+  "description": "Wasch-, Putz- und Reinigungsmittel, die nach einem der in der SRL genannten Standards zertifiziert sind und die zusätzlichen Anforderungen hinsichtlich Gentechnik-Freiheit im Sinne der SRL erfüllen.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.752496",
+  "name": "Reinigungsmittel",
+  "name1": "Reinigungsmittel"
+ },
+ {
   "abbreviation_data": "NG",
   "attach_image": null,
   "description": "Artikel, für die aktuell keine übergeordneten Qualitätskriterien durch die EU-Öko-VO oder SRL definiert sind. Diese dürfen von Geschäften, deren Sortiment den SRL entspricht, ohne Einschränkung gehandelt werden.",
@@ -250,6 +210,16 @@
   "name1": "Keine Qualitätskriterien"
  },
  {
+  "abbreviation_data": "NK",
+  "attach_image": null,
+  "description": "Naturkosmetikprodukte, die nach einem der in den SRL genannten Standards zertifiziert sind.",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.744080",
+  "name": "Naturkosmetikprodukt",
+  "name1": "Naturkosmetikprodukt"
+ },
+ {
   "abbreviation_data": "DB",
   "attach_image": null,
   "description": null,
@@ -258,5 +228,35 @@
   "modified": "2025-12-27 20:48:15.161882",
   "name": "Bioland",
   "name1": "Bioland"
+ },
+ {
+  "abbreviation_data": "DD",
+  "attach_image": null,
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:15.262680",
+  "name": "Demeter",
+  "name1": "Demeter"
+ },
+ {
+  "abbreviation_data": "EG",
+  "attach_image": null,
+  "description": "Monoprodukte (Rohwaren und verarbeitete Produkte aus nur einer Zutat).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.678852",
+  "name": "EU-Öko-VO",
+  "name1": "EU-Öko-VO"
+ },
+ {
+  "abbreviation_data": "C%",
+  "attach_image": null,
+  "description": "Mischprodukte (Produkte, die aus mindestens zwei Zutaten bestehen); Berechnung des Prozentsatzes entsprechend EU-Öko-VO (C% bedeutet 100% Bio nach EU-Öko-VO).",
+  "docstatus": 0,
+  "doctype": "Supplier Quality",
+  "modified": "2025-12-27 20:48:18.727848",
+  "name": "M EU-Öko-VO",
+  "name1": "M EU-Öko-VO"
  }
 ]

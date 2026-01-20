@@ -230,7 +230,7 @@ def import_approved_brands():
     )
 
 
-def import_products(brand_id=None, supplier_catalog=None):
+def import_products(brand_id=None, supplier_catalog=None, job_id=None):
     """
     Fetch products for a brand from the Datanature API and
     insert or update Supplier Catalog Item records.
@@ -244,6 +244,15 @@ def import_products(brand_id=None, supplier_catalog=None):
     - Create new items if not found
     - Process ALL products in the XML
     """
+    if job_id:
+        frappe.publish_progress(
+            percent=0,
+            title="Product Import",
+            description="Job started, preparing import…",
+            task_id=job_id
+        )
+
+
 
     # ------------------------------------------------------------------
     # Basic validation
@@ -288,21 +297,29 @@ def import_products(brand_id=None, supplier_catalog=None):
     )
 
     if isinstance(products, dict):
-        products = [products]
+        products = [products]    
+    total = len(products)
 
-
- 
     created = 0
     updated = 0
     skipped = 0
+    failed = 0  # added
 
     # ------------------------------------------------------------------
     # Process each product
     # ------------------------------------------------------------------
-    for product in products:
+    for index, product in enumerate(products, start=1):
+        if total:
+            frappe.publish_progress(
+                percent=int(index / total * 100),
+                title="Product Import",
+                description=f"Processing product {index} of {total}",
+                task_id=job_id
+            )
 
         bio_id = product.get("sys_bio_id")
         if not bio_id:
+            skipped += 1
             continue
 
         # --------------------------------------------------------------
@@ -320,18 +337,17 @@ def import_products(brand_id=None, supplier_catalog=None):
         if existing_name:
             doc = frappe.get_doc("Supplier Catalog Item", existing_name)
             is_new = False
-            updated += 1
+            
         else:
             doc = frappe.new_doc("Supplier Catalog Item")
             doc.item_bio_id = bio_id
             doc.supplier_catalog = supplier_catalog
             is_new = True
-            created += 1
+            
 
         # --------------------------------------------------------------
         # Check and write last modified timestamp
         # --------------------------------------------------------------
-        
         last_modified = product.get("sys_last_modified")
         if last_modified:
             last_modified = last_modified.strip()
@@ -339,7 +355,6 @@ def import_products(brand_id=None, supplier_catalog=None):
                 dt = datetime.strptime(last_modified, "%d.%m.%Y %H:%M:%S")
                 if doc.last_imported == dt.date():
                     skipped += 1
-                    updated -= 1
                     continue
                 doc.last_imported = dt.date()
                 doc.last_imported_time = dt.time()
@@ -347,14 +362,10 @@ def import_products(brand_id=None, supplier_catalog=None):
                 # Fallback: nur Datum setzen, wenn das Format unerwartet ist
                 doc.last_imported = last_modified
 
-
-
-
-
         # --------------------------------------------------------------
         # Apply field mappings (pure mapping logic, no assumptions)
         # --------------------------------------------------------------
-        
+
         # assign supplier
         supplier_name = frappe.db.get_value("Supplier Catalog", supplier_catalog, "supplier")
         doc.supplier = supplier_name
@@ -364,9 +375,9 @@ def import_products(brand_id=None, supplier_catalog=None):
 
         # assign brand
         brand_db = frappe.db.get_value(
-        "Supplier Catalog Brand",
-        {"brand_id": product.get("pbm_marke_id")},
-        "name"
+            "Supplier Catalog Brand",
+            {"brand_id": product.get("pbm_marke_id")},
+            "name"
         )
 
         if brand_db:
@@ -383,7 +394,6 @@ def import_products(brand_id=None, supplier_catalog=None):
         doc.ean_shop = product.get("idnr_gtin")
         doc.ean_order = product.get("log_vpe1_gtin")
 
-        
         # country of origin
         co_raw = product.get("urhk_ursprungsland_intrastat_id")
         co_code = int(co_raw.get("#text")) if isinstance(co_raw, dict) and co_raw.get("#text") else None
@@ -424,7 +434,7 @@ def import_products(brand_id=None, supplier_catalog=None):
 
         # descriptions and ingredients
         doc.description = product.get("markinf_produktbeschreibung_lang")
-               
+
         if product.get("zut_zutatenverzeichnis"):
             ingredients_list = product.get("zut_zutatenverzeichnis")
             legend_id = product.get("zut_zutatenlegende_id")
@@ -433,7 +443,6 @@ def import_products(brand_id=None, supplier_catalog=None):
                 doc.list_of_ingredients = f"{ingredients_list} {ingredients_legend}"
             else:
                 doc.list_of_ingredients = ingredients_list
-
 
         # weights and dimensions
         doc.weight_shop_unit = product.get("log_gewicht_vke_brutto")
@@ -483,19 +492,15 @@ def import_products(brand_id=None, supplier_catalog=None):
             )
 
         # pfand amount (ID first, fallback to numeric value)
-
         pfand_id = product.get("pack_pfandwert_artikel_de_id")
         pfand_value = product.get("pack_pfandwert_artikel_de_zahl")
 
         if pfand_id:
             # primary mapping via autoserial ID
             doc.pfand_ammount = get_pfand_amount(int(pfand_id))
-
         elif pfand_value:
             # fallback mapping via numeric value
             doc.pfand_ammount = (float(pfand_value))
-
-
 
         # pfand type vpe1
         if product.get("pack_pfandpflicht_vpe1_de_id"):
@@ -504,28 +509,21 @@ def import_products(brand_id=None, supplier_catalog=None):
             )
 
         # pfand amount vpe1 (ID first, fallback to numeric value)
-
         pfand_id_vpe1 = product.get("pack_pfandwert_vpe1_de_id")
         pfand_value_vpe1 = product.get("pack_pfandwert_vpe1_de_zahl")
 
         if pfand_id_vpe1:
             # primary mapping via autoserial ID
             doc.pfand_ammount_vpe1 = get_pfand_amount_vpe1(int(pfand_id_vpe1))
-
         elif pfand_value_vpe1:
             # fallback mapping via numeric value
             doc.pfand_ammount_vpe1 = (float(pfand_value_vpe1))
-
-
-
 
         if product.get("pack_pfandwert_vpe1_de_id"):
             doc.pfand_ammount_vpe1 = get_pfand_amount_vpe1(
                 int(product.get("pack_pfandwert_vpe1_de_id"))
             )
 
-
-      
         # calculate base_price_faktor
         content_uom = get_content_uom(int(product.get("ihf_nettofuellmenge_oder_mengenangabe_einheit_id", 0)))
         content_weight = float(product.get("ihf_nettofuellmenge_oder_mengenangabe"))
@@ -545,7 +543,6 @@ def import_products(brand_id=None, supplier_catalog=None):
             except:
                 pass  # silently skip on bad input
 
-
         # Shop unit
         if content_weight and content_uom:
             shop_unit = f"{content_weight} {content_uom}"
@@ -556,7 +553,7 @@ def import_products(brand_id=None, supplier_catalog=None):
             if content_weight.is_integer():
                 content_weight_special = int(content_weight)
             else:
-                content_weight_special= content_weight
+                content_weight_special = content_weight
             content_uom_short = get_content_uom_short(int(product.get("ihf_nettofuellmenge_oder_mengenangabe_einheit_id")))
             name_addition = f"{content_weight_special}{content_uom_short}"
             if not name1.rstrip().endswith(name_addition):
@@ -564,12 +561,28 @@ def import_products(brand_id=None, supplier_catalog=None):
             else:
                 doc.name1 = name1
 
-
-
         # --------------------------------------------------------------
         # Save document
         # --------------------------------------------------------------
-        doc.save(ignore_permissions=True)
+        try:
+            doc.flags.ignore_mandatory = True  # added
+            doc.save(ignore_permissions=True)
+        except Exception:
+            failed += 1
+            frappe.log_error(
+                title="Product Import Failed",
+                message=f"{product}\n\n{frappe.get_traceback()}"
+            )
+            # rollback the early counter increment for correct totals
+            if is_new:
+                created -= 1
+            else:
+                updated -= 1
+            frappe.log_error(
+                title="Product Import Failed",
+                message=f"{product}\n\n{frappe.get_traceback()}"
+            )
+            continue
 
         if is_new:
             created += 1
@@ -585,5 +598,37 @@ def import_products(brand_id=None, supplier_catalog=None):
         f"Product import finished.<br>"
         f"Created: {created}<br>"
         f"Updated: {updated}<br>"
-        f"Skipped: {skipped}"
+        f"Skipped: {skipped}<br>"
+        f"Failed: {failed}"
+    )
+
+    frappe.db.set_value(
+    "Supplier Catalog",
+    supplier_catalog,
+    {
+        "import_amount": created,
+        "import_status": "Finished"
+    }
+    )
+
+    if job_id:
+        frappe.publish_progress(
+            percent=100,
+            title="Product Import",
+            description="Import finished",
+            task_id=job_id
+        )   
+
+    frappe.publish_realtime(
+        "msgprint",
+        {
+            "message": (
+                f"Product import finished.<br>"
+                f"Created: {created}<br>"
+                f"Updated: {updated}<br>"
+                f"Skipped: {skipped}<br>"
+                f"Failed: {failed}"
+            )
+        },
+        user=frappe.session.user
     )
