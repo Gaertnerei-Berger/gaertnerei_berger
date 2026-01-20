@@ -30,8 +30,14 @@ def import_supplier_catalog_items_from_file(docname):
 
     doc.db_set("import_status", "Running")
 
-    from suppliercatalog.utils.file_importer import import_supplier_catalog_items_from_csv
-    return import_supplier_catalog_items_from_csv(doc)
+    frappe.enqueue(
+        method="suppliercatalog.utils.file_importer.import_supplier_catalog_items_from_csv",
+        queue="long",
+        timeout=60 * 60,
+        doc=doc
+    )
+
+    return "Import started in background. This may take a while."
 
 
 @frappe.whitelist()
