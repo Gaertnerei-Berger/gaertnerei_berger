@@ -25,11 +25,12 @@ class SupplierCatalog(Document):
 
 
 @frappe.whitelist()
-
-# Its the File Import logic
 def import_supplier_catalog_items_from_file(docname):
-    from suppliercatalog.utils.file_importer import import_supplier_catalog_items_from_csv
     doc = frappe.get_doc("Supplier Catalog", docname)
+
+    doc.db_set("import_status", "Running")
+
+    from suppliercatalog.utils.file_importer import import_supplier_catalog_items_from_csv
     return import_supplier_catalog_items_from_csv(doc)
 
 
@@ -38,3 +39,23 @@ def import_supplier_catalog_items_from_file(docname):
 def run_import_products(brand_id: str, supplier_catalog: str):
      from suppliercatalog.utils.datanature_api import import_products
      import_products(brand_id,supplier_catalog)
+
+
+
+@frappe.whitelist()
+def enqueue_delete_all_catalog_items(docname):
+    if not docname:
+        frappe.throw("Supplier Catalog name is required")
+
+    doc = frappe.get_doc("Supplier Catalog", docname)
+
+    doc.db_set("import_status", "Deleting")
+
+    frappe.enqueue(
+        method="suppliercatalog.suppliercatalog.utils.delete_sup_item.delete_all_catalog_items_job",
+        queue="long",
+        timeout=60 * 30,
+        docname=docname
+    )
+
+    return "Deletion of all supplier catalog items has been started."

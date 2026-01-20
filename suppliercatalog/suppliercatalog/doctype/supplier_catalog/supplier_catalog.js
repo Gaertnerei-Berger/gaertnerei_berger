@@ -1,10 +1,10 @@
 // Copyright (c) 2025, Gärtnerei Berger and contributors
 // For license information, please see license.txt
 
+// Listen for background job errors
 
 frappe.ui.form.on("Supplier Catalog", {
   refresh(frm) {
-    // Beim Laden direkt prüfen, welche Sektion angezeigt werden soll
     frm.trigger("import_methode");
   },
 
@@ -20,14 +20,10 @@ frappe.ui.form.on("Supplier Catalog", {
       method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.import_supplier_catalog_items_from_file",
       args: { docname: frm.doc.name },
       freeze: true,
-      callback(r) {
-        if (r.message) {
-          frappe.msgprint(r.message);
-        }
-      }
     });
   }
 });
+
 
 
 frappe.ui.form.on('Supplier Catalog', {
@@ -105,4 +101,26 @@ frappe.ui.form.on('Supplier Catalog', {
             }
         });
     }
+});
+
+frappe.ui.form.on("Supplier Catalog", {
+  delete_items(frm) {
+    frappe.confirm(
+      __("Are you sure you want to delete ALL items of this supplier catalog? This cannot be undone."),
+      function () {
+        frappe.call({
+          method: "suppliercatalog.suppliercatalog.doctype.supplier_catalog.supplier_catalog.enqueue_delete_all_catalog_items",
+          args: {
+            docname: frm.doc.name
+          },
+          callback: function (r) {
+            frappe.msgprint(
+              r.message || __("Deletion started in background.")
+            );
+            frm.reload_doc();
+          }
+        });
+      }
+    );
+  }
 });

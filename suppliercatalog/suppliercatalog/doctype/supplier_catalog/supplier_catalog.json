@@ -6,6 +6,7 @@
  "field_order": [
   "verkn\u00fcpfte_felder_section",
   "supplier",
+  "delete_items",
   "column_break_wyzv",
   "import_methode",
   "section_break_ixpf",
@@ -22,7 +23,11 @@
   "api_import_section",
   "brand_datanature",
   "column_break_vffw",
-  "start_import_api"
+  "start_import_api",
+  "section_break_fmfk",
+  "import_error",
+  "column_break_svry",
+  "import_offset"
  ],
  "fields": [
   {
@@ -125,13 +130,37 @@
   {
    "fieldname": "column_break_wyzv",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delete_items",
+   "fieldtype": "Button",
+   "label": "Delete Supplier Items"
+  },
+  {
+   "fieldname": "section_break_fmfk",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "import_error",
+   "fieldtype": "Small Text",
+   "label": "Import Error"
+  },
+  {
+   "fieldname": "column_break_svry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "import_offset",
+   "fieldtype": "Int",
+   "label": "import_offset"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-04 20:56:18.510547",
- "modified_by": "Administrator",
+ "modified": "2026-01-20 05:27:06.970461",
+ "modified_by": "ich@gaertnerei-berger.de",
  "module": "Suppliercatalog",
  "name": "Supplier Catalog",
  "owner": "Administrator",
