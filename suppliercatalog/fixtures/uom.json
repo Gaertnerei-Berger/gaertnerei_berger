@@ -3,6 +3,33 @@
   "docstatus": 0,
   "doctype": "UOM",
   "enabled": 1,
+  "modified": "2026-01-19 23:00:30.835417",
+  "must_be_whole_number": 0,
+  "name": "g",
+  "uom_name": "g"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2026-01-19 23:00:54.307561",
+  "must_be_whole_number": 0,
+  "name": "Stück",
+  "uom_name": "Stück"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
+  "modified": "2026-01-19 23:01:14.028946",
+  "must_be_whole_number": 0,
+  "name": "Korn",
+  "uom_name": "Korn"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "UOM",
+  "enabled": 1,
   "modified": "2025-11-25 23:39:20.525741",
   "must_be_whole_number": 1,
   "name": "Einheit",

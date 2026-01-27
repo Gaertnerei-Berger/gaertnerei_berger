@@ -296,6 +296,7 @@ fixtures = [
                     # German Accounting
                     "Price List Calculation Settings",
                     "German Accounting Settings",
+                    "Sales Invoice",
                 ]
             ]
         ]
@@ -319,6 +320,7 @@ fixtures = [
                     # German Accounting
                     "Price List Calculation Settings",
                     "German Accounting Settings",
+                    "Sales Invoice",
                 ]
             ]
         ]
