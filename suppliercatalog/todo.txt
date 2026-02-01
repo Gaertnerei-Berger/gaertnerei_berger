@@ -5,5 +5,5 @@ clean code base
     move the functions in to the right doctypes and clean code
     
 german_accounting
-    add settings option for "Sales Invoice" "Custom Address" to only show up when a special Customer ist sellected
+    add wiederverkäufer preislist logic
  

@@ -6,6 +6,11 @@
  "engine": "InnoDB",
  "field_order": [
   "check_invoice_helper",
+  "cust_sup_div",
+  "customer_und_supplier_divers_section",
+  "supplier_divers",
+  "column_break_yecx",
+  "customer_divers",
   "section_break_igxi",
   "check_reseller_pricelist",
   "reseller_pricelist",
@@ -26,6 +31,7 @@
    "label": "Enable Invoice Helper"
   },
   {
+   "collapsible": 1,
    "fieldname": "section_break_igxi",
    "fieldtype": "Section Break"
   },
@@ -86,13 +92,46 @@
   {
    "fieldname": "column_break_kpnl",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cust_sup_div",
+   "fieldtype": "Check",
+   "label": "Customer/Supplier Divers"
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "cust_sup_div",
+   "fieldname": "customer_und_supplier_divers_section",
+   "fieldtype": "Section Break",
+   "label": "Customer und Supplier Divers"
+  },
+  {
+   "fieldname": "supplier_divers",
+   "fieldtype": "Link",
+   "label": "Supplier Divers",
+   "link_filters": "[]",
+   "mandatory_depends_on": "cust_sup_div",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "column_break_yecx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_divers",
+   "fieldtype": "Link",
+   "label": "Customer Divers",
+   "link_filters": "[]",
+   "mandatory_depends_on": "cust_sup_div",
+   "options": "Customer"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-02-01 13:06:02.808025",
+ "modified": "2026-02-01 16:26:05.301627",
  "modified_by": "Administrator",
  "module": "German Accounting",
  "name": "German Accounting Settings",

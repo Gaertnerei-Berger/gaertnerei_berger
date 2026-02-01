@@ -49,7 +49,10 @@ doctype_list_js = {
 }
 doctype_js = {
     "Purchase Receipt": "public/js/purchase_receipt.js",
+    "Purchase Invoice": "public/js/customer_supplier_div.js",
+    "Sales Invoice": "public/js/customer_supplier_div.js",
 }
+
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -308,6 +311,7 @@ fixtures = [
                     "Price List Calculation Settings",
                     "German Accounting Settings",
                     "Sales Invoice",
+                    "Purchase Invoice",
                 ]
             ]
         ]
@@ -332,6 +336,7 @@ fixtures = [
                     "Price List Calculation Settings",
                     "German Accounting Settings",
                     "Sales Invoice",
+                    "Purchase Invoice",
                 ]
             ]
         ]
