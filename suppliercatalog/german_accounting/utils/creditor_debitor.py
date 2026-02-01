@@ -88,23 +88,23 @@ def create_credit_account_for_supplier(doc, company):
 
     #Checks if Int in Namingsereis else Error
     if supplier_number is None:
+        frappe.log_error(
+            _("Failed to create Credit Account for supplier no Namingseries with Integers set for Supplier")
+        )
         frappe.throw(
             _("Failed to create Credit Account please deaktivate Function in {} and Contact your Advisor!!!.")
             .format(frappe.utils.get_link_to_form("German Accounting Settings", "German Accounting Settings"))
-        )
-        frappe.log_error(
-            _("Failed to create Credit Account for supplier no Namingseries with Integers set for Supplier")
         )
         return None
 
     #Checks if Int is to big for Accounts Limit 29999
     if supplier_number > 29999:
+        frappe.log_error(
+            _("Contact your Tax Consultant and System Advisor Account Supplier Limit reached")
+        )
         frappe.throw(
             _("Failed to create Credit Account please deaktivate Function in {} and Contact your Advisor!!!.")
             .format(frappe.utils.get_link_to_form("German Accounting Settings", "German Accounting Settings"))
-        )
-        frappe.log_error(
-            _("Contact your Tax Consultant and System Advisor Account Supplier Limit reached")
         )
         return None
     
@@ -217,4 +217,71 @@ def create_debit_account_for_customer(doc, company):
         )
         return None
     
+
+
+# Gets the Company to set the Creditor or Debitor right
+def after_delete(doc, method):
+    company = getattr(doc, 'company', None)
+    if not company:
+        company = frappe.defaults.get_user_default("Company") or frappe.db.get_value("Company", {}, "name")
+    delete_created_account(doc, company)
+
+def delete_created_account (doc, company):
+    if doc.doctype == "Supplier":
+        delete_credit_account = frappe.db.get_single_value("German Accounting Settings", "auto_creditor")
+
+        if not delete_credit_account:
+            return None
+            
+        get_account = None
+        for row in getattr(doc, "accounts", []):
+                if row.company == company:
+                    get_account = row.account
+                    break
+            
+        
+        if not get_account:
+            return None
+        
+        try:
+            frappe.delete_doc("Account",get_account,ignore_permissions=True)
+        except Exception:
+            frappe.log_error(
+                _("Failed to delete Credit Account for Supplier check Bookings against it, if possible delete by Hand. If not jump Naming Series by +1")
+                .format(get_account)
+            )
+            frappe.throw(
+            _("<b>Serious error</b><br>"
+              "Failed to delete Credit Account there are Links against it Booking errors can occur <u> Contact your Advisor!</u>.")
+            )
+            return None
+
+    elif doc.doctype == "Customer":
+        delete_debit_account = frappe.db.get_single_value("German Accounting Settings", "auto_debitor")
+
+        if not delete_debit_account:
+            return None
+            
+        get_account = None
+        for row in getattr(doc, "accounts", []):
+                if row.company == company:
+                    get_account = row.account
+                    break
+            
+        
+        if not get_account:
+            return None
+        
+        try:
+            frappe.delete_doc("Account",get_account,ignore_permissions=True)
+        except Exception:
+            frappe.log_error(
+                _("Failed to delete Credit Account for Supplier check Bookings against it, if possible delete by Hand. If not jump Naming Series by +1")
+                .format(get_account)
+            )
+            frappe.throw(
+            _("<b>Serious error</b><br>"
+              "Failed to delete Credit Account there are Links against it Booking errors can occur <u> Contact your Advisor!</u>.")
+            )
+            return None  
 
