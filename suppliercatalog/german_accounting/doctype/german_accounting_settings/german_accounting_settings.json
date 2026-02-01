@@ -5,7 +5,18 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "check_invoice_helper"
+  "check_invoice_helper",
+  "section_break_igxi",
+  "check_reseller_pricelist",
+  "reseller_pricelist",
+  "debitorkreditor_section",
+  "auto_debitor",
+  "column_break_kylb",
+  "debitor_parent_acc",
+  "creditor_section",
+  "auto_creditor",
+  "column_break_kpnl",
+  "creditor_parent_acc"
  ],
  "fields": [
   {
@@ -13,13 +24,75 @@
    "fieldname": "check_invoice_helper",
    "fieldtype": "Check",
    "label": "Enable Invoice Helper"
+  },
+  {
+   "fieldname": "section_break_igxi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "check_reseller_pricelist",
+   "fieldtype": "Check",
+   "label": "Enable Reseller Pricelist"
+  },
+  {
+   "fieldname": "reseller_pricelist",
+   "fieldtype": "Link",
+   "label": "Reseller Pricelist",
+   "options": "Price List"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "debitorkreditor_section",
+   "fieldtype": "Section Break",
+   "label": "Debitor"
+  },
+  {
+   "fieldname": "column_break_kylb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "debitor_parent_acc",
+   "fieldtype": "Link",
+   "label": "Debitors Parent Account",
+   "mandatory_depends_on": "auto_debitor",
+   "options": "Account"
+  },
+  {
+   "fieldname": "creditor_parent_acc",
+   "fieldtype": "Link",
+   "label": "Creditors Parent Account",
+   "mandatory_depends_on": "auto_creditor",
+   "options": "Account"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_debitor",
+   "fieldtype": "Check",
+   "label": "Auto Create Customer Debit Accounts"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_creditor",
+   "fieldtype": "Check",
+   "label": "Auto Create Supplier Credit Accounts"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "creditor_section",
+   "fieldtype": "Section Break",
+   "label": "Creditor"
+  },
+  {
+   "fieldname": "column_break_kpnl",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-01-11 14:15:17.935076",
+ "modified": "2026-01-31 17:11:59.166262",
  "modified_by": "Administrator",
  "module": "German Accounting",
  "name": "German Accounting Settings",

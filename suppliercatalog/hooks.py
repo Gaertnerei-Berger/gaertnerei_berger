@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/suppliercatalog/css/custom.css"
-# app_include_js = "/assets/suppliercatalog/js/suppliercatalog.js"
+# app_include_js = "/assets/suppliercatalog/js/custom.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/suppliercatalog/css/suppliercatalog.css"
@@ -142,12 +142,13 @@ doctype_js = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+#doc_events = {
 # 	"*": {
 # 		"on_update": "method",
-# 		"on_cancel": "method",
 # 		"on_trash": "method"
-# 	}
+# 		"on_cancel": "methode"
+#
+#	}
 # }
 
 doc_events = {
@@ -161,7 +162,11 @@ doc_events = {
 
     "Item": {
         "validate": "suppliercatalog.utils.item_price_cal.update_item_prices_on_factor_change"
-    }
+    },
+
+    "Supplier": {
+        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.after_insert"
+    },
     
 }
 
