@@ -4,11 +4,17 @@ from frappe import _
 
 
 # Gets the Company to set the Creditor or Debitor right
-def after_insert(doc, method):
+def manage_accounts(doc, method):
     company = getattr(doc, 'company', None)
     if not company:
         company = frappe.defaults.get_user_default("Company") or frappe.db.get_value("Company", {}, "name")
-    create_and_link_account(doc, company)
+    
+    if method == "after_insert":
+        create_and_link_account(doc, company)
+    elif method == "after_delete":
+        delete_created_account(doc, company)
+    
+
 
 # To get the right most int from the Namingseries for creating the account nummber
 def get_int_from_namingseries(value):
@@ -217,15 +223,7 @@ def create_debit_account_for_customer(doc, company):
         )
         return None
     
-
-
-# Gets the Company to set the Creditor or Debitor right
-def after_delete(doc, method):
-    company = getattr(doc, 'company', None)
-    if not company:
-        company = frappe.defaults.get_user_default("Company") or frappe.db.get_value("Company", {}, "name")
-    delete_created_account(doc, company)
-
+# Deletes the matching Accounts if possible
 def delete_created_account (doc, company):
     if doc.doctype == "Supplier":
         delete_credit_account = frappe.db.get_single_value("German Accounting Settings", "auto_creditor")

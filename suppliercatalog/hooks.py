@@ -165,13 +165,13 @@ doc_events = {
     },
 
     "Supplier": {
-        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.after_insert",
-        "after_delete": "suppliercatalog.german_accounting.utils.creditor_debitor.after_delete"
+        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts",
+        "after_delete": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts"
     },
 
     "Customer": {
-        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.after_insert",
-        "after_delete": "suppliercatalog.german_accounting.utils.creditor_debitor.after_delete"
+        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts",
+        "after_delete": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts"
     },
     
 }
