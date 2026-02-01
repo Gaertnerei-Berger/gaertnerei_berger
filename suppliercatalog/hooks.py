@@ -167,6 +167,10 @@ doc_events = {
     "Supplier": {
         "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.after_insert"
     },
+
+    "Customer": {
+        "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.after_insert"
+    },
     
 }
 
