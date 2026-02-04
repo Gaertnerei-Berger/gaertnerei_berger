@@ -7,6 +7,7 @@
  "field_order": [
   "check_invoice_helper",
   "cust_sup_div",
+  "later_warehousesetup",
   "customer_und_supplier_divers_section",
   "supplier_divers",
   "column_break_yecx",
@@ -125,13 +126,19 @@
    "link_filters": "[]",
    "mandatory_depends_on": "cust_sup_div",
    "options": "Customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "later_warehousesetup",
+   "fieldtype": "Check",
+   "label": "Lagerartikel sp\u00e4ter einrichten"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-02-01 16:26:05.301627",
+ "modified": "2026-02-03 17:26:15.829504",
  "modified_by": "Administrator",
  "module": "German Accounting",
  "name": "German Accounting Settings",

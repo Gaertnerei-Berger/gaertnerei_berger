@@ -176,6 +176,14 @@ doc_events = {
         "after_insert": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts",
         "after_delete": "suppliercatalog.german_accounting.utils.creditor_debitor.manage_accounts"
     },
+
+    "Delivery Note": {
+        "on_update": "suppliercatalog.german_accounting.utils.stock_update.before_submit",
+    },
+
+    "Sales Invoice": {
+        "on_update": "suppliercatalog.german_accounting.utils.stock_update.before_submit",
+    },
     
 }
 
